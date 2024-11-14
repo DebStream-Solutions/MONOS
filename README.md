@@ -1,6 +1,8 @@
 # MONOS
+*See for free*
 **M O N**itoring **O**pen-source **S**ystem
 
+*MONOS* is a 
 
 # MANUAL FOR SNMP MONITORING
 
