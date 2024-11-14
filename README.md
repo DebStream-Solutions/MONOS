@@ -8,7 +8,9 @@
 
 # MANUAL FOR SNMP MONITORING
 
-<nav> <a href="#label1">Label 1</a> | <a href="#label2">Label 2</a> | <a href="#label3">Label 3</a> </nav> ## <a name="label1">Label 1</a> Content for label 1. This section will be shown when you click the "Label 1" link in the navigation bar. ## <a name="label2">Label 2</a> Content for label 2. This section will be shown when you click the "Label 2" link in the navigation bar. ## <a name="label3">Label 3</a> Content for label 3. This section will be shown when you clic
+<nav>
+  <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#label2">SNMP CLIENT</a>
+</nav>
 
 ## SNMP SERVER:
 
