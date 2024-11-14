@@ -272,6 +272,6 @@ Visit [debstream.org](www.debstream.org/monos/db-setup.sh) and download _db-setu
 
 Run _db-setup.sh_ on your server:
 ```sh
-sudo chmod -x db-setup.sh
+sudo chmod +x db-setup.sh
 sudo bash db-setup.sh
 ```
