@@ -10,14 +10,17 @@
 
 
 <nav>
+  SETTING UP SNMP <br>
   <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
 </nav>
 <br>
 <nav>
+  SETTING UP WEB, PHP & MARIADB SERVER <br>
   <a href="#web-server">WEB SERVER</a>
 </nav>
 <br>
 <nav>
+  SETTING UP DATABASE & TABLES <br>
   <a href="#db">DATABASE</a>
 </nav>
 
