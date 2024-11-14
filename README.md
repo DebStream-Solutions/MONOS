@@ -8,7 +8,7 @@
 
 # MANUAL FOR SNMP MONITORING
 
-<nav>
+<nav> SETTING UP SNMP:
   <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
 </nav>
 
