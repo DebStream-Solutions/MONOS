@@ -60,7 +60,7 @@ sudo systemctl start snmpd
 snmpwalk -v2c -c [COMMUNITY] localhost
 ```
 
-## SNMP CLIENT (PC - Ubuntu)
+## <a name="snmp-server"> SNMP CLIENT: </a>
 
 ### Install SNMP packages:
 ```sh
