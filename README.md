@@ -122,9 +122,9 @@ SNMPDOPTS='-Lsd -Lf /dev/null -p /run/snmpd.pid -a -x tcp:localhost:161'
 
 
 ### Restart the SNMP service:
-
+```sh
 sudo systemctl restart snmpd
-
+```
 
 
 ### Test the SNMP configuration:
