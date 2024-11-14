@@ -56,3 +56,65 @@ sudo systemctl start snmpd
 snmpwalk -v2c -c [COMMUNITY] localhost
 ```
 
+## SNMP CLIENT (PC - Ubuntu)
+
+### Install SNMP packages:
+```sh
+sudo apt update
+sudo apt install snmpd
+```
+
+
+### Edit the SNMP configuration file:
+```sh
+sudo nano /etc/snmp/snmpd.conf
+```
+
+
+
+### Example configuration:
+```sh
+# Update [COMMUNITY] with your preferred string
+rocommunity [COMMUNITY] default
+
+# Disk monitoring
+disk  / 100
+
+# System location and contact
+syslocation Home
+syscontact Admin <admin@localhost>
+
+# Access control
+access  [COMMUNITY] "" any noauth exact systemview none none
+
+# Agent address
+agentAddress udp:161,udp6:[::1]:161
+```
+
+
+### Edit the default SNMP settings:
+```sh
+sudo nano /etc/default/snmpd
+```
+
+**Change the line:**
+```sh
+SNMPDOPTS='-Lsd -Lf /dev/null -p /run/snmpd.pid -a'
+```
+
+**TO:**
+```sh
+SNMPDOPTS='-Lsd -Lf /dev/null -p /run/snmpd.pid -a -x tcp:localhost:161'
+```
+
+
+### Restart the SNMP service:
+
+sudo systemctl restart snmpd
+
+
+
+### Test the SNMP configuration:
+```sh
+snmpwalk -v2c -c [COMMUNITY] localhost
+```
