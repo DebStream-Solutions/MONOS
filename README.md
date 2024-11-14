@@ -133,56 +133,56 @@ snmpwalk -v2c -c [COMMUNITY] localhost
 ```
 
 
-SETTING UP WEB SERVER AND PHP SERVER
+## WEB SERVER & PHP SERVER
 
 
-1. Update System Packages
+### 1. Update System Packages
 First, ensure your system packages are up to date:
-
+```sh
 sudo dnf update
+```
 
-
-2. Install Apache
+### 2. Install Apache
 Apache is the web server that will serve your PHP files.
-
+```sh
 sudo dnf install httpd
 sudo systemctl enable httpd
 sudo systemctl start httpd
+```
 
-
-3. Install PHP
+### 3. Install PHP
 Next, install PHP and the necessary modules:
-
+```sh
 sudo dnf install php php-common php-mysqlnd php-snmp #php-gd php-xml php-mbstring php-json php-curl
+```
 
-
-4. Install MariaDB (Optional)
+### 4. Install MariaDB (Optional)
 If you need a database, install MariaDB:
-
+```sh
 sudo dnf install mariadb-server
 sudo systemctl enable mariadb
 sudo systemctl start mariadb
+```
 
-
-5. Configure Firewall
+### 5. Configure Firewall
 Allow HTTP and HTTPS traffic through the firewall:
-
+```sh
 sudo firewall-cmd --permanent --add-service=http
 sudo firewall-cmd --permanent --add-service=https
 sudo firewall-cmd --reload
+```
 
-
-6. Create a PHP File
+### 6. Create a PHP File
 Create an index.php file in the web server’s root directory:
-
+```sh
 sudo nano /var/www/html/index.php
+```
 
 
-
-Open the Apache Configuration File:
-
+### Open the Apache Configuration File:
+```sh
 sudo nano /etc/httpd/conf/httpd.conf
-
+```
 
 
 ### Add the DirectoryIndex Directive:
