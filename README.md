@@ -133,7 +133,7 @@ snmpwalk -v2c -c [COMMUNITY] localhost
 ```
 
 
-## <a name="snmp-server"> WEB SERVER & PHP SERVER </a>
+## <a name="web-server"> WEB SERVER & PHP SERVER </a>
 
 
 ### 1. Update System Packages
