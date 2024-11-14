@@ -14,7 +14,7 @@
 </details>
 <details>
   <summary>WEB SERVER, PHP SERVER</summary>
-  <a href="#snmp-server">Apache Server</a>  |  <a href="#snmp-client">PHP Server</a>
+  <a href="#apache">Apache Server</a>  |  <a href="#php">PHP Server</a>
 </details>
 <details>
   <summary>DATABASE</summary>
@@ -156,15 +156,7 @@ Next, install PHP and the necessary modules:
 sudo dnf install php php-common php-mysqlnd php-snmp #php-gd php-xml php-mbstring php-json php-curl
 ```
 
-### 4. Install MariaDB (Optional)
-If you need a database, install MariaDB:
-```sh
-sudo dnf install mariadb-server
-sudo systemctl enable mariadb
-sudo systemctl start mariadb
-```
-
-### 5. Configure Firewall
+### 4. Configure Firewall
 Allow HTTP and HTTPS traffic through the firewall:
 ```sh
 sudo firewall-cmd --permanent --add-service=http
@@ -172,7 +164,7 @@ sudo firewall-cmd --permanent --add-service=https
 sudo firewall-cmd --reload
 ```
 
-### 6. Create a PHP File
+### 5. Create a PHP File
 Create an index.php file in the web server’s root directory:
 ```sh
 sudo nano /var/www/html/index.php
@@ -238,12 +230,12 @@ sudo systemctl restart httpd
 
 How to CURL tar.gz?
 ```sh
-curl http://mat.whistlers.site/monos.tar.gz -o - | tar -xz -C /var/www/html/
+curl http://mat.whistlers.site/versions/monos.tar.gz -o - | tar -xz -C /var/www/html/monos
 ```
 
 
 
-## PHP AND SNMP
+## <a name="php"> PHP AND SNMP </a>
 
 ### Enable SNMP in PHP
 
