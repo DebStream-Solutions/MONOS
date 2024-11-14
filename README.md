@@ -12,7 +12,7 @@
   <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#label2">SNMP CLIENT</a>
 </nav>
 
-## SNMP SERVER:
+<a name="snmp-server">## SNMP SERVER: </a>
 
 ### Install SNMP packages:
 ```sh
