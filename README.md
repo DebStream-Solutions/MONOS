@@ -16,6 +16,10 @@
 <nav>
   <a href="#web-server">WEB SERVER</a>
 </nav>
+<br>
+<nav>
+  <a href="#db">DATABASE</a>
+</nav>
 
 ## <a name="snmp-server"> SNMP SERVER: </a>
 
