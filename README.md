@@ -1,3 +1,10 @@
+<style>
+  nav {
+    padding: 0.5rem 1.5rem;
+    border: 1px solid #ffffff36;
+  }
+</style>
+
 # MONOS
 *See for free*
 
@@ -11,11 +18,13 @@
 
 <nav>
   SETTING UP SNMP <br>
+  -----
   <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
 </nav>
 <br>
 <nav>
   SETTING UP WEB, PHP & MARIADB SERVER <br>
+  -----
   <a href="#web-server">WEB SERVER</a>
 </nav>
 <br>
