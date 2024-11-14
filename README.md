@@ -18,7 +18,7 @@
 </details>
 <details>
   <summary>DATABASE</summary>
-  <a href="#db">MariaDB</a>  |  <a href="#setup-db">Database Set Up</a>
+  <a href="#db">MariaDB</a>  |  <a href="#db-setup">Database Set Up</a>
 </details>
 
 ## <a name="snmp-server"> SNMP SERVER: </a>
