@@ -131,3 +131,137 @@ sudo systemctl restart snmpd
 ```sh
 snmpwalk -v2c -c [COMMUNITY] localhost
 ```
+
+
+SETTING UP WEB SERVER AND PHP SERVER
+
+
+1. Update System Packages
+First, ensure your system packages are up to date:
+
+sudo dnf update
+
+
+2. Install Apache
+Apache is the web server that will serve your PHP files.
+
+sudo dnf install httpd
+sudo systemctl enable httpd
+sudo systemctl start httpd
+
+
+3. Install PHP
+Next, install PHP and the necessary modules:
+
+sudo dnf install php php-common php-mysqlnd php-snmp #php-gd php-xml php-mbstring php-json php-curl
+
+
+4. Install MariaDB (Optional)
+If you need a database, install MariaDB:
+
+sudo dnf install mariadb-server
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
+
+
+5. Configure Firewall
+Allow HTTP and HTTPS traffic through the firewall:
+
+sudo firewall-cmd --permanent --add-service=http
+sudo firewall-cmd --permanent --add-service=https
+sudo firewall-cmd --reload
+
+
+6. Create a PHP File
+Create an index.php file in the web server’s root directory:
+
+sudo nano /var/www/html/index.php
+
+
+
+Open the Apache Configuration File:
+
+sudo nano /etc/httpd/conf/httpd.conf
+
+
+
+### Add the DirectoryIndex Directive:
+Locate the DirectoryIndex directive and modify it as follows:
+```sh
+DirectoryIndex index.php index.html
+```
+
+
+### File Permissions
+Set file permissions for /html to ensure all files and directories are accessible.
+```sh
+sudo chmod -R 755 /var/www/html
+```
+
+
+### Configure Apache to Use PHP
+Ensure that Apache is configured to handle PHP files. Open the Apache configuration file:
+```sh
+sudo nano /etc/httpd/conf/httpd.conf
+```
+
+
+### Add or ensure the following lines are present:
+```sh
+#LoadModule php_module modules/libphp.so
+AddHandler php-script .php
+```
+
+
+Add these lines to display php files properly:
+```sh
+<FilesMatch \.php$>
+    SetHandler application/x-httpd-php
+</FilesMatch>
+```
+
+
+### Use PHP-FPM (Optional)
+If problems appear this might help.
+```sh
+sudo systemctl enable php-fmp
+sudo systemctl start php-fpm
+```
+
+
+### Restart Apache:
+Restart the Apache server to apply the changes.
+```sh
+sudo systemctl restart httpd
+```
+
+
+How to CURL tar.gz?
+```sh
+curl http://mat.whistlers.site/monos.tar.gz -o - | tar -xz -C /var/www/html/
+```
+
+
+
+## PHP AND SNMP
+
+### Enable SNMP in PHP
+
+First look for php.ini file, it should be in /etc/php.ini or you can look for it using this command:
+```sh
+php –ini
+```
+
+
+Now enable SNMP in PHP by editing the php.ini file. Add the following line:
+```sh
+extension=snmp
+```
+
+
+### Restart Apache:
+Restart the Apache server to apply the changes.
+```sh
+sudo systemctl restart httpd
+```
+
