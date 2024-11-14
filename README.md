@@ -12,8 +12,7 @@
 <nav>
   <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
 </nav>
-
-
+<br>
 <nav>
   <a href="#web-server">WEB SERVER</a>
 </nav>
