@@ -7,9 +7,9 @@
 SNMP SERVER:
 
 Install SNMP packages:
-
+```css
 sudo dnf install net-snmp net-snmp-utils
-
+```
 
 Edit the configuration file:
 
