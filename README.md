@@ -9,16 +9,16 @@
 # MANUAL FOR SNMP MONITORING
 
 <details>
-  <summary><a href="#snmp-server">SETTING UP SNMP SERVER</a></summary>
+  <summary>SETTING UP SNMP SERVER</summary>
   <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
 </details>
 <details>
-  <summary><a href="web-server">WEB SERVER</a></summary>
+  <summary>WEB SERVER, PHP SERVER</summary>
   <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
 </details>
 <details>
   <summary>DATABASE</summary>
-  <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
+  <a href="#db">MariaDB</a>  |  <a href="#setup-db">DATABASE SET UP</a>
 </details>
 
 ## <a name="snmp-server"> SNMP SERVER: </a>
