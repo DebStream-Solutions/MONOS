@@ -8,14 +8,14 @@
 
 # MANUAL FOR SNMP MONITORING
 
-SETTING UP SNMP:
+
 <nav>
   <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
 </nav>
 
-SETTING UP WEB SERVER (Apache, PHP, MariaDB):
+
 <nav>
-  <a href="#web-server">WEB SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
+  <a href="#web-server">WEB SERVER</a>
 </nav>
 
 ## <a name="snmp-server"> SNMP SERVER: </a>
