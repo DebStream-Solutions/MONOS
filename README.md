@@ -257,3 +257,21 @@ Restart the Apache server to apply the changes.
 sudo systemctl restart httpd
 ```
 
+
+## <a name="db"> DATABASE SETUP </a>
+
+### Install MariaDB
+```sh
+sudo dnf install mariadb-server
+sudo systemctl enable mariadb
+sudo systemctl start mariadb
+```
+
+### <a name="db-setup"> Download DB setup script </a>
+Visit [debstream.org](www.debstream.org/monos/db-setup.sh) and download _db-setup.sh_
+
+Run _db-setup.sh_ on your server:
+```sh
+sudo chmod -x db-setup.sh
+sudo bash db-setup.sh
+```
