@@ -2,22 +2,22 @@
 
 
 
-## MANUAL FOR SNMP MONITORING
+# MANUAL FOR SNMP MONITORING
 
-SNMP SERVER:
+## SNMP SERVER:
 
-Install SNMP packages:
+### Install SNMP packages:
 ```sh
 sudo dnf install net-snmp net-snmp-utils
 ```
 
-Edit the configuration file:
-
+### Edit the configuration file:
+```sh
 sudo nano /etc/snmp/snmpd.conf
+```
 
-
-Example configuration:
-
+### Example configuration:
+```sh
 # Update [COMMUNITY] with your preferred string
 rwcommunity [COMMUNITY] default
 
@@ -39,7 +39,7 @@ access  [COMMUNITY] "" any noauth exact systemview none none
 
 # Logging
 dontLogTCPWrappersConnects yes
-
+```
 
 
 
