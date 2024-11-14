@@ -1,8 +1,10 @@
 # MONOS
 *See for free*
+
 **M O N**itoring **O**pen-source **S**ystem
 
-*MONOS* is a 
+
+*MONOS* is a free software which allows you to monitor devices in your network. Monitored devices are shown on a web application.
 
 # MANUAL FOR SNMP MONITORING
 
