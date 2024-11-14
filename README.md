@@ -10,15 +10,15 @@
 
 <details>
   <summary>SETTING UP SNMP SERVER</summary>
-  <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
+  <a href="#snmp-server">SNMP Server</a>  |  <a href="#snmp-client">SNMP Client</a>
 </details>
 <details>
   <summary>WEB SERVER, PHP SERVER</summary>
-  <a href="#snmp-server">SNMP SERVER</a>  |  <a href="#snmp-client">SNMP CLIENT</a>
+  <a href="#snmp-server">Apache Server</a>  |  <a href="#snmp-client">PHP Server</a>
 </details>
 <details>
   <summary>DATABASE</summary>
-  <a href="#db">MariaDB</a>  |  <a href="#setup-db">DATABASE SET UP</a>
+  <a href="#db">MariaDB</a>  |  <a href="#setup-db">Database Set Up</a>
 </details>
 
 ## <a name="snmp-server"> SNMP SERVER: </a>
