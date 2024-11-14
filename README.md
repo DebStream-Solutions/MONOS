@@ -41,20 +41,14 @@ access  [COMMUNITY] "" any noauth exact systemview none none
 dontLogTCPWrappersConnects yes
 ```
 
-
-
-
-
-Start and enable the SNMP service:
-
+### Start and enable the SNMP service:
+```sh
 sudo systemctl enable snmpd
 sudo systemctl start snmpd
+```
 
-
-
-
-Test the SNMP configuration:
-
+### Test the SNMP configuration:
+```sh
 snmpwalk -v2c -c [COMMUNITY] localhost
-
+```
 
