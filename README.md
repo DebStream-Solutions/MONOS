@@ -292,4 +292,8 @@ Flush privilages:
 FLUSH PRIVILEGES;
 ```
 
-
+Restart Apache and MariaDB:
+```sh
+sudo systemctl restart httpd
+sudo systemctl restart mariadb
+```
