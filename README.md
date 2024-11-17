@@ -262,7 +262,7 @@ sudo systemctl restart httpd
 
 ### Install MariaDB
 ```sh
-sudo dnf install mariadb-server
+sudo dnf install mariadb-server php-mysqli
 sudo systemctl enable mariadb
 sudo systemctl start mariadb
 ```
@@ -275,3 +275,21 @@ Run _db-setup.sh_ on your server:
 sudo chmod +x db-setup.sh
 sudo bash db-setup.sh
 ```
+
+### Grant permissions to user
+Enter MariaDB:
+```sh
+ALTER USER 'your_username'@'localhost' IDENTIFIED BY 'new_password';
+```
+
+Reset password for user (if unsure):
+```sh
+ALTER USER 'your_username'@'localhost' IDENTIFIED BY 'new_password';
+```
+
+Flush privilages:
+```sh
+FLUSH PRIVILEGES;
+```
+
+
