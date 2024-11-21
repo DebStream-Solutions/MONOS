@@ -64,7 +64,7 @@ function listProfiles() {
         foreach ($profiles as $key => $value) {
             $newUrl = "?profile=".$value['id']; 
             
-            $devices = "SELECT COUNT(*) AS device_count FROM profileRelations WHERE profileId = {$value['id']}";
+            $devices = "SELECT COUNT(*) AS device_count FROM profileReleations WHERE profileId = {$value['id']}";
             $devices = $conn->query($devices);
             $devices = $devices->fetch_all(MYSQLI_ASSOC);
 
