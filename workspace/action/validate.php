@@ -95,7 +95,7 @@ if (isset($_GET["profile"])) {
     }
 
     echo $_SESSION["error"];
-
+    echo $_SESSION["name"];
 
 } elseif (isset($_GET["device"])) {
     $deviceId = $_GET["device"];
