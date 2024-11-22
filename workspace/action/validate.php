@@ -94,6 +94,8 @@ if (isset($_GET["profile"])) {
         $_SESSION['error'] = "You have to enter a name for the profile.";
     }
 
+    echo $_SESSION["error"];
+
 
 } elseif (isset($_GET["device"])) {
     $deviceId = $_GET["device"];
