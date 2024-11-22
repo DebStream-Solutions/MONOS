@@ -98,6 +98,7 @@ if (isset($_GET["profile"])) {
     echo $_SESSION["name"];
     var_dump(validate($input));
     count(validate($input));
+    echo $_POST['name'];
 
 } elseif (isset($_GET["device"])) {
     $deviceId = $_GET["device"];
