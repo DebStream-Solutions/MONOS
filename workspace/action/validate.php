@@ -76,7 +76,7 @@ if (isset($_GET["profile"])) {
                     $_SESSION['error'] = $updateStatus;
                 }
             } else {
-                $insert = "INSERT INTO profiles (name) VALUES ({$_SESSION['name']})";
+                $insert = "INSERT INTO profiles (name) VALUES ('{$_SESSION['name']}')";
                 $insertStatus = $conn->query($insert);
 
                 echo $insertStatus;
@@ -87,6 +87,8 @@ if (isset($_GET["profile"])) {
                 echo "INSERT";
                 var_dump($_SESSION['error']);
             }
+
+            var_dump($_SESSION['error']);
         } else {
             $_SESSION['error'] = "There is already a profile with the same name!";
         }
