@@ -407,7 +407,7 @@ body {
 .input-container {
     display: flex;
     flex-direction: row;
-    align-items: flex-start;
+    align-items: center;
     margin-top: 2rem;
 }
 
@@ -416,17 +416,19 @@ body {
     padding: 5px;
     border: 1px solid #ccc;
     outline: none;
-    margin-top: 10px;
+    background-color: transparent;
+    padding: 0.5rem 1rem;
 }
 
 .dropdown-arrow {
     padding: 5px;
     cursor: pointer;
     display: flex;
+    margin: auto;
 }
 
 .dropdown-arrow img {
-    max-width: 1rem;
+    max-width: 1.25rem;
 }
 
 .dropdown-content {
