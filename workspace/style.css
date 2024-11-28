@@ -408,6 +408,7 @@ body {
     display: none;
     flex-direction: row;
     align-items: center;
+    margin-top: 1rem;
 }
 
 .dropdown-input {
@@ -418,7 +419,6 @@ body {
     outline: none;
     background-color: transparent;
     padding: 0.5rem 1rem;
-    margin: 1rem 0;
 }
 
 .dropdown-arrow {
@@ -434,12 +434,12 @@ body {
 .dropdown-arrow img {
     max-width: 1.25rem;
     transform: rotate(0deg);
-    transition: transform 1s;
+    transition: transform 0.3s;
 }
 
 .dropdown-arrow img.rotated-180 {
     transform: rotate(180deg);
-    transition: transform 1s;
+    transition: transform 0.3s;
 }
 
 
