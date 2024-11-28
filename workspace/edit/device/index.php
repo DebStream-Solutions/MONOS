@@ -105,9 +105,9 @@
             event.stopPropagation();
             dropdownContent.toggleClass('show');
             if (dropdownContent.has(".show")) {
-                deg = 180;
+                deg = "180";
             } else {
-                deg = 0;
+                deg = "0";
             }
             dropdownArrow.find("img").css('transform','rotate('+deg+'deg)').animate({
                 borderSpacing: 180
