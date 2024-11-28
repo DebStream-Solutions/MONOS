@@ -475,3 +475,13 @@ body {
     color: rgb(255, 209, 209);
     cursor: pointer;
 }
+
+.rotated-0 {
+    transform: rotate(0deg);
+    transition: transform 1s;
+}
+
+.rotated-180 {
+    transform: rotate(180deg);
+    transition: transform 1s;
+}
