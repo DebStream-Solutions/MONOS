@@ -11,7 +11,7 @@ function validate($input) {
     foreach ($input as $key => $value) {
         if (is_array($value)) {
             foreach ($value as $key => $value2) {
-                if (isset($_POST[$value2]) && !empty($_POST[$value2])) {
+                if (isset($_POST[$value2])) {
                     $$value2 = $_POST[$value2];
                     $_SESSION[$value2] = $$value2;
                 } else {
@@ -19,7 +19,7 @@ function validate($input) {
                 }
             }		
         } else {
-            if (isset($_POST[$value]) && !empty($_POST[$value])) {
+            if (isset($_POST[$value])) {
                 $$value = $_POST[$value];
                 $_SESSION[$value] = $$value;
             } else {
@@ -93,12 +93,6 @@ if (isset($_GET["profile"])) {
     } else {
         $_SESSION['error'] = "You have to enter a name for the profile.";
     }
-
-    echo $_SESSION["error"];
-    echo $_SESSION["name"];
-    var_dump(validate($input));
-    count(validate($input));
-    echo $_POST['name'];
 
 } elseif (isset($_GET["device"])) {
     $deviceId = $_GET["device"];
