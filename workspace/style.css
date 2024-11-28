@@ -437,6 +437,12 @@ body {
     transition: transform 1s;
 }
 
+.dropdown-arrow img.rotated-180 {
+    transform: rotate(180deg);
+    transition: transform 1s;
+}
+
+
 .dropdown-content {
     display: none;
     position: absolute;
@@ -476,9 +482,4 @@ body {
     margin-left: 10px;
     color: rgb(255, 209, 209);
     cursor: pointer;
-}
-
-.rotated-180 {
-    transform: rotate(180deg);
-    transition: transform 1s;
 }
