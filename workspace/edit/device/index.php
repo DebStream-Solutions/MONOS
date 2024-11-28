@@ -104,7 +104,7 @@
         dropdownArrow.click(function(event) {
             event.stopPropagation();
             dropdownContent.toggleClass('show');
-            dropdownArrow.find("img").css({transform: 'rotate(0deg)'}).animate({
+            dropdownArrow.find("img").animate({
                 borderSpacing: 180
             }, {
                 step: function(now, fx) {
