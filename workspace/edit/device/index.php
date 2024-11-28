@@ -104,6 +104,9 @@
         dropdownArrow.click(function(event) {
             event.stopPropagation();
             dropdownContent.toggleClass('show');
+            dropdownArrow.find("img").animate({
+                transform: "rotate(180deg)"
+            }, 300);
         });
 
         dropdownContent.find('input[type="checkbox"]').change(function() {
