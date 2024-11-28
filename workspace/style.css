@@ -380,8 +380,10 @@ body {
 
 .dropdown {
     position: relative;
-    display: inline-block;
-    width: 300px;
+    display: flex;
+    flex-direction: column;
+    gap: 0.5rem;
+    margin: 1rem 0;
 }
 
 .selected-items-container {
@@ -408,7 +410,6 @@ body {
     display: none;
     flex-direction: row;
     align-items: center;
-    margin-top: 2rem;
 }
 
 .dropdown-input {
