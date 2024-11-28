@@ -278,22 +278,22 @@ function editDevice($edit) {
 
             $content = '
                 <div class="form-wrap">
-                    <h2>Edit device</h2>
+                    <h2>Add device</h2>
                     <div>
-                        <form method=POST action="../../action/validate.php?device='.$device.'">
+                        <form method=POST action="../../action/validate.php?device">
                             <div>
                                 <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="MyServer.." value="'.$device["name"].'">
+                                <input type="text" id="name" name="name" placeholder="Home Server" value="'.$device["name"].'">
                             </div>
                             <div>
-                                <label for="profile">Profiles</label>
+                                <h3 for="profile">Select profiles</h3>
                                 <div class="dropdown">
                                     <div class="selected-items-container">
                                         <button type="button" class="add-button">+</button>
                                     </div>
                                     <div class="input-container">
                                         <input type="text" class="dropdown-input" placeholder="Select items">
-                                        <span class="dropdown-arrow">&#9660;</span>
+                                        <span class="dropdown-arrow"><img src="../../icons/dropdown.png" alt="arrow"></span>
                                     </div>
                                     <div class="dropdown-content">
                                         '.$profileList.'
@@ -312,7 +312,7 @@ function editDevice($edit) {
                                 
                             </div>
                             <div>
-                                <input type="submit" name="submit" value="Edit">
+                                <input type="submit" name="submit" value="Add">
                             </div>
                         </form>
                     </div>
