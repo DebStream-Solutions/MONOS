@@ -446,12 +446,13 @@ body {
 }
 
 .dropdown-content.show {
-    display: block;
+    display: flex;
+    flex-direction: column;
 }
 
 .dropdown-content label {
     padding: 10px;
-    display: none;
+    display: block;
 }
 
 .dropdown-content label input {
