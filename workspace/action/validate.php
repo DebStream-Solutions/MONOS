@@ -68,6 +68,7 @@ if (isset($_GET["profile"])) {
 
         if (exists("profiles", "name")) {
             if ($profileId >= 0) {
+                echo $profileId." === UPDATE";
 
                 $update = "UPDATE profiles SET name='{$_SESSION['name']}' WHERE id={$profileId}";
                 $updateStatus = $conn->query($update);
