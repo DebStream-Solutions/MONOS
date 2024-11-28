@@ -104,10 +104,14 @@
         dropdownArrow.click(function(event) {
             event.stopPropagation();
             dropdownContent.toggleClass('show');
-            dropdownArrow.find("img").animate({
-                transform: "rotate(180deg)"
-            }, 300);
-        });
+            dropdownArrow.find("img").css({transform: 'rotate(0deg)'}).animate({
+                borderSpacing: 180
+            }, {
+                step: function(now, fx) {
+                    $(this).css('transform','rotate('+now+'deg)'); },
+                    duration: 'slow'
+                }, 'linear');
+            });
 
         dropdownContent.find('input[type="checkbox"]').change(function() {
             const checkbox = $(this);
