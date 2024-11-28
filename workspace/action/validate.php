@@ -88,6 +88,7 @@ if (isset($_GET["profile"])) {
                 var_dump($_SESSION['error']);
             }
 
+            var_dump($profileId);
             var_dump($_SESSION['error']);
         } else {
             $_SESSION['error'] = "There is already a profile with the same name!";
