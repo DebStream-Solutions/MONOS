@@ -380,9 +380,7 @@ body {
 
 .dropdown {
     position: relative;
-    display: flex;
-    flex-direction: column;
-    gap: 0.5rem;
+    display: inline-block;
     margin: 1rem 0;
 }
 
