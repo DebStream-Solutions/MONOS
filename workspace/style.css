@@ -449,7 +449,7 @@ body {
 
 .dropdown-content label {
     padding: 10px;
-    display: block;
+    display: none;
 }
 
 .dropdown-content label input {
