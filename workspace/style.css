@@ -392,12 +392,11 @@ body {
 
 .add-button {
     background-color: transparent;
-    color: #007BFF;
-    border: 1px solid #007BFF;
-    border-radius: 50%;
-    padding: 10px;
-    width: 40px;
-    height: 40px;
+    color: white;
+    font-size: 1.25rem;
+    border: 1px solid white;
+    border-radius: 5px;
+    padding: 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -421,8 +420,7 @@ body {
 
 .dropdown-arrow {
     padding: 10px;
-    background-color: #fff;
-    border-left: 1px solid #ccc;
+    background-color: #121212;
     cursor: pointer;
 }
 
@@ -430,11 +428,11 @@ body {
     display: none;
     position: absolute;
     width: 100%;
-    background-color: white;
-    box-shadow: 0 8px 16px rgba(0,0,0,0.2);
+    background-color: #121212;
     z-index: 1;
     max-height: 200px;
     overflow-y: auto;
+    border: #ffffff30 1px solid;
 }
 
 .dropdown-content.show {

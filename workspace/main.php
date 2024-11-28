@@ -343,7 +343,7 @@ function editDevice($edit) {
             foreach ($profileNameArr as $key => $value) {
                 $i += 1;
                 #$profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" value="'.$value["name"].'">'.$value["name"].'</label>';
-                $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="'.$device.$i.'" value="'.$value["id"].'">'.$value["name"].'</label>';
+                $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="profile'.$i.'" value="'.$value["id"].'">'.$value["name"].'</label>';
             }
 
             $content = '
@@ -353,7 +353,7 @@ function editDevice($edit) {
                         <form method=POST action="../../action/validate.php?device">
                             <div>
                                 <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Debian Server.." value="'.$device["name"].'">
+                                <input type="text" id="name" name="name" placeholder="Home Server" value="'.$device["name"].'">
                             </div>
                             <div>
                                 <h3 for="profile">Select profiles</h3>
@@ -363,7 +363,7 @@ function editDevice($edit) {
                                     </div>
                                     <div class="input-container">
                                         <input type="text" class="dropdown-input" placeholder="Select items">
-                                        <span class="dropdown-arrow">&#9660;</span>
+                                        <span class="dropdown-arrow"><img src="../icons/dropdown.png" alt="arrow"></span>
                                     </div>
                                     <div class="dropdown-content">
                                         '.$profileList.'

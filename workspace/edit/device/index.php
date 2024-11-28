@@ -109,7 +109,7 @@
         dropdownContent.find('input[type="checkbox"]').change(function() {
             const checkbox = $(this);
             if (checkbox.is(':checked')) {
-                addItem(checkbox.val(), checkbox.closest('label').data('id'));
+                addItem(checkbox.closest('label').data("item"), checkbox.closest('label').data('id'));
             } else {
                 removeItem(checkbox.val());
             }
