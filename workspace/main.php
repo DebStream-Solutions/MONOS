@@ -363,7 +363,7 @@ function editDevice($edit) {
                                     </div>
                                     <div class="input-container">
                                         <input type="text" class="dropdown-input" placeholder="Select items">
-                                        <span class="dropdown-arrow"><img src="../icons/dropdown.png" alt="arrow"></span>
+                                        <span class="dropdown-arrow"><img src="../../icons/dropdown.png" alt="arrow"></span>
                                     </div>
                                     <div class="dropdown-content">
                                         '.$profileList.'
