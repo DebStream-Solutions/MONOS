@@ -76,8 +76,10 @@ if (isset($_GET["profile"])) {
                     $_SESSION['error'] = $updateStatus;
                 }
             } else {
-                $insert = "INSERT INTO profiles (name) VALUES ('{$_SESSION['name']}')";
+                $insert = "INSERT INTO profiles (name) VALUES ({$_SESSION['name']})";
                 $insertStatus = $conn->query($insert);
+
+                echo $insertStatus;
 
                 if ($insertStatus === false) {
                     $_SESSION['error'] = $insertStatus;
