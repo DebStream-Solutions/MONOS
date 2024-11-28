@@ -109,6 +109,7 @@
             } else {
                 deg = "0";
             }
+            rotated = false;
             if(rotated) { $(this).css({transform: 'rotate(180deg)'}).animate({ borderSpacing: 0 }, { step: function(now, fx) { $(this).css('transform','rotate('+now+'deg)'); }, duration: 'slow' }, 'linear'); } else { $(this).css({transform: 'rotate(0deg)'}).animate({ borderSpacing: 180 }, { step: function(now, fx) { $(this).css('transform','rotate('+now+'deg)'); }, duration: 'slow' }, 'linear'); } rotated = !rotated;
         });
 
