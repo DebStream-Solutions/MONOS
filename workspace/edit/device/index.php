@@ -109,7 +109,7 @@
             } else {
                 deg = 0;
             }
-            dropdownArrow.find("img").css('transform','rotate('+deg.toString()+'deg)').animate({
+            dropdownArrow.find("img").animate({
                 borderSpacing: deg
             },
             {
