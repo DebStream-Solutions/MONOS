@@ -202,6 +202,9 @@
         dropdownInput.click(function(event) {
             event.stopPropagation(); // Prevent the dropdown from closing when clicking inside input
         });
+
+
+        hideLoad();
     });
 
 </script>
