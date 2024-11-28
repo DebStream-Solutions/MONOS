@@ -76,6 +76,7 @@ if (isset($_GET["profile"])) {
                 if ($updateStatus === false) {
                     $_SESSION['error'] = $updateStatus;
                 } else {
+                    session_destroy();
                     header("location: ../");
                 }
             } else {
@@ -87,6 +88,7 @@ if (isset($_GET["profile"])) {
                 if ($insertStatus === false) {
                     $_SESSION['error'] = $insertStatus;
                 } else {
+                    session_destroy();
                     header("location: ../");
                 }
             }
