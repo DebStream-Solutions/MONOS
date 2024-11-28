@@ -117,6 +117,9 @@
                     $(this).css('transform','rotate('+now+'deg)');
                 }, duration: 300
             }, 'linear');
+
+            let rotated = false;
+            if(rotated) { $(this).find("img").animate({ borderSpacing: 0 }, { step: function(now, fx) { $(this).find("img").css('transform', 'rotate(' + now + 'deg)'); }, duration: 'slow', complete: function() { $(this).find("img").css('borderSpacing', 0); } }, 'linear'); } else { $(this).find("img").animate({ borderSpacing: 180 }, { step: function(now, fx) { $(this).find("img").css('transform', 'rotate(' + now + 'deg)'); }, duration: 'slow', complete: function() { $(this).find("img").css('borderSpacing', 0); } }, 'linear'); } rotated = !rotated;
         });
 
         dropdownContent.find('input[type="checkbox"]').change(function() {
