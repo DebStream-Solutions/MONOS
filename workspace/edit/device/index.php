@@ -104,7 +104,7 @@
         dropdownArrow.click(function(event) {
             event.stopPropagation();
             dropdownContent.toggleClass('show');
-            $(this).find("img").toggleClass('rotated-0 rotated-180');
+            $(this).find("img").toggleClass('rotated-180');
         });
 
         dropdownContent.find('input[type="checkbox"]').change(function() {
