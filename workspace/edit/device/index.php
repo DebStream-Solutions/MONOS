@@ -104,8 +104,13 @@
         dropdownArrow.click(function(event) {
             event.stopPropagation();
             dropdownContent.toggleClass('show');
+            if (dropdownContent.has(".show")) {
+                deg = 180;
+            } else {
+                deg = 0;
+            }
             dropdownArrow.find("img").animate({
-                borderSpacing: 180
+                borderSpacing: deg
             }, {
                 step: function(now, fx) {
                     $(this).css('transform','rotate('+now+'deg)'); },
