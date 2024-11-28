@@ -75,6 +75,8 @@ if (isset($_GET["profile"])) {
 
                 if ($updateStatus === false) {
                     $_SESSION['error'] = $updateStatus;
+                } else {
+                    header("location: ../");
                 }
             } else {
                 $insert = "INSERT INTO profiles (name) VALUES ('{$_SESSION['name']}')";
@@ -84,13 +86,11 @@ if (isset($_GET["profile"])) {
 
                 if ($insertStatus === false) {
                     $_SESSION['error'] = $insertStatus;
+                } else {
+                    header("location: ../");
                 }
-                echo "INSERT";
-                var_dump($_SESSION['error']);
             }
 
-            var_dump($profileId);
-            var_dump($_SESSION['error']);
         } else {
             $_SESSION['error'] = "There is already a profile with the same name!";
         }
