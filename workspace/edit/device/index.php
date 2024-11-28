@@ -109,14 +109,15 @@
             } else {
                 deg = 0;
             }
-            dropdownArrow.find("img").animate({
-                borderSpacing: deg
-            }, {
+            dropdownArrow.find("img").css('transform','rotate('+deg+'deg)').animate({
+                borderSpacing: 180
+            },
+            {
                 step: function(now, fx) {
-                    $(this).css('transform','rotate('+now+'deg)'); },
-                    duration: 'slow'
-                }, 'linear');
-            });
+                    $(this).css('transform','rotate('+now+'deg)');
+                }, duration: 300
+            }, 'linear');
+        });
 
         dropdownContent.find('input[type="checkbox"]').change(function() {
             const checkbox = $(this);
