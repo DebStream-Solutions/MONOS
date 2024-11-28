@@ -105,12 +105,18 @@
             event.stopPropagation();
             dropdownContent.toggleClass('show');
             if (dropdownContent.has(".show")) {
-                deg = "180";
+                deg = 180;
             } else {
-                deg = "0";
+                deg = 0;
             }
-            rotated = false;
-            if(rotated) { $(this).css({transform: 'rotate(180deg)'}).animate({ borderSpacing: 0 }, { step: function(now, fx) { $(this).css('transform','rotate('+now+'deg)'); }, duration: 'slow' }, 'linear'); } else { $(this).css({transform: 'rotate(0deg)'}).animate({ borderSpacing: 180 }, { step: function(now, fx) { $(this).css('transform','rotate('+now+'deg)'); }, duration: 'slow' }, 'linear'); } rotated = !rotated;
+            dropdownArrow.find("img").css('transform','rotate('+deg.toString()+'deg)').animate({
+                borderSpacing: deg
+            },
+            {
+                step: function(now, fx) {
+                    $(this).css('transform','rotate('+now+'deg)');
+                }, duration: 300
+            }, 'linear');
         });
 
         dropdownContent.find('input[type="checkbox"]').change(function() {
