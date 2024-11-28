@@ -421,8 +421,8 @@ body {
 
 .dropdown-arrow {
     padding: 5px;
-    background-color: #121212;
     cursor: pointer;
+    display: flex;
 }
 
 .dropdown-arrow img {
