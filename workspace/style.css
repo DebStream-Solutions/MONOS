@@ -405,7 +405,7 @@ body {
 }
 
 .input-container {
-    display: flex;
+    display: none;
     flex-direction: row;
     align-items: center;
     margin-top: 2rem;

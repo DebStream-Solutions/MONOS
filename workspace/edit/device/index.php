@@ -87,7 +87,7 @@
         const hiddenInputsContainer = $('.hidden-inputs');
 
         addButton.click(function() {
-            inputContainer.show();
+            inputContainer.css("display", "flex");
             addButton.hide();
             dropdownInput.focus();
             filterItems();
