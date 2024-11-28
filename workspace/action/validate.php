@@ -67,7 +67,7 @@ if (isset($_GET["profile"])) {
     if (count(validate($input)) == 0) {
 
         if (exists("profiles", "name")) {
-            if ($profileId >= 0) {
+            if (!empty($profileId)) {
                 echo $profileId." === UPDATE";
 
                 $update = "UPDATE profiles SET name='{$_SESSION['name']}' WHERE id={$profileId}";
