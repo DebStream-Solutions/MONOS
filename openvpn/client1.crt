@@ -1,0 +1,84 @@
+Certificate:
+    Data:
+        Version: 3 (0x2)
+        Serial Number:
+            0f:52:0f:1c:2b:10:5d:68:dd:ec:bd:d3:a5:2a:84:80
+        Signature Algorithm: sha256WithRSAEncryption
+        Issuer: CN=monos-server
+        Validity
+            Not Before: Dec  3 18:44:24 2024 GMT
+            Not After : Nov 18 18:44:24 2027 GMT
+        Subject: CN=client1
+        Subject Public Key Info:
+            Public Key Algorithm: rsaEncryption
+                RSA Public-Key: (2048 bit)
+                Modulus:
+                    00:b9:bf:50:83:78:26:6a:90:12:b3:5d:c1:40:53:
+                    d2:67:24:be:e5:25:3b:df:45:e6:75:e6:37:f8:3c:
+                    7e:ec:55:72:ed:60:6a:32:a2:0c:33:7f:eb:c4:c5:
+                    35:85:5e:0a:9e:64:01:50:2a:63:38:ab:26:6e:29:
+                    1b:a3:fb:f7:86:54:9b:c5:01:a8:57:d5:f4:e9:b8:
+                    0a:9f:ad:13:48:1d:00:1d:1b:87:72:98:ea:90:b7:
+                    fe:78:5e:b1:de:58:2e:82:c3:36:d3:8c:f7:02:c7:
+                    af:e6:69:f3:8f:56:4f:88:89:97:d6:4a:21:6d:47:
+                    33:c6:ac:8d:ee:e4:6a:ed:ab:8b:83:69:74:df:54:
+                    72:d8:4c:1b:c7:5c:70:6d:f7:d8:92:07:7d:e6:85:
+                    c6:69:1b:59:d4:41:08:f6:b4:45:cb:d8:e8:f1:20:
+                    42:c0:26:f0:e7:b5:ce:cf:69:56:cc:33:46:61:11:
+                    90:9e:e5:de:b1:78:7f:97:99:7a:aa:ff:66:90:59:
+                    f2:d5:75:7b:65:43:38:e1:6a:32:30:e3:02:e3:44:
+                    cf:f3:7a:12:80:e8:5e:f7:10:70:60:91:88:d2:1d:
+                    b1:58:15:be:fc:f6:98:5a:3c:41:bd:e1:08:06:9c:
+                    f5:66:06:f8:5f:d6:31:3f:78:42:d2:60:6a:e8:0e:
+                    81:a1
+                Exponent: 65537 (0x10001)
+        X509v3 extensions:
+            X509v3 Basic Constraints: 
+                CA:FALSE
+            X509v3 Subject Key Identifier: 
+                27:41:20:AE:FC:26:4C:3D:DE:78:BE:97:9B:45:02:50:1F:B3:95:3D
+            X509v3 Authority Key Identifier: 
+                keyid:BF:60:B7:DF:BC:C5:8C:13:83:D8:6A:5C:12:7C:DB:38:86:04:3F:29
+                DirName:/CN=monos-server
+                serial:2E:05:5E:C0:44:DB:73:23:A7:9C:BF:12:35:1B:D1:E7:2C:3E:D9:42
+
+            X509v3 Extended Key Usage: 
+                TLS Web Client Authentication
+            X509v3 Key Usage: 
+                Digital Signature
+    Signature Algorithm: sha256WithRSAEncryption
+         36:09:f2:2b:a9:32:3f:e0:60:d6:17:d5:52:36:da:89:7d:66:
+         b1:13:3a:de:63:71:42:16:67:20:f4:8f:34:09:9f:15:04:13:
+         e0:ae:98:dd:2f:ea:5b:09:5f:b1:35:8c:e2:b2:27:c4:33:1d:
+         08:d1:e3:a4:b2:41:3d:39:3b:83:6b:30:dc:4f:3f:e7:30:2b:
+         66:42:03:26:96:14:38:02:aa:79:fd:91:4f:37:cf:aa:20:5f:
+         3f:bc:c9:b3:39:10:34:fd:ab:d1:0d:3c:b5:78:4d:d1:96:67:
+         1f:99:23:3d:06:fa:56:a5:96:65:b8:8c:5b:37:b3:5d:34:4c:
+         05:f4:64:ff:95:0f:77:37:bc:a1:c7:55:d7:b8:56:22:73:d3:
+         7b:31:0e:f1:90:6c:4b:d8:2c:e3:0b:02:19:e6:76:62:7b:dd:
+         91:fe:98:99:ac:a5:bb:19:76:81:f2:4a:45:d4:12:bf:6c:9a:
+         50:c8:13:a8:6c:f0:9e:15:8f:ac:ba:5f:55:ca:b0:02:f0:0a:
+         6c:be:aa:ae:24:b2:9c:ef:b6:d9:87:ad:7e:aa:07:d3:51:74:
+         d5:a7:a6:db:84:4c:18:38:36:43:b3:eb:fb:e0:6d:e1:2d:44:
+         d8:32:d9:06:1f:bd:f0:d8:d8:f0:85:c8:f2:cb:d7:82:1b:4f:
+         e8:41:6e:0f
+-----BEGIN CERTIFICATE-----
+MIIDVzCCAj+gAwIBAgIQD1IPHCsQXWjd7L3TpSqEgDANBgkqhkiG9w0BAQsFADAX
+MRUwEwYDVQQDDAxtb25vcy1zZXJ2ZXIwHhcNMjQxMjAzMTg0NDI0WhcNMjcxMTE4
+MTg0NDI0WjASMRAwDgYDVQQDDAdjbGllbnQxMIIBIjANBgkqhkiG9w0BAQEFAAOC
+AQ8AMIIBCgKCAQEAub9Qg3gmapASs13BQFPSZyS+5SU730XmdeY3+Dx+7FVy7WBq
+MqIMM3/rxMU1hV4KnmQBUCpjOKsmbikbo/v3hlSbxQGoV9X06bgKn60TSB0AHRuH
+cpjqkLf+eF6x3lgugsM204z3Asev5mnzj1ZPiImX1kohbUczxqyN7uRq7auLg2l0
+31Ry2Ewbx1xwbffYkgd95oXGaRtZ1EEI9rRFy9jo8SBCwCbw57XOz2lWzDNGYRGQ
+nuXesXh/l5l6qv9mkFny1XV7ZUM44WoyMOMC40TP83oSgOhe9xBwYJGI0h2xWBW+
+/PaYWjxBveEIBpz1Zgb4X9YxP3hC0mBq6A6BoQIDAQABo4GjMIGgMAkGA1UdEwQC
+MAAwHQYDVR0OBBYEFCdBIK78Jkw93ni+l5tFAlAfs5U9MFIGA1UdIwRLMEmAFL9g
+t9+8xYwTg9hqXBJ82ziGBD8poRukGTAXMRUwEwYDVQQDDAxtb25vcy1zZXJ2ZXKC
+FC4FXsBE23Mjp5y/EjUb0ecsPtlCMBMGA1UdJQQMMAoGCCsGAQUFBwMCMAsGA1Ud
+DwQEAwIHgDANBgkqhkiG9w0BAQsFAAOCAQEANgnyK6kyP+Bg1hfVUjbaiX1msRM6
+3mNxQhZnIPSPNAmfFQQT4K6Y3S/qWwlfsTWM4rInxDMdCNHjpLJBPTk7g2sw3E8/
+5zArZkIDJpYUOAKqef2RTzfPqiBfP7zJszkQNP2r0Q08tXhN0ZZnH5kjPQb6VqWW
+ZbiMWzezXTRMBfRk/5UPdze8ocdV17hWInPTezEO8ZBsS9gs4wsCGeZ2Ynvdkf6Y
+mayluxl2gfJKRdQSv2yaUMgTqGzwnhWPrLpfVcqwAvAKbL6qriSynO+22YetfqoH
+01F01aem24RMGDg2Q7Pr++Bt4S1E2DLZBh+98NjY8IXI8svXghtP6EFuDw==
+-----END CERTIFICATE-----
