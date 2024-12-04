@@ -132,7 +132,8 @@ function listDevices($profile) {
         }
         
     }
-    return $deviceList;
+
+    return var_dump($profileId, $profile);
 }
 
 
