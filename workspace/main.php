@@ -102,18 +102,22 @@ function profileContent() {
 
 
 function listDevices($profile) {
+    global $conn;
+
     $devices = $GLOBALS["devices"];
     $types = $GLOBALS["types"];
     $deviceList = "";
 
     foreach ($devices as $key => $value) {
         $profileId = "SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"];
+        $profileId = $conn->query($profileId);
+        $profileId = $profileId->fetch_all(MYSQLI_ASSOC)[0]["profileId"];
 
         $newUrl = "device/?profile=".$profileId."&device=".$value['id'];
         $conditions = ["id" => $value['type']];
         $type_str = findValueByConditions($types, $conditions, "name");
         
-        if ($_GET["profile"] === strval($profileId)) {
+        if ($profile === strval($profileId)) {
             $deviceList .= '
             <a href="'.$newUrl.'">
                 <div class="device">
