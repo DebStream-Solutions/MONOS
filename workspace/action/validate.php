@@ -115,7 +115,7 @@ if (isset($_GET["profile"])) {
         if (true) {
             if (!empty($deviceId)) {
 
-                $update = "UPDATE devices SET name='{$_SESSION['name']}' WHERE id={$dev}";
+                $update = "UPDATE devices SET name='{$_SESSION['name']}' WHERE id={$deviceId}";
                 $updateStatus = $conn->query($update);
 
                 if ($updateStatus === false) {
@@ -139,8 +139,8 @@ if (isset($_GET["profile"])) {
                     $profileIds = [];
 
                     for ($i=1; $i <= $max; $i++) {
-                        $profileCheck = $_POST["profile".$i];
-                        if (isset($profileCheck) && !empty($profileCheck)) {
+                        $profileCheck = "profile".$i;
+                        if (isset($_POST[$profileCheck]) && !empty($_POST[$profileCheck])) {
                             $profileIds[] = $profileCheck;
                         }
                     }

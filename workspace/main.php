@@ -107,7 +107,9 @@ function listDevices($profile) {
     $deviceList = "";
 
     foreach ($devices as $key => $value) {
-        $newUrl = "device/?profile=".$value['profileId']."&device=".$value['id'];
+        $profileId = "SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"];
+
+        $newUrl = "device/?profile=".$profileId."&device=".$value['id'];
         $conditions = ["id" => $value['type']];
         $type_str = findValueByConditions($types, $conditions, "name");
         
