@@ -104,9 +104,13 @@ if (isset($_GET["profile"])) {
 
 } elseif (isset($_GET["device"])) {
     $deviceId = $_GET["device"];
-    $input = ["name", "ip", "type", "profile"];
+    $input = ["name", "ip", "type"];
+
+    var_dump($_POST["profile1"]);
 
     if (count(validate($input)) == 0) {
+        var_dump($_SESSION["error"]);
+        var_dump($_SESSION["type"]);
 
         if (true) {
             if (!empty($deviceId)) {
