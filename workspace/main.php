@@ -339,11 +339,22 @@ function editDevice($edit) {
             
             $profileList = "";
             $i = 0;
-
             foreach ($profileNameArr as $key => $value) {
                 $i += 1;
                 #$profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" value="'.$value["name"].'">'.$value["name"].'</label>';
                 $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="profile'.$i.'" value="'.$value["id"].'">'.$value["name"].'</label>';
+            }
+
+
+            $typeArr = "SELECT * FROM types";
+            $typeArr = $conn->query($typeArr);
+            $typeArr = $typeArr->fetch_all(MYSQLI_ASSOC);
+
+            $typeList = "";
+            $i = 0;
+            foreach ($typeArr as $key => $value) {
+                $i += 1;
+                $typeList .= '<option value="'.$i.'">'.$value["name"].'</option>';
             }
 
             $content = '
@@ -378,8 +389,10 @@ function editDevice($edit) {
                                 <input type="text" id="ip" name="ip" placeholder="192.168.1.1.." value="'.$device["ip"].'">
                             </div>
                             <div>
-                                <label for="type">Type</label>
-                                
+                                <label for="types">Type</label>
+                                <select id="types" name="type">
+                                    '.$typeList.'
+                                </select>
                             </div>
                             <div>
                                 <input type="submit" name="submit" value="Add">
