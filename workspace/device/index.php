@@ -10,8 +10,7 @@
         header('location: ../');
     }
 
-
-    $conditions = ["id" => $device, "profileId" => $profile];
+    $conditions = ["id" => $device];
     $ipv4 = findValueByConditions($devices, $conditions, "ip");
     $typeId = findValueByConditions($devices, $conditions, "type");
 
@@ -32,13 +31,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
+        //google.charts.setOnLoadCallback(drawChart);
 
-        function drawChart() {
+        function drawChart(usedSpace, freeSpace) {
             var data = google.visualization.arrayToDataTable([
                 ['Type', 'Space'],
-                ['Used Space', 60],
-                ['Free Space', 40]
+                ['Used Space', usedSpace],
+                ['Free Space', freeSpace]
             ]);
 
             var theme = 'dark'; // Change this to 'light' to see the light theme

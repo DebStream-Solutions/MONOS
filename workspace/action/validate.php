@@ -104,14 +104,14 @@ if (isset($_GET["profile"])) {
 
 } elseif (isset($_GET["device"])) {
     $deviceId = $_GET["device"];
-    $input = ["name", "ip", "type"];
+    $input = ["name", "ip", "type", "profile"];
 
     if (count(validate($input)) == 0) {
 
         if (true) {
-            if ($deviceId >= 0) {
+            if (!empty($deviceId)) {
 
-                $update = "UPDATE profiles SET name='{$_SESSION['name']}' WHERE id={$profileId}";
+                $update = "UPDATE devices SET name='{$_SESSION['name']}' WHERE id={$dev}";
                 $updateStatus = $conn->query($update);
 
                 if ($updateStatus === false) {
@@ -124,6 +124,25 @@ if (isset($_GET["profile"])) {
                 if ($insertStatus === false) {
                     $_SESSION['error'] = $insertStatus;
                 } else {
+                    $deviceId = $conn->insert_id;
+
+                    $profiles = "SELECT COUNT(*) AS profile_count FROM profiles";
+                    $profiles = $conn->query($profiles);
+                    $profiles = $profiles->fetch_all(MYSQLI_ASSOC);
+                    
+                    $max = $profiles[0]["profile_count"];
+                    $tryProfiles = true;
+                    $profileIds = [];
+
+                    for ($i=1; $i <= $max; $i++) {
+                        $profileCheck = $_POST["profile".$i];
+                        if (isset($profileCheck) && !empty($profileCheck)) {
+                            $profileIds[] = $profileCheck;
+                        }
+                    }
+
+                    var_dump($profileIds);
+                    
                     foreach ($profileIds as $key => $value) {
                         $insert = "INSERT INTO profileReleations (profileId, deviceId) VALUES ('{$value}', '{$deviceId}')";
                         $insertStatus = $conn->query($insert);

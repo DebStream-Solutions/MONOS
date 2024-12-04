@@ -66,6 +66,7 @@ function workstation($hostIp, $community) {
                 $disk_used = round($used_size / 1024 / 1024, 2);
                 $disk_free = $disk_size - $disk_used;
                 $disk_used_percentage = round(($used_size / $total_size) * 100, 2);
+                $disk_free_percentage = 100 - $disk_used_percentage;
             } elseif ($key == "cpu") {
                 $cpu_name = @snmpwalk($hostIp, $community, $value["name"]);
                 $cpu_load = @snmpwalk($hostIp, $community, $value["load"]);
@@ -110,7 +111,7 @@ function workstation($hostIp, $community) {
         }
 
         $generative_content = "
-            <div class='content'>
+            <div onload='drawChart(".$disk_used_percentage.",".$disk_free_percentage.")' class='content'>
                 <div class='main-banner'>
                     <div id='donutchart'></div>
                 </div>

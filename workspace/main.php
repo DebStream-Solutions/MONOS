@@ -338,11 +338,11 @@ function editDevice($edit) {
             $profileNameArr = $profileNameArr->fetch_all(MYSQLI_ASSOC);
             
             $profileList = "";
-            $i = 0;
+            $i = 1;
             foreach ($profileNameArr as $key => $value) {
-                $i += 1;
                 #$profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" value="'.$value["name"].'">'.$value["name"].'</label>';
                 $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="profile'.$i.'" value="'.$value["id"].'">'.$value["name"].'</label>';
+                $i += 1;
             }
 
 
@@ -351,10 +351,10 @@ function editDevice($edit) {
             $typeArr = $typeArr->fetch_all(MYSQLI_ASSOC);
 
             $typeList = "";
-            $i = 0;
+            $i = 1;
             foreach ($typeArr as $key => $value) {
-                $i += 1;
                 $typeList .= '<option value="'.$i.'">'.$value["name"].'</option>';
+                $i += 1;
             }
 
             $content = '
