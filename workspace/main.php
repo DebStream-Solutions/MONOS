@@ -113,7 +113,7 @@ function listDevices($profile) {
         $conditions = ["id" => $value['type']];
         $type_str = findValueByConditions($types, $conditions, "name");
         
-        if ($profile === strval($value['profileId'])) {
+        if ($profile === strval($profileId)) {
             $deviceList .= '
             <a href="'.$newUrl.'">
                 <div class="device">
