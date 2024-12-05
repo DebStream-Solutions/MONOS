@@ -2,7 +2,7 @@ $(document).ready(function () {
     // Function to fetch SNMP data
     function fetchSNMPData() {
         $.ajax({
-            url: 'ajax-snmp.php', // Path to your PHP script
+            url: '../ajax-snmp.php', // Path to your PHP script
             method: 'GET',
             dataType: 'json',
             success: function (response) {
@@ -12,9 +12,8 @@ $(document).ready(function () {
                     $('.generated').text('Error: ' + response.message);
                 }
             },
-            error: function (jqXHR, textStatus, errorThrown) {
-                console.error('AJAX Error:', textStatus, errorThrown);
-                console.error('Response Text:', jqXHR.responseText);
+            error: function () {
+                $('.generated').text('Error: Failed to fetch data');
             },
             complete: function () {
                 // Re-run the function after 5 seconds
