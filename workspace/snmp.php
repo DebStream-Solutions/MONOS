@@ -126,7 +126,14 @@ function workstation($hostIp, $community) {
 
                 foreach ($cpu_load_parse as $cpu_int => $load) {
                     $cpu_int = intval($cpu_int) + 1;
-                    $cpu_arr_load .= "<div>Core {$cpu_int}: {$load}%</div>";
+                    $cpu_arr_load .= "
+                    <div>
+                        <div>Core {$cpu_int}</div>
+                        <div>
+                            <div class='percent'>{$load}% </div>
+                            <div class='percent-line' style='width: calc({$load}%)'></div>
+                        </div>
+                    </div>";
                 }
 
                 $cpu_sum = 0;
