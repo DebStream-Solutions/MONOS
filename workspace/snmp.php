@@ -1,5 +1,6 @@
 <?php
 
+// Not usable for now
 snmp_read_mib("../host_resources_mib.txt");
 
 function getSNMPData($hostIp, $deviceType, $community) {
@@ -53,8 +54,8 @@ function workstation($hostIp, $community) {
             "used" => "1.3.6.1.2.1.25.2.3.1.6"
         ],
         "cpu" => [
-            "name" => "HOST-RESOURCES-MIB::hrDeviceDescr",
-            "load" => "HOST-RESOURCES-MIB::hrProcessorLoad"
+            "name" => "1.3.6.1.2.1.25.3.2.1.3",
+            "load" => "1.3.6.1.2.1.25.3.3.1.2"
         ]
 
     ];
