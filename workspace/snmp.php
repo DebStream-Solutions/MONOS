@@ -199,7 +199,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return var_dump($disk_free_percentage, $disk_used_percentage, $total_size, $type_arr, $size_arr);
+    return $generative_content;
 }
 
 ?>
