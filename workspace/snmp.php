@@ -107,6 +107,7 @@ function workstation($hostIp, $community) {
 
                 $cpu_load_parse = [];
                 $cpu_freq_parse = [];
+                $cpu_arr_load = "";
 
 
                 if ($cpu_name !== false) {
@@ -121,6 +122,11 @@ function workstation($hostIp, $community) {
                         $value = explode("INTEGER: ", $value)[1];
                         $cpu_load_parse[] = $value;
                     }
+                }
+
+                foreach ($cpu_load_parse as $cpu_int => $load) {
+                    $cpu_int = intval($cpu_int) + 1;
+                    $cpu_arr_load .= "<div>CPU {$cpu_int}: {$load}</div>";
                 }
 
                 $cpu_sum = 0;
@@ -156,6 +162,7 @@ function workstation($hostIp, $community) {
                             <div>{$cpu_name}</div>
                             <div>CPU Usage: {$cpu_load}%</div>
                             <div>Processing Units: {$cpu_count}</div>
+                            <div class='group'>{$cpu_arr_load}</div>
                             <div>CPU Temperature: 0°C</div>
                             <div>Cache size: 32 MB</div>
                         </div>
