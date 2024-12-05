@@ -34,8 +34,8 @@ function workstation($hostIp, $community) {
 
     $oid_list = [
         "disk" => [
-            "size" => "HOST-RESOURCES-MIB::hrStorageSize.1",
-            "used" => "HOST-RESOURCES-MIB::hrStorageUsed.1"
+            "size" => "1.3.6.1.2.1.25.2.3.1.5",
+            "used" => "1.3.6.1.2.1.25.2.3.1.6"
         ],
         "cpu" => [
             "name" => "HOST-RESOURCES-MIB::hrDeviceDescr",
@@ -58,7 +58,6 @@ function workstation($hostIp, $community) {
     } else {
         foreach ($oid_list as $key => $value) {
             if ($key == "disk") {
-                $ses_size = $session->get($value['size']);
                 $total_size = @snmpwalk($hostIp, $community, $value["size"]);
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
                 /*
@@ -174,7 +173,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return var_dump($ses_size, $hostIp, $cpu_name, $cpu_load, $cpu_freq, $total_size, $used_size);
+    return var_dump(@snmpwalk($hostIp, $community, "1.3.6.1.2.1.25.2.3.1.5"), $hostIp, $cpu_name, $cpu_load, $cpu_freq, $total_size, $used_size);
 }
 
 ?>
