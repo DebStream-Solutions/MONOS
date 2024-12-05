@@ -108,11 +108,11 @@
     <div class="all">
         <div class="header">
             <h1 class="device"><?php
-                $conditions = ["id" => $device, "profileId" => $profile];
+                $conditions = ["id" => $device];
                 echo findValueByConditions($devices, $conditions, "name");
             ?></h1>
             <h3 class="ip"><?php
-                $conditions = ["id" => $device, "profileId" => $profile];
+                $conditions = ["id" => $device];
                 echo findValueByConditions($devices, $conditions, "ip");
             ?></h3>
         </div>
