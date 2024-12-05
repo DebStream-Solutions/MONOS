@@ -54,14 +54,14 @@
         });
 
         $(".sidebar-content > div > .title, .drop-roll > .title").click(function() {
-            if ($(this).children(".title.up").length > 0) {
-                $(this).children(".roll").slideToggle(200, () => {
-                    $(this).children(".title").removeClass("up");
+            if ($(this).has(".title.up")) {
+                $(this).siblings(".roll").slideToggle(200, () => {
+                    $(this).removeClass("up");
                 });
             } else {
-                $(this).children(".roll").slideToggle(200);
-                $(this).children(".title").addClass("up");
-                $(this).children(".roll").css("display", "flex");
+                $(this).siblings(".roll").slideToggle(200);
+                $(this).addClass("up");
+                $(this).css("display", "flex");
             }
         });
 
