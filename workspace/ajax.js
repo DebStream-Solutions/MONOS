@@ -3,7 +3,7 @@ $(document).ready(function () {
     function fetchSNMPData() {
         $.ajax({
             url: 'ajax-snmp.php', // Path to your PHP script
-            method: 'POST',
+            method: 'GET',
             dataType: 'json',
             success: function (response) {
                 if (response.success) {
