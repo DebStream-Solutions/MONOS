@@ -1,8 +1,5 @@
 <?php
 
-// Not usable for now
-snmp_read_mib("../host_resources_mib.txt");
-
 function getSNMPData($hostIp, $deviceType, $community) {
     // Create SNMP session
     $session = new SNMP(SNMP::VERSION_2c, $hostIp, $community);
@@ -111,7 +108,7 @@ function workstation($hostIp, $community) {
 
                 if ($cpu_name !== false) {
                     $cpu_name = $cpu_name[0];
-                    $cpu_name = preg_replace('/:"([^"]*)"/', '', $cpu_name);
+                    $cpu_name = preg_replace('/^.*: :/', '', $cpu_name);
                     $cpu_name_arr = explode(":", $cpu_name);
                     $cpu_name = $cpu_name_arr[count($cpu_name_arr) - 1];
                 }
