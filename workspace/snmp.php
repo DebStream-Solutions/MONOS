@@ -58,16 +58,34 @@ function workstation($hostIp, $community) {
     } else {
         foreach ($oid_list as $key => $value) {
             if ($key == "disk") {
-                $total_size = @snmpwalk($hostIp, $community, $value["size"]);
+                $disk_size = @snmpwalk($hostIp, $community, $value["size"]);
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
-                
-                $size_arr = [];
+                $storage_type = @snmpwalk($hostIp, $community, "1.3.6.1.2.1.25.2.3.1.2");
 
-                if ($total_size !== false) {
-                    foreach ($total_size as $key => $value) {
+                $size_arr = [];
+                $type_arr = [];
+                $total_size = 0;
+                $total_used = 0;
+
+                if ($disk_size !== false) {
+                    foreach ($disk_size as $key => $value) {
                         $value = preg_replace('/^.*: :/', '', $value);
                         $value = explode("INTEGER: ", $value)[1];
                         $size_arr[] = $value;
+                    }
+                }
+
+                if ($storage_type !== false) {
+                    foreach ($storage_type as $key => $value) {
+                        $value = preg_replace('/^.*: :/', '', $value);
+                        $value = explode("INTEGER: ", $value)[1];
+                        $type_arr[] = $value;
+                    }
+                }
+
+                foreach ($size_arr as $key => $value) {
+                    if (strpos($type_arr[$key], "1.3.6.1.2.1.25.2.1.4") !== false) {
+                        $total_size += (int)$value;
                     }
                 }
 
