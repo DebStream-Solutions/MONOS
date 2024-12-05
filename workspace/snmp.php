@@ -61,13 +61,13 @@ function workstation($hostIp, $community) {
                 $total_size = @snmpwalk($hostIp, $community, $value["size"]);
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
                 
-                $total_size = [];
+                $size_arr = [];
 
                 if ($total_size !== false) {
                     foreach ($total_size as $key => $value) {
                         $value = preg_replace('/^.*: :/', '', $value);
                         $value = explode("INTEGER: ", $value)[1];
-                        $total_size[] = $value;
+                        $size_arr[] = $value;
                     }
                 }
 
@@ -184,7 +184,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return var_dump($total_size, @snmpwalk($hostIp, $community, "1.3.6.1.2.1.25.2.3.1.2"));
+    return var_dump($size_arr);
 }
 
 ?>
