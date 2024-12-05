@@ -121,61 +121,6 @@
             echo $result;
 
         ?>
-        <div class="content">
-            <div class="main-banner">
-                <div id="donutchart"></div>
-            </div>
-            <div class="mon-list">
-                <div>
-                    <div class="title">
-                        CPU
-                    </div>
-                    <div class="roll">
-                        <div>CPU Usage: 18%</div>
-                        <div>Current Frequency: 2.5 GHz</div>
-                        <div>Processing Units: 6</div>
-                        <div>Cache size: 32 MB</div>
-                    </div>
-                </div>
-                <div>
-                    <div class="title">
-                        GPU
-                    </div>
-                    <div class="roll">
-                        <div>GPU Usage: 32%</div>
-                        <div>Current Frequency: 2 GHz</div>
-                        <div>Processing Units: 106</div>
-                    </div>
-                </div>
-                <div>
-                    <div class="title">
-                        RAM
-                    </div>
-                    <div class="roll">
-                        <div>RAM Usage: 54%</div>
-                        <div>Frequency: 3200 MHz</div>
-                    </div>
-                </div>
-                <div>
-                    <div class="title">
-                        DISK
-                    </div>
-                    <div class="roll">
-                        <div>Size: 1024 GB</div>
-                        <div>Free Space: 254 GB</div>
-                    </div>
-                </div>
-                <div>
-                    <div class="title">
-                        USERS
-                    </div>
-                    <div class="roll">
-                        <div>user</div>
-                        <div>root</div>
-                    </div>
-                </div>
-            </div>
-        </div>
         <div class="sidebar-wrap">
             <div class="sidebar">
                 <div class="sidebar-content">
