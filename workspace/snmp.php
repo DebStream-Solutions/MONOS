@@ -69,7 +69,6 @@ function workstation($hostIp, $community) {
             } elseif ($key == "cpu") {
                 $cpu_name = @snmpwalk($hostIp, $community, $value["name"]);
                 $cpu_load = @snmpwalk($hostIp, $community, $value["load"]);
-                $cpu_freq = @snmpwalk($hostIp, $community, $value["freq"]);
                 
                 $cpu_load_parse = [];
                 $cpu_freq_parse = [];
@@ -174,7 +173,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return $generative_content;
+    return var_dump($disk_free_percentage, $disk_free, $disk_used, $disk_used_percentage, $cpu_name, $cpu_load, $cpu_freq);
 }
 
 ?>
