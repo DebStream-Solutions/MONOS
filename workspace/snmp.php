@@ -34,8 +34,8 @@ function workstation($hostIp, $community) {
 
     $oid_list = [
         "disk" => [
-            "size" => "1.3.6.1.2.1.25.2.3.1.5",
-            "used" => "1.3.6.1.2.1.25.2.3.1.6"
+            "size" => "HOST-RESOURCES-MIB::hrStorageSize.1",
+            "used" => "HOST-RESOURCES-MIB::hrStorageUsed.1"
         ],
         "cpu" => [
             "name" => "HOST-RESOURCES-MIB::hrDeviceDescr",
