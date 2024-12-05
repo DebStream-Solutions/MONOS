@@ -134,7 +134,7 @@ function workstation($hostIp, $community) {
                 $cpu_freq = $freq_sum / $cpu_count;
             }
         }
-        /*
+
         $generative_content = "
             <div onload='drawChart(".$disk_used_percentage.",".$disk_free_percentage.")' class='content'>
                 <div class='main-banner'>
@@ -148,7 +148,6 @@ function workstation($hostIp, $community) {
                         <div class='roll'>
                             <div>{$cpu_name}</div>
                             <div>CPU Usage: {$cpu_load}%</div>
-                            <div>Current Frequency: {$cpu_freq} GHz</div>
                             <div>Processing Units: {$cpu_count}</div>
                             <div>Cache size: 32 MB</div>
                         </div>
@@ -192,7 +191,7 @@ function workstation($hostIp, $community) {
                     </div>
                 </div>
             </div>
-        ";*/
+        ";
 
 
     }
