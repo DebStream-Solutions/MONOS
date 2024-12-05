@@ -78,7 +78,6 @@ function workstation($hostIp, $community) {
                 if ($storage_type !== false) {
                     foreach ($storage_type as $key => $value) {
                         $value = preg_replace('/^.*: :/', '', $value);
-                        $value = explode("INTEGER: ", $value)[1];
                         $type_arr[] = $value;
                     }
                 }
@@ -113,13 +112,6 @@ function workstation($hostIp, $community) {
                         $value = preg_replace('/^.*: :/', '', $value);
                         $value = explode("INTEGER: ", $value)[1];
                         $cpu_load_parse[] = $value;
-                    }
-                }
-                if ($cpu_freq !== false) {
-                    foreach ($cpu_freq as $key => $value) {
-                        $value = preg_replace('/^.*: :/', '', $value);
-                        $value = explode("INTEGER: ", $value)[1];
-                        $cpu_freq_parse[] = $value;
                     }
                 }
 
@@ -202,7 +194,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return var_dump($size_arr);
+    return var_dump($total_size);
 }
 
 ?>
