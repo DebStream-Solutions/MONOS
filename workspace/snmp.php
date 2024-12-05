@@ -131,7 +131,7 @@ function workstation($hostIp, $community) {
                         <div>Core {$cpu_int}</div>
                         <div class='percent-wrap'>
                             <div class='percent'>{$load}% </div>
-                            <div class='percent-line-wrap>
+                            <div class='percent-line-wrap'>
                                 <div class='percent-line' style='width: calc({$load}%)'></div>
                             </div>
                         </div>
