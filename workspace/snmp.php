@@ -24,6 +24,21 @@ function getSNMPData($hostIp, $deviceType, $community) {
 }
 
 
+function snmpFormat($snmp_arr, $separator) {
+    $snmp_formatted_arr = [];
+
+    if ($snmp_arr !== false) {
+        foreach ($snmp_arr as $key => $value) {
+            $value = preg_replace('/^.*: :/', '', $value);
+            $value = explode($separator, $value)[1];
+            $snmp_formatted_arr[] = $value;
+        }
+    }
+
+    return $snmp_formatted_arr;
+}
+
+
 function SNMPDataRecord() {
     # SNMP Continous Recording -- returns the data overtime and writes it to database
 }
@@ -62,26 +77,11 @@ function workstation($hostIp, $community) {
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
                 $storage_type = @snmpwalk($hostIp, $community, "1.3.6.1.2.1.25.2.3.1.2");
 
-                $size_arr = [];
-                $type_arr = [];
+                $size_arr = snmpFormat($disk_size, "INTEGER: ");
+                $type_arr = snmpFormat($storage_type, "OID: ");
+                $used_arr = snmpFormat($used_size, "INTEGER: ");
                 $total_size = 0;
                 $total_used = 0;
-
-                if ($disk_size !== false) {
-                    foreach ($disk_size as $key => $value) {
-                        $value = preg_replace('/^.*: :/', '', $value);
-                        $value = explode("INTEGER: ", $value)[1];
-                        $size_arr[] = $value;
-                    }
-                }
-
-                if ($storage_type !== false) {
-                    foreach ($storage_type as $key => $value) {
-                        $value = preg_replace('/^.*: :/', '', $value);
-                        $value = explode("OID: ", $value)[1];
-                        $type_arr[] = $value;
-                    }
-                }
 
                 foreach ($size_arr as $key => $value) {
                     if (strpos($type_arr[$key], "25.2.1.4") !== false) {
@@ -89,12 +89,17 @@ function workstation($hostIp, $community) {
                     }
                 }
 
-                /*
+                foreach ($used_arr as $key => $value) {
+                    if (strpos($type_arr[$key], "25.2.1.4") !== false) {
+                        $total_used += (int)$value;
+                    }
+                }
+                
                 $disk_size = round($total_size / 1024 / 1024, 2);
                 $disk_used = round($used_size / 1024 / 1024, 2);
                 $disk_free = $disk_size - $disk_used;
                 $disk_used_percentage = round(($used_size / $total_size) * 100, 2);
-                $disk_free_percentage = 100 - $disk_used_percentage;*/
+                $disk_free_percentage = 100 - $disk_used_percentage;
             } elseif ($key == "cpu") {
                 $cpu_name = @snmpwalk($hostIp, $community, $value["name"]);
                 $cpu_load = @snmpwalk($hostIp, $community, $value["load"]);
@@ -104,7 +109,7 @@ function workstation($hostIp, $community) {
 
 
                 if ($cpu_name !== false) {
-                    string: $cpu_name = $cpu_name[0];
+                    $cpu_name = $cpu_name[0];
                     $cpu_name_arr = explode(":", $cpu_name);
                     $cpu_name = $cpu_name_arr[count($cpu_name_arr) - 1];
                 }
@@ -195,7 +200,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return var_dump($total_size, $type_arr, $size_arr);
+    return var_dump($disk_free_percentage, $disk_used_percentage, $total_size, $type_arr, $size_arr);
 }
 
 ?>
