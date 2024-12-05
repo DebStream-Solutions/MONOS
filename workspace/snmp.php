@@ -84,7 +84,7 @@ function workstation($hostIp, $community) {
                 }
 
                 foreach ($size_arr as $key => $value) {
-                    if (strpos($type_arr[$key], "1.3.6.1.2.1.25.2.1.4") !== false) {
+                    if (strpos($type_arr[$key], "25.2.1.4") !== false) {
                         $total_size += (int)$value;
                     }
                 }
