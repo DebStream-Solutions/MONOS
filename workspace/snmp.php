@@ -48,11 +48,13 @@ function workstation($hostIp, $community) {
     $oid_list = [
         "disk" => [
             "size" => "1.3.6.1.2.1.25.2.3.1.5",
-            "used" => "1.3.6.1.2.1.25.2.3.1.6"
+            "used" => "1.3.6.1.2.1.25.2.3.1.6",
+            "type" => "1.3.6.1.2.1.25.2.3.1.2"
         ],
         "cpu" => [
             "name" => "1.3.6.1.2.1.25.3.2.1.3",
-            "load" => "1.3.6.1.2.1.25.3.3.1.2"
+            "load" => "1.3.6.1.2.1.25.3.3.1.2",
+            "temp" => "1.3.6.1.4.1.2021.10.1.3.4"
         ]
 
     ];
@@ -73,7 +75,7 @@ function workstation($hostIp, $community) {
             if ($key == "disk") {
                 $disk_size = @snmpwalk($hostIp, $community, $value["size"]);
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
-                $storage_type = @snmpwalk($hostIp, $community, "1.3.6.1.2.1.25.2.3.1.2");
+                $storage_type = @snmpwalk($hostIp, $community, $value["type"]);
 
                 $size_arr = snmpFormat($disk_size, "INTEGER: ");
                 $type_arr = snmpFormat($storage_type, "OID: ");
@@ -101,7 +103,8 @@ function workstation($hostIp, $community) {
             } elseif ($key == "cpu") {
                 $cpu_name = @snmpwalk($hostIp, $community, $value["name"]);
                 $cpu_load = @snmpwalk($hostIp, $community, $value["load"]);
-                
+                $cpu_temp = @snmpwalk($hostIp, $community, $value["temp"]);
+
                 $cpu_load_parse = [];
                 $cpu_freq_parse = [];
 
@@ -153,6 +156,7 @@ function workstation($hostIp, $community) {
                             <div>{$cpu_name}</div>
                             <div>CPU Usage: {$cpu_load}%</div>
                             <div>Processing Units: {$cpu_count}</div>
+                            <div>CPU Temperature: 0°C</div>
                             <div>Cache size: 32 MB</div>
                         </div>
                     </div>
@@ -204,7 +208,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return $generative_content.var_dump($cpu_name, $cpu_load);
+    return $generative_content.var_dump($cpu_temp);
 }
 
 ?>
