@@ -60,6 +60,17 @@ function workstation($hostIp, $community) {
             if ($key == "disk") {
                 $total_size = @snmpwalk($hostIp, $community, $value["size"]);
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
+                
+                $total_size = [];
+
+                if ($total_size !== false) {
+                    foreach ($total_size as $key => $value) {
+                        $value = preg_replace('/^.*: :/', '', $value);
+                        $value = explode("INTEGER: ", $value)[1];
+                        $total_size[] = $value;
+                    }
+                }
+
                 /*
                 $disk_size = round($total_size / 1024 / 1024, 2);
                 $disk_used = round($used_size / 1024 / 1024, 2);
@@ -173,7 +184,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return var_dump(@snmpwalk($hostIp, $community, "1.3.6.1.2.1.25.2.3.1.5"), $hostIp, $cpu_name, $cpu_load, $cpu_freq, $total_size, $used_size);
+    return var_dump($total_size, @snmpwalk($hostIp, $community, "1.3.6.1.2.1.25.2.3.1.2"));
 }
 
 ?>
