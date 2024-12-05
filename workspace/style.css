@@ -382,6 +382,12 @@ div:has(.title.up) > .roll {
     padding: 0.25rem 0;
 }
 
+.drop-roll > .title {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
 .percent-wrap {
     display: flex;
 }
