@@ -78,6 +78,7 @@ function workstation($hostIp, $community) {
                 if ($storage_type !== false) {
                     foreach ($storage_type as $key => $value) {
                         $value = preg_replace('/^.*: :/', '', $value);
+                        $value = explode("OID: ", $value)[1];
                         $type_arr[] = $value;
                     }
                 }
