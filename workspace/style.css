@@ -390,6 +390,7 @@ div:has(.title.up) > .roll {
 
 .mon-list .roll > div {
     display: flex;
+    flex-direction: column;
     gap: 0.5rem;
 }
 
