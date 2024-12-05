@@ -14,6 +14,9 @@
     $ipv4 = findValueByConditions($devices, $conditions, "ip");
     $typeId = findValueByConditions($devices, $conditions, "type");
 
+    $_SESSION["device-ip"] = $ipv4;
+    $_SESSION["device-type"] = $typeId;
+
     $result = getSNMPData($ipv4, $typeId, "public");
     
     //echo $result;
@@ -29,6 +32,7 @@
     <title>Document</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+    <script src="../ajax.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
@@ -116,11 +120,9 @@
                 echo findValueByConditions($devices, $conditions, "ip");
             ?></h3>
         </div>
-        <?php
-
-            echo $result;
-
-        ?>
+        <div class="generated">
+            <?php echo $result; ?>
+        </div>
         <div class="sidebar-wrap">
             <div class="sidebar">
                 <div class="sidebar-content">
