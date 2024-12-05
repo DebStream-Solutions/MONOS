@@ -392,6 +392,7 @@ div:has(.title.up) > .roll {
 .percent-line-wrap {
     flex: 1;
     background-color: #292929;
+    display: flex;
 }
 
 .percent-line {
