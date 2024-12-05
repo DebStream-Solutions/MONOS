@@ -61,12 +61,12 @@ function workstation($hostIp, $community) {
                 $ses_size = $session->get($value['size']);
                 $total_size = @snmpwalk($hostIp, $community, $value["size"]);
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
-    
+                /*
                 $disk_size = round($total_size / 1024 / 1024, 2);
                 $disk_used = round($used_size / 1024 / 1024, 2);
                 $disk_free = $disk_size - $disk_used;
                 $disk_used_percentage = round(($used_size / $total_size) * 100, 2);
-                $disk_free_percentage = 100 - $disk_used_percentage;
+                $disk_free_percentage = 100 - $disk_used_percentage;*/
             } elseif ($key == "cpu") {
                 $cpu_name = @snmpwalk($hostIp, $community, $value["name"]);
                 $cpu_load = @snmpwalk($hostIp, $community, $value["load"]);
@@ -108,7 +108,7 @@ function workstation($hostIp, $community) {
                 $cpu_freq = $freq_sum / $cpu_count;
             }
         }
-
+        /*
         $generative_content = "
             <div onload='drawChart(".$disk_used_percentage.",".$disk_free_percentage.")' class='content'>
                 <div class='main-banner'>
@@ -166,7 +166,7 @@ function workstation($hostIp, $community) {
                     </div>
                 </div>
             </div>
-        ";
+        ";*/
 
 
     }
@@ -174,7 +174,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return var_dump($ses_size, $hostIp, $disk_free_percentage, $disk_free, $disk_used, $disk_used_percentage, $cpu_name, $cpu_load, $cpu_freq);
+    return var_dump($ses_size, $hostIp, $cpu_name, $cpu_load, $cpu_freq, $total_size, $used_size);
 }
 
 ?>
