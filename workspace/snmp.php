@@ -96,7 +96,7 @@ function workstation($hostIp, $community) {
                 }
                 
                 $disk_size = round($total_size / 1024 / 1024, 2);
-                $disk_used = round($used_size / 1024 / 1024, 2);
+                $disk_used = round($total_used / 1024 / 1024, 2);
                 $disk_free = $disk_size - $disk_used;
                 $disk_used_percentage = round(($used_size / $total_size) * 100, 2);
                 $disk_free_percentage = 100 - $disk_used_percentage;
