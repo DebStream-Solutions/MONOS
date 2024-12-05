@@ -6,6 +6,8 @@ header('Content-Type: application/json');
 
 // Fetch SNMP data
 
+
+# TODO - only paste the real time data not everything
 $data = getSNMPData($_SESSION["device-ip"], $_SESSION["device-type"], "public");
 
 if ($data !== false) {
