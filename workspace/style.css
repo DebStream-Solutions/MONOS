@@ -372,6 +372,33 @@ div:has(.title.up) > .roll {
     -o-transform: rotate(180deg); /* Opera */
 }
 
+/* Cpu */
+
+.group {
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+    font-size: 0.9rem;
+}
+
+.percent-wrap {
+    display: flex;
+}
+
+.percent {
+    width: 3rem;
+}
+
+.percent-line-wrap {
+    flex: 1;
+    background-color: #292929;
+}
+
+.percent-line {
+    background-color: #804fcf;
+}
+
+
 /* EDIT/ADD (forms) */
 
 body {
