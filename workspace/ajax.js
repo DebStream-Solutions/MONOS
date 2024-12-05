@@ -7,7 +7,7 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 if (response.success) {
-                    $('.generated').text(response.data);
+                    $('.generated').html(response.data);
                 } else {
                     $('.generated').text('Error: ' + response.message);
                 }
