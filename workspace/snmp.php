@@ -173,7 +173,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return var_dump($disk_free_percentage, $disk_free, $disk_used, $disk_used_percentage, $cpu_name, $cpu_load, $cpu_freq);
+    return var_dump($hostIp, $disk_free_percentage, $disk_free, $disk_used, $disk_used_percentage, $cpu_name, $cpu_load, $cpu_freq);
 }
 
 ?>
