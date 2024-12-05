@@ -53,7 +53,7 @@
             setTimeout(hideLoad, 1000);
         });
 
-        $(".sidebar-content > div").click(function() {
+        $(".sidebar-content > div, .drop-roll").click(function() {
             if ($(this).children(".title.up").length > 0) {
                 $(this).children(".roll").slideToggle(200, () => {
                     $(this).children(".title").removeClass("up");
