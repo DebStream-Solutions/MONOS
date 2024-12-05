@@ -39,8 +39,7 @@ function workstation($hostIp, $community) {
         ],
         "cpu" => [
             "name" => "HOST-RESOURCES-MIB::hrDeviceDescr",
-            "load" => "HOST-RESOURCES-MIB::hrProcessorLoad",
-            "freq" => "HOST-RESOURCES-MIB::hrProcessorFrq"
+            "load" => "HOST-RESOURCES-MIB::hrProcessorLoad"
         ]
 
     ];
@@ -59,8 +58,8 @@ function workstation($hostIp, $community) {
     } else {
         foreach ($oid_list as $key => $value) {
             if ($key == "disk") {
-                $total_size = $session->get($value['size']);
-                $used_size = $session->get($value['used']);
+                $total_size = @snmpwalk($hostIp, $community, $value["size"]);
+                $used_size = @snmpwalk($hostIp, $community, $value["used"]);
     
                 $disk_size = round($total_size / 1024 / 1024, 2);
                 $disk_used = round($used_size / 1024 / 1024, 2);
