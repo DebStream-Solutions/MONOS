@@ -194,7 +194,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return var_dump($total_size);
+    return var_dump($total_size, $type_arr, $size_arr);
 }
 
 ?>
