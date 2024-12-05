@@ -1,6 +1,6 @@
 <?php
 
-//snmp_read_mib("host_resources_mib.txt");
+snmp_read_mib("host_resources_mib.txt");
 
 function getSNMPData($hostIp, $deviceType, $community) {
     // Create SNMP session
