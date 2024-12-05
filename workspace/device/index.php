@@ -88,7 +88,7 @@
                 } else {
                     $(this).siblings(".roll").slideToggle(200);
                     $(this).addClass("up");
-                    $(this).css("display", "flex");
+                    $(this).siblings(".roll").css("display", "flex");
                 }
             });
 
