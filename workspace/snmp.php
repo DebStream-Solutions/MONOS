@@ -111,6 +111,7 @@ function workstation($hostIp, $community) {
 
                 if ($cpu_name !== false) {
                     $cpu_name = $cpu_name[0];
+                    $cpu_name = preg_replace('/^.*: :/', '', $cpu_name);
                     $cpu_name_arr = explode(":", $cpu_name);
                     $cpu_name = $cpu_name_arr[count($cpu_name_arr) - 1];
                 }
