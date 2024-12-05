@@ -58,6 +58,7 @@ function workstation($hostIp, $community) {
     } else {
         foreach ($oid_list as $key => $value) {
             if ($key == "disk") {
+                $ses_size = $session->get($value['size']);
                 $total_size = @snmpwalk($hostIp, $community, $value["size"]);
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
     
@@ -173,7 +174,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return var_dump($hostIp, $disk_free_percentage, $disk_free, $disk_used, $disk_used_percentage, $cpu_name, $cpu_load, $cpu_freq);
+    return var_dump($ses_size, $hostIp, $disk_free_percentage, $disk_free, $disk_used, $disk_used_percentage, $cpu_name, $cpu_load, $cpu_freq);
 }
 
 ?>
