@@ -135,8 +135,13 @@ function workstation($hostIp, $community) {
             }
         }
 
+
+        # FOR CHART - Make variables global
+        $GLOBALS["usedSpace"] = $disk_used_percentage;
+        $GLOBALS["freeSpace"] = $disk_free_percentage;
+
         $generative_content = "
-            <div onload='drawChart(".$disk_used_percentage.",".$disk_free_percentage.")' class='content'>
+            <div class='content'>
                 <div class='main-banner'>
                     <div id='donutchart'></div>
                 </div>

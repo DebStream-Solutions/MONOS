@@ -31,13 +31,13 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
-        //google.charts.setOnLoadCallback(drawChart);
+        google.charts.setOnLoadCallback(drawChart);
 
-        function drawChart(usedSpace, freeSpace) {
+        function drawChart() {
             var data = google.visualization.arrayToDataTable([
                 ['Type', 'Space'],
-                ['Used Space', usedSpace],
-                ['Free Space', freeSpace]
+                ['Used Space', <?php echo issetReturn($GLOBALS["usedSpace"]) ?>],
+                ['Free Space', <?php echo issetReturn($GLOBALS["freeSpace"]) ?>]
             ]);
 
             var theme = 'dark'; // Change this to 'light' to see the light theme

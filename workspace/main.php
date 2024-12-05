@@ -22,6 +22,11 @@ function findValueByConditions($array, $conditions, $returnKey) {
 $currentUrl = "$_SERVER[REQUEST_URI]";
 
 
+function issetReturn($variable) {
+    return isset($variable) ? $variable : "";
+}
+
+
 # == DATABASE ==================
 
 $devices = "SELECT * FROM devices";
