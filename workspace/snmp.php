@@ -235,7 +235,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return $generative_content.var_dump($cpu_temp);
+    return $generative_content;
 }
 
 ?>
