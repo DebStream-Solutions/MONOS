@@ -168,13 +168,15 @@ function workstation($hostIp, $community) {
                             CPU
                         </div>
                         <div class='roll'>
-                            <div>{$cpu_name}</div>
-                            <div class='drop-roll'>
-                                <div class='title'>CPU Usage: {$cpu_load}%</div>
-                                <div class='group roll'>{$cpu_arr_load}</div>
+                            <div>
+                                <div>{$cpu_name}</div>
+                                <div class='drop-roll'>
+                                    <div class='title'>CPU Usage: {$cpu_load}%</div>
+                                    <div class='group roll'>{$cpu_arr_load}</div>
+                                </div>
+                                <div>CPU Temperature: 0°C</div>
+                                <div>Cache size: 32 MB</div>
                             </div>
-                            <div>CPU Temperature: 0°C</div>
-                            <div>Cache size: 32 MB</div>
                         </div>
                     </div>
                     <div>
@@ -182,9 +184,11 @@ function workstation($hostIp, $community) {
                             GPU
                         </div>
                         <div class='roll'>
-                            <div>GPU Usage: 32%</div>
-                            <div>Current Frequency: 2 GHz</div>
-                            <div>Processing Units: 106</div>
+                            <div>
+                                <div>GPU Usage: 32%</div>
+                                <div>Current Frequency: 2 GHz</div>
+                                <div>Processing Units: 106</div>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -192,8 +196,10 @@ function workstation($hostIp, $community) {
                             RAM
                         </div>
                         <div class='roll'>
-                            <div>RAM Usage: 54%</div>
-                            <div>Frequency: 3200 MHz</div>
+                            <div>
+                                <div>RAM Usage: 54%</div>
+                                <div>Frequency: 3200 MHz</div>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -201,9 +207,11 @@ function workstation($hostIp, $community) {
                             DISK
                         </div>
                         <div class='roll'>
-                            <div>Size: {$disk_size} GB</div>
-                            <div>Free Space: {$disk_free} GB</div>
-                            <div>Used Space: {$disk_used} GB</div>
+                            <div>
+                                <div>Size: {$disk_size} GB</div>
+                                <div>Free Space: {$disk_free} GB</div>
+                                <div>Used Space: {$disk_used} GB</div>
+                            </div>
                         </div>
                     </div>
                     <div>
@@ -211,8 +219,10 @@ function workstation($hostIp, $community) {
                             USERS
                         </div>
                         <div class='roll'>
-                            <div>user</div>
-                            <div>root</div>
+                            <div>
+                                <div>user</div>
+                                <div>root</div>
+                            </div>
                         </div>
                     </div>
                 </div>

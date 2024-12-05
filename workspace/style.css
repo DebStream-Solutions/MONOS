@@ -388,6 +388,11 @@ div:has(.title.up) > .roll {
     align-items: center;
 }
 
+.mon-list .roll > div {
+    display: flex;
+    gap: 0.5rem;
+}
+
 .percent-wrap {
     display: flex;
 }
