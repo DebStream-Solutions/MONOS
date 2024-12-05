@@ -109,11 +109,17 @@ function listDevices($profile) {
     $deviceList = "";
 
     foreach ($devices as $key => $value) {
-        $profileId = "SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"];
+        $profileId = "SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"]." AND profileId = ".$profile;
         $profileId = $conn->query($profileId);
-        $profileId = $profileId->fetch_all(MYSQLI_ASSOC)[0]["profileId"];
+        $profileId = $profileId->fetch_all(MYSQLI_ASSOC);
 
-        $newUrl = "device/?profile=".$profileId."&device=".$value['id'];
+        if (!empty($profileId)) {
+            $profileId = $profileId[0]["profileId"];
+        } else {
+            $deviceList .= "There are no devices in this profile. Go and add some!";
+        }
+
+        $newUrl = "device/?profile=".$profile."&device=".$value['id'];
         $conditions = ["id" => $value['type']];
         $type_str = findValueByConditions($types, $conditions, "name");
         
