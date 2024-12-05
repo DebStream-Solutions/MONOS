@@ -183,6 +183,7 @@ function workstation($hostIp, $community) {
                         <div class='roll'>
                             <div>Size: {$disk_size} GB</div>
                             <div>Free Space: {$disk_free} GB</div>
+                            <div>Used Space: {$disk_used} GB</div>
                         </div>
                     </div>
                     <div>
@@ -204,7 +205,7 @@ function workstation($hostIp, $community) {
 
     $session->close();
 
-    return $generative_content;
+    return $generative_content.var_dump($cpu_name, $cpu_load);
 }
 
 ?>
