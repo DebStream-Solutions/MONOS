@@ -380,6 +380,8 @@ div:has(.title.up) > .roll {
     gap: 1rem;
     font-size: 0.9rem;
     padding: 0.25rem 0;
+    padding: 0.75rem;
+    background-color: #171717;
 }
 
 .drop-roll > .title {
