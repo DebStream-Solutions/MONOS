@@ -169,9 +169,9 @@ function workstation($hostIp, $community) {
                         </div>
                         <div class='roll'>
                             <div>{$cpu_name}</div>
-                            <div>CPU Usage: {$cpu_load}%</div>
-                            <div>Processing Units: {$cpu_count}</div>
-                            <div class='group'>{$cpu_arr_load}</div>
+                            <div class='roll'>CPU Usage: {$cpu_load}%
+                                <div class='group'>{$cpu_arr_load}</div>
+                            </div>
                             <div>CPU Temperature: 0°C</div>
                             <div>Cache size: 32 MB</div>
                         </div>
