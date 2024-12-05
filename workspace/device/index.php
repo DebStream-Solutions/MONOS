@@ -81,7 +81,7 @@
         function onLoad() {
 
             $(".mon-list > div > .title, .drop-roll > .title").click(function() {
-                if ($(this).has(".up")) {
+                if ($(this).hasClass("up")) {
                     $(this).siblings(".roll").slideToggle(200, () => {
                         $(this).removeClass("up");
                     });
