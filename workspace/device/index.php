@@ -79,27 +79,16 @@
         }
 
         function onLoad() {
-            $(".mon-list > div").click(function() {
-                if ($(this).children(".title.up").length > 0) {
-                    $(this).children(".roll").slideToggle(200, () => {
-                        $(this).children(".title").removeClass("up");
-                    });
-                } else {
-                    $(this).children(".roll").slideToggle(200);
-                    $(this).children(".title").addClass("up");
-                    $(this).children(".roll").css("display", "flex");
-                }
-            });
 
-            $(".sidebar-content > div").click(function() {
-                if ($(this).children(".title.up").length > 0) {
-                    $(this).children(".roll").slideToggle(200, () => {
-                        $(this).children(".title").removeClass("up");
+            $(".mon-list > div > .title, .drop-roll > .title").click(function() {
+                if ($(this).has(".up")) {
+                    $(this).siblings(".roll").slideToggle(200, () => {
+                        $(this).removeClass("up");
                     });
                 } else {
-                    $(this).children(".roll").slideToggle(200);
-                    $(this).children(".title").addClass("up");
-                    $(this).children(".roll").css("display", "flex");
+                    $(this).siblings(".roll").slideToggle(200);
+                    $(this).addClass("up");
+                    $(this).css("display", "flex");
                 }
             });
 

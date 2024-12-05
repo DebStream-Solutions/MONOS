@@ -53,15 +53,15 @@
             setTimeout(hideLoad, 1000);
         });
 
-        $(".sidebar-content > div > .title, .drop-roll > .title").click(function() {
-            if ($(this).has(".title.up")) {
-                $(this).siblings(".roll").slideToggle(200, () => {
-                    $(this).removeClass("up");
+        $(".sidebar-content > div").click(function() {
+            if ($(this).children(".title.up").length > 0) {
+                $(this).children(".roll").slideToggle(200, () => {
+                    $(this).children(".title").removeClass("up");
                 });
             } else {
-                $(this).siblings(".roll").slideToggle(200);
-                $(this).addClass("up");
-                $(this).css("display", "flex");
+                $(this).children(".roll").slideToggle(200);
+                $(this).children(".title").addClass("up");
+                $(this).children(".roll").css("display", "flex");
             }
         });
 
