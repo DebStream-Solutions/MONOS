@@ -21,10 +21,7 @@
     
     //echo $result;
 
-    foreach ($_SESSION["oid"] as $key => $value) {
-        var_dump($value);
-    }
-
+    var_dump($_SESSION["oid"]);
 
 ?>
 <!DOCTYPE html>
