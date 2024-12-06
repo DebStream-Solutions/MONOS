@@ -30,6 +30,8 @@ $(document).ready(function () {
                         console.log('Invalid data format:', response.data);
                     }
 
+                    $('.generated').html(response.data);
+
                     /*
                     if (response.data.hasOwnProperty(key)) {
                         // Create a new HTML element for each key-value pair
