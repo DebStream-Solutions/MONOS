@@ -12,6 +12,7 @@ $(document).ready(function () {
                         // Create a new HTML element for each key-value pair
                         let element = `#${key}`;
                         $(element).html(value);
+                        console.log(element, value);
                     });
 
                 } else {
