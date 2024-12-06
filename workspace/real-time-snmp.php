@@ -45,7 +45,7 @@ function getRealTimeArray($type, $ip) {
 
     $real_time_oids = [
         "1.3.6.1.2.1.25.3.3.1.2" => [
-            "type" => ["3", "4"],
+            "type" => [3, 4],
             "id" => [
                 "cpuLoad" => "CPU Usage: {}%",
                 "coreLoads" => ["
