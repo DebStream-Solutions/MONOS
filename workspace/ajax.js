@@ -10,12 +10,22 @@ $(document).ready(function () {
 
                     console.log("SUCCESS");
 
+                    /*
                     Object.entries(response.data).forEach(([key, value]) => {
                         // Create a new HTML element for each key-value pair
                         let element = `#${key}`;
                         $(element).html(value);
                         console.log(element, value);
                     });
+                    */
+
+                    if (response.data.hasOwnProperty(key)) {
+                        // Create a new HTML element for each key-value pair
+                        let element = `#${key}`;
+                        let value = response.data[key];
+                        $(element).html(value);
+                        console.log(element, value);
+                    }
 
                 } else {
                     $('.generated').html('<div style="margin: auto; text-align: center;">Error: ' + response.message + '</div>');
