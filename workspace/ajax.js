@@ -19,6 +19,18 @@ $(document).ready(function () {
                     });
                     */
 
+
+                    if (response.data && typeof response.data === 'object') {
+                        Object.entries(response.data).forEach(([key, value]) => {
+                            let element = `#${key}`;
+                            $(element).html(value);
+                            console.log(element, value);
+                        });
+                    } else {
+                        console.error('Invalid data format:', response.data);
+                    }
+                    
+                    /*
                     if (response.data.hasOwnProperty(key)) {
                         // Create a new HTML element for each key-value pair
                         let element = `#${key}`;
@@ -26,6 +38,7 @@ $(document).ready(function () {
                         $(element).html(value);
                         console.log(element, value);
                     }
+                    */
 
                 } else {
                     $('.generated').html('<div style="margin: auto; text-align: center;">Error: ' + response.message + '</div>');
