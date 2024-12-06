@@ -30,7 +30,7 @@ $(document).ready(function () {
                         console.log('Invalid data format:', response.data);
                     }
 
-                    $('.generated').html(response.data);
+                    $('.generated').text(response.data);
 
                     /*
                     if (response.data.hasOwnProperty(key)) {
