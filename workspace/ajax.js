@@ -22,7 +22,7 @@ $(document).ready(function () {
                     if (response.data.hasOwnProperty(key)) {
                         // Create a new HTML element for each key-value pair
                         let element = `#${key}`;
-                        let value = response.data[key];
+                        let value = response.data.key;
                         $(element).html(value);
                         console.log(element, value);
                     }
