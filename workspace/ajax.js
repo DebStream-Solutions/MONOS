@@ -8,6 +8,8 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
 
+                    console.log("SUCCESS");
+
                     Object.entries(response.data).forEach(([key, value]) => {
                         // Create a new HTML element for each key-value pair
                         let element = `#${key}`;

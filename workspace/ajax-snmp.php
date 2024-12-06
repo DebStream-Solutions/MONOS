@@ -15,11 +15,12 @@ if (isset($_SESSION['device-type']) && $_SESSION['device-ip']) {
         $data = false;
     }
 } else {
+    $error = "Error: Missing either IP or Device Type session";
     $data = false;
 }
 
 if ($data !== false) {
     echo json_encode(['success' => true, 'data' => $data]);
 } else {
-    echo json_encode(['success' => false, 'message' => 'SNMP fetch failed']);
+    echo json_encode(['success' => false, 'message' => $error]);
 }
