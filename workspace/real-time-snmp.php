@@ -84,7 +84,6 @@ function getRealTimeArray($type, $ip) {
 
                             $i++;
                         }
-                        $_SESSION["oid"] = $htmlResolved;
                     } else {
                         if (count($oid_arr) == 1) {
                             $oid_value = $oid_arr[0];

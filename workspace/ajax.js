@@ -8,7 +8,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
 
-                    console.log("SUCCESS");
+                    console.log("Data refresh");
 
                     /*
                     Object.entries(response.data).forEach(([key, value]) => {
@@ -24,7 +24,6 @@ $(document).ready(function () {
                         Object.entries(response.data).forEach(([key, value]) => {
                             let element = `#${key}`;
                             $(element).html(value);
-                            console.log(element, value);
                         });
                     } else {
                         console.log('Invalid data format:', response.data);
