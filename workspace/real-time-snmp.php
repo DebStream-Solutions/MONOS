@@ -67,10 +67,10 @@ function getRealTimeArray($type, $ip) {
     foreach ($real_time_oids as $key => $value) {
         if (is_array($value["type"]) || $type == $value["type"]) {
             if (in_array($type, $value["type"])) {
-                $oid_req = @snmpwalk($ip, $community, $value);
+                $oid_req = @snmpwalk($ip, $community, $key);
                 $oid_arr = snmpFormat($oid_req, "INTEGER: ");
 
-                $_SESSION["oid"] = $oid_req;
+                $_SESSION["oid"] = $value;
 
                 foreach ($value["id"] as $elemetId => $htmlTemplate) {
                     $htmlResolved = "";
