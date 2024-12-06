@@ -21,6 +21,7 @@
     
     //echo $result;
 
+    var_dump(isset($_SESSION["oid"]));
     var_dump($_SESSION["oid"]);
 
 ?>
