@@ -70,7 +70,7 @@ function getRealTimeArray($type, $ip) {
                 $oid_req = @snmpwalk($ip, $community, $value);
                 $oid_arr = snmpFormat($oid_req, "INTEGER: ");
 
-                $_SESSION["oid"][] = $oid_arr;
+                $_SESSION["oid"] = $oid_arr;
 
                 foreach ($value["id"] as $elemetId => $htmlTemplate) {
                     $htmlResolved = "";
