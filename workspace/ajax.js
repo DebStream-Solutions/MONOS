@@ -7,13 +7,19 @@ $(document).ready(function () {
             dataType: 'json',
             success: function (response) {
                 if (response.success) {
-                    $('.generated').html(response.data);
+
+                    Object.entries(response.data).forEach(([key, value]) => {
+                        // Create a new HTML element for each key-value pair
+                        let element = `#${key}`;
+                        $(element).html(value);
+                    });
+
                 } else {
-                    $('.generated').text('Error: ' + response.message);
+                    $('.generated').html('<div style="margin: auto; text-align: center;">Error: ' + response.message + '</div>');
                 }
             },
             error: function () {
-                $('.generated').text('Error: Failed to fetch data');
+                $('.generated').text('<div style="margin: auto; text-align: center;">Error: Failed to fetch data</div>');
             },
             complete: function () {
                 // Re-run the function after 5 seconds

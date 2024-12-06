@@ -171,8 +171,8 @@ function workstation($hostIp, $community) {
                             <div>
                                 <div>{$cpu_name}</div>
                                 <div class='drop-roll'>
-                                    <div class='title'>CPU Usage: {$cpu_load}%</div>
-                                    <div class='group roll'>{$cpu_arr_load}</div>
+                                    <div id='cpuLoad' class='title'>CPU Usage: {$cpu_load}%</div>
+                                    <div id='coreLoads' class='group roll'>{$cpu_arr_load}</div>
                                 </div>
                             </div>
                         </div>
