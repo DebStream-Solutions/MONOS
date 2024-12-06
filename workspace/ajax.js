@@ -48,7 +48,7 @@ $(document).ready(function () {
             },
             complete: function () {
                 // Re-run the function after 5 seconds
-                setTimeout(fetchSNMPData, 5000);
+                setTimeout(fetchSNMPData, 500);
             }
         });
     }
