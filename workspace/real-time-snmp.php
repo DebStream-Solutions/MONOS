@@ -75,10 +75,11 @@ function getRealTimeArray($type, $ip) {
 
                     if (is_array($htmlTemplate)) {
                         $i = 1; # ||
+                        $htmlTemplate = $htmlTemplate[0];
                         foreach ($oid_arr as $key => $oid_value) {
                             # Replacing all {} and || with actual values, append to $htmlResolved
-                            $currentHtmlResolved = str_replace("{}", $oid_value, $htmlTemplate);
-                            $currentHtmlResolved = str_replace("||", $i, $currentHtmlResolved);
+                            $currentHtmlResolved = strval(str_replace("{}", $oid_value, $htmlTemplate));
+                            $currentHtmlResolved = strval(str_replace("||", $i, $currentHtmlResolved));
                             $htmlResolved .= $currentHtmlResolved;
 
                             $i++;
