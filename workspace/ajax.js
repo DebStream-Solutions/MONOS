@@ -27,7 +27,7 @@ $(document).ready(function () {
                             console.log(element, value);
                         });
                     } else {
-                        console.error('Invalid data format:', response.data);
+                        console.log('Invalid data format:', response.data);
                     }
                     
                     /*
