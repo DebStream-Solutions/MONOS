@@ -29,9 +29,6 @@ $(document).ready(function () {
                     } else {
                         console.log('Invalid data format:', response.data);
                     }
-
-
-                    $(".generated").html(response.data);
                     
                     /*
                     if (response.data.hasOwnProperty(key)) {
