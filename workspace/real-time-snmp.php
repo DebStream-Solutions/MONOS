@@ -166,37 +166,4 @@ $snmpData = [
     'contact' => 'admin@example.com'
 ];
 
-
-
-$cpu_load = @snmpwalk($hostIp, $community, $value["load"]);
-$cpu_load_parse = snmpFormat($cpu_load, "INTEGER: ");
-$cpu_arr_load = "";
-
-
-foreach ($cpu_load_parse as $cpu_int => $load) {
-    $cpu_int = intval($cpu_int) + 1;
-    $cpu_arr_load .= "
-    <div class='core-load'>
-        <div>Core {$cpu_int}</div>
-        <div class='percent-wrap'>
-            <div class='percent'>{$load}% </div>
-            <div class='percent-line-wrap'>
-                <div class='percent-line' style='width: calc({$load}%)'></div>
-            </div>
-        </div>
-    </div>";
-}
-
-$cpu_sum = 0;
-$freq_sum = 0;
-$cpu_count = count($cpu_load);
-foreach ($cpu_load_parse as $cpu) {
-    $cpu_sum += (int) $cpu;
-}
-foreach ($cpu_freq_parse as $cpu) {
-    $freq_sum += (int) $cpu;
-}
-$cpu_load = $cpu_sum / $cpu_count;
-
-
 ?>

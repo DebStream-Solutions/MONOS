@@ -4,34 +4,14 @@ $oids_list = [
     "1.3.6.1.2.1.25.2.3.1.5" => [ # disk Size
         "type" => [3, 4],
         "id" => [
-            "cpuLoad" => "CPU Usage: {}%",
-            "coreLoads" => ["
-                <div class='core-load'>
-                    <div>Core ||</div>
-                    <div class='percent-wrap'>
-                        <div class='percent'>{}% </div>
-                        <div class='percent-line-wrap'>
-                            <div class='percent-line' style='width: calc({}%)'></div>
-                        </div>
-                    </div>
-                </div>"]
+            "diskSize" => "Used space: {} GB"
         ],
         "separator" => "INTEGER: "
     ],
     "1.3.6.1.2.1.25.2.3.1.6" => [ # disk Used
         "type" => [3, 4],
         "id" => [
-            "cpuLoad" => "CPU Usage: {}%",
-            "coreLoads" => ["
-                <div class='core-load'>
-                    <div>Core ||</div>
-                    <div class='percent-wrap'>
-                        <div class='percent'>{}% </div>
-                        <div class='percent-line-wrap'>
-                            <div class='percent-line' style='width: calc({}%)'></div>
-                        </div>
-                    </div>
-                </div>"]
+            "cpuLoad" => "CPU Usage: {}%"
         ],
         "separator" => "INTEGER: "
     ],
@@ -156,7 +136,47 @@ function snmpFormat($snmp_arr, $separator) {
     return $snmp_formatted_arr;
 }
 
-function snmpDataArray($oids, $ip, $type, $community) {
+function snmpRawDataArray($oids, $ip, $type, $community) {
+    $snmpData = [];
+
+    foreach ($oids as $key => $value) {
+        if (is_array($value["type"]) || $type == $value["type"]) {
+            if (in_array($type, $value["type"])) {
+                $oid_req = @snmpwalk($ip, $community, $key);
+                $oid_arr = snmpFormat($oid_req, $value["separator"]);
+
+                foreach ($value["id"] as $elemetId => $htmlTemplate) {
+
+                    if (is_array($htmlTemplate)) {
+                        foreach ($oid_arr as $key => $oid_value) {
+                            $insert[] = $oid_value;
+                        }
+                    } else {
+                        if (count($oid_arr) == 1) {
+                            $oid_value = $oid_arr[0];
+                            $insert = $oid_value;
+                        } else {
+                            # Get avarage - must be int (we are not checking if it is int, it should be)
+                            $items_count = count($oid_arr);
+                            foreach ($oid_arr as $item) {
+                                $items_sum += (int) $item;
+                            }
+                            $oid_value = $items_sum / $items_count;
+                            $insert = $oid_value;
+                        }
+                    }
+
+                    $snmpData[$elemetId] = $insert;
+                }
+            }
+        } # else -- not the type
+    }
+
+    return $snmpData;
+}
+
+
+function snmpDataArrayHtml($oids, $ip, $type, $community) {
     $snmpData = [];
 
     foreach ($oids as $key => $value) {
@@ -230,23 +250,20 @@ function getSNMPData($hostIp, $deviceType, $community) {
 
 function workstation($hostIp, $community) {
     global $oids_list;
+    $type = 3;
     $generative_content = '';
 
     $session = new SNMP(SNMP::VERSION_2c, $hostIp, $community);
-    $session->oid_output_format = SNMP_OID_OUTPUT_SUFFIX;
-    $session->valueretrieval = SNMP_VALUE_LIBRARY;
-    $session->quick_print = 1;
-    $session->enum_print = 0;
-
 
     if ($session->getError()) {
         $generative_content = "Error: " . $session->getError();
     } else {
-        
+        # Get SNMP Data Array
+        $data = snmpDataArrayHtml($oids_list, $hostIp, 3, $community);
 
 
         # FOR CHART - Make variables global
-        $GLOBALS["usedSpace"] = $disk_used_percentage;
+        $GLOBALS["usedSpace"] = snmpRawDataArray($oids_list, $hostIp, 3, $community)["disk"];
         $GLOBALS["freeSpace"] = $disk_free_percentage;
 
         $generative_content = "
