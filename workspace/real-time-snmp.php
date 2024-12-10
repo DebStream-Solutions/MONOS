@@ -28,7 +28,7 @@ function snmpFormat($snmp_arr, $separator) {
 /*
 INFO:
 
-{} === replaced with the oid value
+{} === replaced with the oid value / returned call function value
 || === replaced with integer ($i) returned from the for cycle
 
 "id" => "element-id" => "one-printed-html"

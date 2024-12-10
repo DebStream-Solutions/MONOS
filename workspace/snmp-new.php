@@ -1,5 +1,31 @@
 <?php
 
+$callFuncArr = [
+    "diskSize" => "disk()",
+];
+
+
+function disk($oid) {
+    if ( $oid == "diskSize") {
+        $type_arr = getValueOid("diskType");
+        $size_arr = $oid;
+        
+        $total_size = 0;
+
+        foreach ($size_arr as $key => $value) {
+            if (strpos($type_arr[$key], "25.2.1.4") !== false) {
+                $total_size += (int)$value;
+            }
+        }
+        
+        $disk_size = round($total_size / 1024 / 1024, 2);
+        $disk_used_percentage = round(($total_used / $total_size) * 100, 2);
+        $disk_free_percentage = 100 - $disk_used_percentage;
+    } else {
+
+    }
+}
+
 $oids_list = [
     "1.3.6.1.2.1.25.2.3.1.5" => [ # disk Size
         "type" => [3, 4],
@@ -11,26 +37,17 @@ $oids_list = [
     "1.3.6.1.2.1.25.2.3.1.6" => [ # disk Used
         "type" => [3, 4],
         "id" => [
-            "cpuLoad" => "CPU Usage: {}%"
+            "diskUsed" => "CPU Usage: {}%"
         ],
         "separator" => "INTEGER: "
     ],
     "1.3.6.1.2.1.25.2.3.1.2" => [ # disk Type
         "type" => [3, 4],
         "id" => [
-            "cpuLoad" => "CPU Usage: {}%",
-            "coreLoads" => ["
-                <div class='core-load'>
-                    <div>Core ||</div>
-                    <div class='percent-wrap'>
-                        <div class='percent'>{}% </div>
-                        <div class='percent-line-wrap'>
-                            <div class='percent-line' style='width: calc({}%)'></div>
-                        </div>
-                    </div>
-                </div>"]
+            "diskType" => ""
         ],
-        "separator" => "OID: "
+        "separator" => "OID: ",
+        "nohtml" => true
     ],
     "1.3.6.1.2.1.25.3.2.1.3" => [ # cpu Name
         "type" => [3, 4],
