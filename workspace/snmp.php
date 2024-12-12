@@ -133,7 +133,11 @@ function workstation($hostIp, $community) {
         $generative_content = "Error: " . $session->getError();
     } else {
         # CPU
-        $cpu_name = getOidValue("cpuName", $type, $connection);
+        $cpu_name_get = getOidValue("cpuName", $type, $connection);
+        $cpu_name = $cpu_name_get[0];
+        $cpu_name = preg_replace('/^.*: :/', '', $cpu_name);
+        $cpu_name_arr = explode(":", $cpu_name);
+        $cpu_name = $cpu_name_arr[count($cpu_name_arr) - 1];
         $cpu_load_get = getOidValue("cpuLoad", $type, $connection);
 
         $i = 1; # ||
