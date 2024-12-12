@@ -74,9 +74,12 @@ function snmpFormat($snmp_arr, $separator) {
 function getOidValue($name, $type, $connection) {
     global $oids_list;
 
+    $returned_oid = false;
+
     foreach ($oids_list as $oid) {
         if ($oid["name"] == $name && in_array($type, $oid["type"])) {
             $oid_value = @snmpwalk($connection["ip"], $connection["community"], $oid["oid"]);
+            $var_dump1 = var_dump($oid_value);
             $oid_formatted_arr = snmpFormat($oid_value, $oid["separator"]);
             if ($oid_formatted_arr !== false) {
                 if (count($oid_formatted_arr) > 1) {
@@ -84,10 +87,12 @@ function getOidValue($name, $type, $connection) {
                 } else {
                     $returned_oid = $oid_formatted_arr[0];
                 }
-                return $returned_oid;
             }
+            break;
         }
     }
+
+    return $returned_oid;
 }
 
 function getSNMPData($hostIp, $deviceType, $community) {
