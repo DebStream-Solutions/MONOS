@@ -75,7 +75,7 @@ function getOidValue($name, $type, $connection) {
     global $oids_list;
 
     foreach ($oids_list as $oid) {
-        if ($oid["name"] == $name && $oid["type"] == $type) {
+        if ($oid["name"] == $name && in_array($type, $oid["type"])) {
             $oid_value = @snmpwalk($connection["ip"], $connection["community"], $oid["oid"]);
             $oid_formatted_arr = snmpFormat($oid_value, $oid["separator"]);
             if ($oid_formatted_arr !== false) {
