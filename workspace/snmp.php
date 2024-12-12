@@ -84,6 +84,7 @@ function getOidValue($name, $type, $connection) {
                 } else {
                     $returned_oid = $oid_formatted_arr[0];
                 }
+                return $returned_oid;
             }
         }
     }
