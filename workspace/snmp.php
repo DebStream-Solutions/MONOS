@@ -1,5 +1,87 @@
 <?php
 
+
+$oids_list = [
+    0 => [
+        "oid" => "1.3.6.1.2.1.25.2.3.1.5",
+        "name" => "diskSize",
+        "type" => [3,4],
+        "separator" => "INTEGER: "
+    ],
+    1 => [
+        "oid" => "1.3.6.1.2.1.25.2.3.1.6",
+        "name" => "diskUsed",
+        "type" => [3,4],
+        "separator" => "INTEGER: "
+    ],
+    2 => [
+        "oid" => "1.3.6.1.2.1.25.2.3.1.2",
+        "name" => "diskType",
+        "type" => [3,4],
+        "separator" => "OID: "
+    ],
+    3 => [
+        "oid" => "1.3.6.1.2.1.25.3.2.1.3",
+        "name" => "cpuName",
+        "type" => [3,4],
+        "separator" => ": "
+    ],
+    4 => [
+        "oid" => "1.3.6.1.2.1.25.3.3.1.2",
+        "name" => "cpuUsage",
+        "type" => [3,4],
+        "separator" => "INTEGER: "
+    ],
+    5 => [
+        "oid" => "1.3.6.1.2.1.1.3",
+        "name" => "systemTimeUp",
+        "type" => [3,4],
+        "separator" => ") "
+    ],
+    6 => [
+        "oid" => "1.3.6.1.4.1.2021.4.6.0",
+        "name" => "ramFree",
+        "type" => [3,4],
+        "separator" => "INTEGER: "
+    ],
+    7 => [
+        "oid" => "1.3.6.1.4.1.2021.4.5.0",
+        "name" => "ramTotal",
+        "type" => [3,4],
+        "separator" => "INTEGER: "
+    ],
+];
+
+
+# Referented Functions
+
+function snmpFormat($snmp_arr, $separator) {
+    $snmp_formatted_arr = [];
+
+    if ($snmp_arr !== false || !empty($snmp_arr)) {
+        foreach ($snmp_arr as $key => $value) {
+            $value = preg_replace('/^.*: :/', '', $value);
+            $value = explode($separator, $value)[1];
+            $snmp_formatted_arr[] = $value;
+        }
+    }
+
+    return $snmp_formatted_arr;
+}
+
+
+
+function getOidValue($name, $type, $connection) {
+    global $oids_list;
+
+    foreach ($oids_list as $oid) {
+        if ($oid["name"] == $name && $oid["type"] == $type) {
+            $oid_value = @snmpwalk($connection["ip"], $connection["community"], $oid["oid"]);
+            return snmpFormat($oid_value, $oid["separator"]);
+        }
+    }
+}
+
 function getSNMPData($hostIp, $deviceType, $community) {
     // Create SNMP session
     $session = new SNMP(SNMP::VERSION_2c, $hostIp, $community);
@@ -21,137 +103,70 @@ function getSNMPData($hostIp, $deviceType, $community) {
     return $return;
 }
 
-
-function snmpFormat($snmp_arr, $separator) {
-    $snmp_formatted_arr = [];
-
-    if ($snmp_arr !== false) {
-        foreach ($snmp_arr as $key => $value) {
-            $value = preg_replace('/^.*: :/', '', $value);
-            $value = explode($separator, $value)[1];
-            $snmp_formatted_arr[] = $value;
-        }
-    }
-
-    return $snmp_formatted_arr;
-}
-
-
-function SNMPDataRecord() {
-    # SNMP Continous Recording -- returns the data overtime and writes it to database
-}
-
 # Device OID Functions
 
 function workstation($hostIp, $community) {
-
-    $oid_list = [
-        "disk" => [
-            "size" => "1.3.6.1.2.1.25.2.3.1.5",
-            "used" => "1.3.6.1.2.1.25.2.3.1.6",
-            "type" => "1.3.6.1.2.1.25.2.3.1.2"
-        ],
-        "cpu" => [
-            "name" => "1.3.6.1.2.1.25.3.2.1.3",
-            "load" => "1.3.6.1.2.1.25.3.3.1.2",
-            "temp" => "1.3.6.1.4.1.2021.11"
-        ]
-
-    ];
-
+    $type = 3;
     $generative_content = '';
 
-    $session = new SNMP(SNMP::VERSION_2c, $hostIp, $community);
+    $connection = [
+        "ip" => $hostIp,
+        "community" => $community
+    ];
 
-    $session->oid_output_format = SNMP_OID_OUTPUT_SUFFIX;
-    $session->valueretrieval = SNMP_VALUE_LIBRARY;
-    $session->quick_print = 1;
-    $session->enum_print = 0;
+    $session = new SNMP(SNMP::VERSION_2c, $hostIp, $community);
 
     if ($session->getError()) {
         $generative_content = "Error: " . $session->getError();
     } else {
-        foreach ($oid_list as $key => $value) {
-            if ($key == "disk") {
-                $disk_size = @snmpwalk($hostIp, $community, $value["size"]);
-                $used_size = @snmpwalk($hostIp, $community, $value["used"]);
-                $storage_type = @snmpwalk($hostIp, $community, $value["type"]);
+        # CPU
+        $cpu_name = getOidValue("cpuName", $type, $connection);
+        $cpu_load_get = getOidValue("cpuLoad", $type, $connection);
 
-                $size_arr = snmpFormat($disk_size, "INTEGER: ");
-                $type_arr = snmpFormat($storage_type, "OID: ");
-                $used_arr = snmpFormat($used_size, "INTEGER: ");
-                $total_size = 0;
-                $total_used = 0;
+        $i = 1; # ||
+        $htmlResolved = "";
+        $htmlTemplate = "
+        <div class='core-load'>
+            <div>Core ||</div>
+            <div class='percent-wrap'>
+                <div class='percent'>{}% </div>
+                <div class='percent-line-wrap'>
+                    <div class='percent-line' style='width: calc({}%)'></div>
+                </div>
+            </div>
+        </div>";
+        foreach ($cpu_load_get as $key => $oid_value) {
+            # Replacing all {} and || with actual values, append to $htmlResolved
+            $currentHtmlResolved = strval(str_replace("{}", $oid_value, $htmlTemplate));
+            $currentHtmlResolved = strval(str_replace("||", $i, $currentHtmlResolved));
+            $htmlResolved .= $currentHtmlResolved;
 
-                foreach ($size_arr as $key => $value) {
-                    if (strpos($type_arr[$key], "25.2.1.4") !== false) {
-                        $total_size += (int)$value;
-                    }
-                }
-
-                foreach ($used_arr as $key => $value) {
-                    if (strpos($type_arr[$key], "25.2.1.4") !== false) {
-                        $total_used += (int)$value;
-                    }
-                }
-                
-                $disk_size = round($total_size / 1024 / 1024, 2);
-                $disk_used = round($total_used / 1024 / 1024, 2);
-                $disk_free = $disk_size - $disk_used;
-                $disk_used_percentage = round(($total_used / $total_size) * 100, 2);
-                $disk_free_percentage = 100 - $disk_used_percentage;
-            } elseif ($key == "cpu") {
-                $cpu_name = @snmpwalk($hostIp, $community, $value["name"]);
-                $cpu_load = @snmpwalk($hostIp, $community, $value["load"]);
-                $cpu_temp = @snmpwalk($hostIp, $community, $value["temp"]);
-
-                $cpu_load_parse = [];
-                $cpu_freq_parse = [];
-                $cpu_arr_load = "";
-
-
-                if ($cpu_name !== false) {
-                    $cpu_name = $cpu_name[0];
-                    $cpu_name = preg_replace('/^.*: :/', '', $cpu_name);
-                    $cpu_name_arr = explode(":", $cpu_name);
-                    $cpu_name = $cpu_name_arr[count($cpu_name_arr) - 1];
-                }
-                if ($cpu_load !== false) {
-                    foreach ($cpu_load as $key => $value) {
-                        $value = preg_replace('/^.*: :/', '', $value);
-                        $value = explode("INTEGER: ", $value)[1];
-                        $cpu_load_parse[] = $value;
-                    }
-                }
-
-                foreach ($cpu_load_parse as $cpu_int => $load) {
-                    $cpu_int = intval($cpu_int) + 1;
-                    $cpu_arr_load .= "
-                    <div class='core-load'>
-                        <div>Core {$cpu_int}</div>
-                        <div class='percent-wrap'>
-                            <div class='percent'>{$load}% </div>
-                            <div class='percent-line-wrap'>
-                                <div class='percent-line' style='width: calc({$load}%)'></div>
-                            </div>
-                        </div>
-                    </div>";
-                }
-
-                $cpu_sum = 0;
-                $freq_sum = 0;
-                $cpu_count = count($cpu_load);
-                foreach ($cpu_load_parse as $cpu) {
-                    $cpu_sum += (int) $cpu;
-                }
-                foreach ($cpu_freq_parse as $cpu) {
-                    $freq_sum += (int) $cpu;
-                }
-                $cpu_load = $cpu_sum / $cpu_count;
-                $cpu_freq = $freq_sum / $cpu_count;
-            }
+            $i++;
         }
+        $cpu_arr_load = $htmlResolved;
+        $items_count = count($cpu_load_get);
+        foreach ($cpu_load_get as $item) {
+            $items_sum += (int) $item;
+        }
+        $cpu_load = $items_sum / $items_count;
 
+
+
+        # RAM
+        $ram_free_get = intval(getOidValue("ramFree", $type, $connection));
+        $ram_free = round($ram_free_get / 1024 / 1024, 2);
+        $ram_total_get = intval(getOidValue("ramTotal", $type, $connection));
+        $ram_total = round($ram_total_get / 1024 / 1024, 2);
+        $ram_used_perc = round(($ram_free / $ram_total) * 100, 2);
+
+        # DISK
+        $disk_used_get = intval(getOidValue("diskUsed", $type, $connection));
+        $disk_used = round($disk_used_get / 1024 / 1024, 2);
+        $disk_size_get = intval(getOidValue("diskSize", $type, $connection));
+        $disk_size = round($disk_size_get / 1024 / 1024, 2);
+        $disk_free = $disk_size - $disk_used;
+        $disk_used_percentage = round(($disk_used_get / $disk_size_get) * 100, 2);
+        $disk_free_percentage = 100 - $disk_used_percentage;
 
         # FOR CHART - Make variables global
         $GLOBALS["usedSpace"] = $disk_used_percentage;
@@ -179,12 +194,24 @@ function workstation($hostIp, $community) {
                     </div>
                     <div>
                         <div class='title'>
+                            GPU
+                        </div>
+                        <div class='roll'>
+                            <div>
+                                <div>GPU Usage: 32%</div>
+                                <div>Current Frequency: 2 GHz</div>
+                                <div>Processing Units: 106</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class='title'>
                             RAM
                         </div>
                         <div class='roll'>
                             <div>
-                                <div>RAM Usage: 54%</div>
-                                <div>Frequency: 3200 MHz</div>
+                                <div>Usage: {$ram_used_perc}%</div>
+                                <div>Total Size: {$ram_total} GB</div>
                             </div>
                         </div>
                     </div>
