@@ -104,9 +104,11 @@ if (isset($_GET['login'])) {
         var_dump($hash);
         $_SESSION["hash"] = $hash;
 
-        if (exists("users", "hash")) {
+        if (!exists("users", "hash")) {
             $_SESSION["hash"] = "";
             $_SESSION["user"] = true;
+
+            header("location: ../");
             
         } else {
             $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
@@ -115,12 +117,12 @@ if (isset($_GET['login'])) {
                 $_SESSION["error"] = "Wrong password";
             }
             # TODO -- set password by random in db-setup.sh
+            header("location: ../login/login.php");
         }
-
-        header("location: ../login/login.php");
+        
     } else {
         $_SESSION["error"] = "Wrong format";
-        //header("location: ../");
+        header("location: ../login/login.php");
     }
 
 } elseif (isset($_GET["profile"])) {
