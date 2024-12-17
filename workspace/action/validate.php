@@ -117,7 +117,7 @@ if (isset($_GET['login'])) {
             # TODO -- set password by random in db-setup.sh
         }
 
-        //header("location: ../");
+        header("location: ../login/login.php");
     } else {
         $_SESSION["error"] = "Wrong format";
         //header("location: ../");
