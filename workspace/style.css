@@ -537,6 +537,12 @@ input[type=text] {
 
 /* LOGIN */
 
+.login-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
 .input-fly {
     position: relative;
     padding: 0.5rem 1.25rem;
