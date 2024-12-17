@@ -8,8 +8,12 @@
     //include "snmp.php";
     include "main.php";
 
-    if (isset($_GET['profile'])) {
-        $profile = $_GET['profile'];
+    if (!isset($_SESSION['user'])) {
+        header("location: login/login.php");
+    } else {
+        if (isset($_GET['profile'])) {
+            $profile = $_GET['profile'];
+        }
     }
 
 ?>

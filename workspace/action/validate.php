@@ -13,7 +13,9 @@ function validate($input) {
             foreach ($value as $key => $value2) {
                 if (isset($_POST[$value2])) {
                     $$value2 = $_POST[$value2];
-                    $_SESSION[$value2] = $$value2;
+                    if (!isset($_POST["password"])) {
+                        $_SESSION[$value2] = $$value2;
+                    }
                 } else {
                     $error[] = $value2;
                 }
@@ -21,7 +23,9 @@ function validate($input) {
         } else {
             if (isset($_POST[$value])) {
                 $$value = $_POST[$value];
-                $_SESSION[$value] = $$value;
+                if (!isset($_POST["password"])) {
+                    $_SESSION[$value2] = $$value2;
+                }
             } else {
                 $error[] = $value;
             }
@@ -44,6 +48,39 @@ function valEditProfile() {
 }
 
 
+function hashAlgoritm($str1, $str2) {
+    $len1 = strlen($str1);
+    $len2 = strlen($str2);
+    $len = max($len1, $len2);
+    $result = '';
+    
+    for ($i = 0; $i < $len; $i++) {
+        $char1 = $i < $len1 ? $str1[$i] : '';
+        $char2 = $i < $len2 ? $str2[$i] : '';
+        
+        if ($char1 === $char2) {
+            $result .= $char1; // Same characters are merged
+        } else {
+            $result .= "{$char1}{$char2}"; // Different characters with delimiter
+        }
+    }
+    return $result;
+}
+
+
+function pass_hash($pass) {
+    $raw_salt = "solnicka";
+
+    $hash_pass = password_hash($pass, PASSWORD_BCRYPT);
+    $salt = password_hash($raw_salt, PASSWORD_BCRYPT);
+
+    
+
+    $hash = hashAlgoritm($hash_pass, $salt);
+    return $hash;
+}
+
+
 function exists($table, $column) {
     # Returns True if it is ok (no same row)
     global $conn;
@@ -59,8 +96,20 @@ function exists($table, $column) {
     }
 }
 
+if (isset($_GET['login'])) {
+    $input = ["name"];
 
-if (isset($_GET["profile"])) {
+    if (count(validate($input)) == 0) {
+        $hash = pass_hash($_POST["password"]);
+        $_SESSION["hash"] = $hash;
+
+        if (exists("users", "hash")) {
+            $_SESSION["hash"] = "";
+            $_SESSION["user"] = true;
+        }
+    }
+
+} elseif (isset($_GET["profile"])) {
     $profileId = $_GET["profile"];
     $input = ["name"];
 
