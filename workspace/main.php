@@ -118,28 +118,28 @@ function listDevices($profile) {
         $profileId = $conn->query($profileId);
         $profileId = $profileId->fetch_all(MYSQLI_ASSOC);
 
-        if (!empty($profileId[0])) {
+        if (!empty($profileId)) {
             $profileId = $profileId[0]["profileId"];
+
+            $newUrl = "device/?profile=".$profile."&device=".$value['id'];
+            $conditions = ["id" => $value['type']];
+            $type_str = findValueByConditions($types, $conditions, "name");
+            
+            if ($profile === strval($profileId)) {
+                $deviceList .= '
+                <a href="'.$newUrl.'">
+                    <div class="device">
+                        <img src="icons/'.$type_str.'.png" alt="">
+                        <div>
+                            <h3>'.$value['name'].'</h3>
+                            <span>'.$value['ip'].'</span>
+                        </div>
+                    </div>
+                </a>
+            ';
+            }
         } else {
             $deviceList .= "There are no devices in this profile. Go and add some!";
-        }
-
-        $newUrl = "device/?profile=".$profile."&device=".$value['id'];
-        $conditions = ["id" => $value['type']];
-        $type_str = findValueByConditions($types, $conditions, "name");
-        
-        if ($profile === strval($profileId)) {
-            $deviceList .= '
-            <a href="'.$newUrl.'">
-                <div class="device">
-                    <img src="icons/'.$type_str.'.png" alt="">
-                    <div>
-                        <h3>'.$value['name'].'</h3>
-                        <span>'.$value['ip'].'</span>
-                    </div>
-                </div>
-            </a>
-        ';
         }
         
     }
