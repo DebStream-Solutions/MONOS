@@ -179,6 +179,18 @@ function workstation($hostIp, $community) {
                     </div>
                     <div>
                         <div class='title'>
+                            GPU
+                        </div>
+                        <div class='roll'>
+                            <div>
+                                <div>GPU Usage: 32%</div>
+                                <div>Current Frequency: 2 GHz</div>
+                                <div>Processing Units: 106</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class='title'>
                             RAM
                         </div>
                         <div class='roll'>
