@@ -108,8 +108,8 @@ if (isset($_GET['login'])) {
             $_SESSION["user"] = true;
             
         } else {
-            $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
-            $insertStatus = $conn->query($insert);
+            /*$insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
+            $insertStatus = $conn->query($insert);*/
             $_SESSION["error"] = "Wrong password";
             # TODO -- set password by random in db-setup.sh
         }
