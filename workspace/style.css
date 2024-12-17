@@ -576,7 +576,7 @@ input[type=text] {
         outline: none;
 
         + label {
-            transform: translate(-0.25rem, calc(-100%)); /* 100% and half of padding .input-fly - its padding */
+            transform: translate(-0.25rem, calc(-100% + 0.125)); /* 100% and half of padding .input-fly */
             padding: 0.25rem;
             width: fit-content;
             background-color: #121212;
@@ -598,4 +598,12 @@ input[type=text] {
 
 .login-wrap label {
     font-size: 0.8rem;
+}
+
+.monos-log {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    margin: 2rem 0 0 0;
+    gap: 1rem;
 }

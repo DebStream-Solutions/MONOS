@@ -78,7 +78,7 @@
                 </div>
                 <div class="monos-log">
                     <h3>MONOS Beta v0.3</h3>
-                    <div class="monos-img"></div>
+                    <img src="../icons/logo.svg" alt="monos-logo">
                 </div>
             </div>
         </div>
