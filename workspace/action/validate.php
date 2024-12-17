@@ -97,7 +97,7 @@ function exists($table, $column) {
 }
 
 if (isset($_GET['login'])) {
-    $input = ["name"];
+    $input = ["password"];
 
     if (count(validate($input)) == 0) {
         $hash = pass_hash($_POST["password"]);
@@ -114,6 +114,9 @@ if (isset($_GET['login'])) {
             # TODO -- set password by random in db-setup.sh
         }
 
+        header("location: ../");
+    } else {
+        $_SESSION["error"] = "Wrong format";
         header("location: ../");
     }
 
