@@ -62,7 +62,7 @@
         </div>
         <div class="content">
             <h2>Login</h2>
-            <form action="validate.php" method="POST">
+            <form action="../action/validate.php?login" method="POST">
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" placeholder="Password..">
             </form>
