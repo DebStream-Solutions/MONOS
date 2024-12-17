@@ -67,7 +67,7 @@
                     <form action="../action/validate.php?login" method="POST">
                         <div class="input-fly">
                             <div>
-                                <input type="password" name="password" id="password" placeholder="Your super secret password">
+                                <input type="password" name="password" id="password">
                                 <label for="password">Password</label>
                             </div>
                         </div>

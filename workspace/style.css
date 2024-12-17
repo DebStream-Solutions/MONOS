@@ -570,18 +570,14 @@ input[type=text] {
         transition: all .3s ease-in-out;
     }
 
-    &::-webkit-input-placeholder {
-        opacity: 0;
-    }
-
     input:focus,
     input:active {
         transition: all .3s ease-in-out;
         outline: none;
 
         + label {
-            transform: translateY(calc(-100% - 0.25rem)); /* 100% and half of padding .input-fly */
-            padding: 0.25rem;
+            transform: translateY(calc(-100% - 0.125rem)); /* 100% and half of padding .input-fly - half its padding */
+            padding: 0.25rem 0;
             width: fit-content;
             background-color: #121212;
         }
