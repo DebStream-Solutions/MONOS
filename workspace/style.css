@@ -541,6 +541,7 @@ input[type=text] {
     display: flex;
     flex-direction: column;
     align-items: center;
+    width: 80vw;
 }
 
 .input-fly {
@@ -591,7 +592,7 @@ input[type=text] {
 .login-wrap form {
     display: flex;
     flex-direction: column;
-    width: 80vw;
+    width: 80%;
     margin: auto;
     gap: 0.5rem;
 }
