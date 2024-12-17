@@ -61,13 +61,24 @@
             <h1>MONOS</h1>
         </div>
         <div class="content">
-            <h2>Login</h2>
-            <form action="../action/validate.php?login" method="POST">
-                <label for="password">Password:</label>
-                <input type="password" name="password" id="password" placeholder="Password..">
-            </form>
-            <div class="errors">
-                <?php echo isset($_SESSION["error"]) ? $_SESSION["error"] : "" ?>
+            <div class="log">
+                <div class="login-wrap">
+                    <h2>Login</h2>
+                    <form action="../action/validate.php?login" method="POST">
+                        <label for="password">Password:</label>
+                        <input type="password" name="password" id="password" placeholder="Password..">
+                        <span>
+                            <input class="balloon" id="state" type="text" placeholder="Liquid, solid, gaseous..." /><label for="state">State</label>
+                        </span>
+                    </form>
+                    <div class="errors">
+                        <?php echo isset($_SESSION["error"]) ? $_SESSION["error"] : "" ?>
+                    </div>
+                </div>
+                <div class="monos-log">
+                    <h3>MONOS Beta v0.3</h3>
+                    <div class="monos-img"></div>
+                </div>
             </div>
         </div>
     </div>
