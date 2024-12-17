@@ -71,8 +71,8 @@ function hashAlgoritm($str1, $str2) {
 function pass_hash($pass) {
     $raw_salt = "solnicka";
 
-    $hash_pass = password_hash($pass, PASSWORD_BCRYPT);
-    $salt = password_hash($raw_salt, PASSWORD_BCRYPT);
+    $hash_pass = password_hash($pass, PASSWORD_DEFAULT);
+    $salt = password_hash($raw_salt, PASSWORD_DEFAULT);
 
     
 
