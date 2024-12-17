@@ -111,11 +111,6 @@ if (isset($_GET['login'])) {
             header("location: ../");
             
         } else {
-            $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
-            $insertStatus = $conn->query($insert);
-            if (!$insertStatus) {
-                $_SESSION["error"] = "Wrong password";
-            }
             # TODO -- set password by random in db-setup.sh
             header("location: ../login/login.php");
         }
