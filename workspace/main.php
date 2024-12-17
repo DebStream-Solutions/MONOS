@@ -199,19 +199,25 @@ function editProfile($edit) {
         if (isset($profile)) {
             $content = '
             <div class="form-wrap">
-                <h2>Edit profile</h2>
-                <div>
-                    <form method=POST action="../../action/validate.php?profile='.$profile["id"].'">
+                <div class="log">
+                    <div class="login-wrap">
+                        <h2>Edit profile</h2>
                         <div>
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" placeholder="MyNetwork" value="'.$profile["name"].'">
+                            <form method=POST action="../../action/validate.php?profile='.$profile["id"].'">
+                                <div class="input-fly">
+                                    <div>
+                                        <input type="text" id="name" name="name" placeholder="MyNetwork" value="'.$profile["name"].'">
+                                        <label for="name">Name</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="submit" name="submit" value="Edit">
+                                </div>
+                            </form>
+                            <div class="error-msg">
+                                '.$error_msg.'
+                            </div>
                         </div>
-                        <div>
-                            <input type="submit" name="submit" value="Edit">
-                        </div>
-                    </form>
-                    <div class="error-msg">
-                        '.$error_msg.'
                     </div>
                 </div>
             </div>
@@ -241,19 +247,25 @@ function editProfile($edit) {
 
         $content = '
             <div class="form-wrap">
-                <h2>Add profile</h2>
-                <div>
-                    <form method=POST action="../../action/validate.php?profile">
+                <div class="log">
+                    <div class="login-wrap">
+                        <h2>Add profile</h2>
                         <div>
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" placeholder="MyNetwork" value="'.$profile.'">
+                            <form method=POST action="../../action/validate.php?profile">
+                                <div class="input-fly">
+                                    <div>
+                                        <input type="text" id="name" name="name" placeholder="MyNetwork" value="'.$profile["name"].'">
+                                        <label for="name">Name</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="submit" name="submit" value="Add">
+                                </div>
+                            </form>
+                            <div class="error-msg">
+                                '.$error_msg.'
+                            </div>
                         </div>
-                        <div>
-                            <input type="submit" name="submit" value="Add">
-                        </div>
-                    </form>
-                    <div class="error-msg">
-                        '.$error_msg.'
                     </div>
                 </div>
             </div>
@@ -294,45 +306,66 @@ function editDevice($edit) {
                 $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="'.$device.$i.'" value="'.$value["id"].'">'.$value["name"].'</label>';
             }
 
+            $typeArr = "SELECT * FROM types";
+            $typeArr = $conn->query($typeArr);
+            $typeArr = $typeArr->fetch_all(MYSQLI_ASSOC);
+
+            $typeList = "";
+            $i = 1;
+            foreach ($typeArr as $key => $value) {
+                $typeList .= '<option value="'.$i.'">'.$value["name"].'</option>';
+                $i += 1;
+            }
+
             $content = '
                 <div class="form-wrap">
-                    <h2>Add device</h2>
-                    <div>
-                        <form method=POST action="../../action/validate.php?device">
+                    <div class="log">
+                        <div class="login-wrap">
+                            <h2>Add device</h2>
                             <div>
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Home Server" value="'.$device["name"].'">
-                            </div>
-                            <div>
-                                <h3 for="profile">Select profiles</h3>
-                                <div class="dropdown">
-                                    <div class="selected-items-container">
-                                        <button type="button" class="add-button">+</button>
+                                <form method=POST action="../../action/validate.php?device">
+                                    <div class="input-fly">
+                                        <div>
+                                            <input type="text" id="name" name="name" value="'.$device["name"].'">
+                                            <label for="name">Name</label>
+                                        </div>
                                     </div>
-                                    <div class="input-container">
-                                        <input type="text" class="dropdown-input" placeholder="Select items">
-                                        <span class="dropdown-arrow"><img src="../../icons/dropdown.png" alt="arrow"></span>
+                                    <div>
+                                        <h3 for="profile">Select profiles</h3>
+                                        <div class="dropdown">
+                                            <div class="selected-items-container">
+                                                <button type="button" class="add-button">+</button>
+                                            </div>
+                                            <div class="input-container">
+                                                <input type="text" class="dropdown-input" placeholder="Select items">
+                                                <span class="dropdown-arrow"><img src="../../icons/dropdown.png" alt="arrow"></span>
+                                            </div>
+                                            <div class="dropdown-content">
+                                                '.$profileList.'
+                                            </div>
+                                            <div class="hidden-inputs">
+                                                
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="dropdown-content">
-                                        '.$profileList.'
+                                    <div class="input-fly">
+                                        <div>
+                                            <input type="text" id="ip" name="ip" value="'.$device["ip"].'">
+                                            <label for="ip">IP Address</label>
+                                        </div>
                                     </div>
-                                    <div class="hidden-inputs">
-                                        
+                                    <div>
+                                        <label for="types">Type</label>
+                                        <select id="types" name="type">
+                                            '.$typeList.'
+                                        </select>
                                     </div>
-                                </div>
+                                    <div>
+                                        <input type="submit" name="submit" value="Add">
+                                    </div>
+                                </form>
                             </div>
-                            <div>
-                                <label for="ip">IP Address</label>
-                                <input type="text" id="ip" name="ip" placeholder="192.168.1.1.." value="'.$device["ip"].'">
-                            </div>
-                            <div>
-                                <label for="type">Type</label>
-                                
-                            </div>
-                            <div>
-                                <input type="submit" name="submit" value="Add">
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             ';
@@ -377,45 +410,53 @@ function editDevice($edit) {
 
             $content = '
                 <div class="form-wrap">
-                    <h2>Add device</h2>
-                    <div>
-                        <form method=POST action="../../action/validate.php?device">
+                    <div class="log">
+                        <div class="login-wrap">
+                            <h2>Add device</h2>
                             <div>
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Home Server" value="'.$device["name"].'">
-                            </div>
-                            <div>
-                                <h3 for="profile">Select profiles</h3>
-                                <div class="dropdown">
-                                    <div class="selected-items-container">
-                                        <button type="button" class="add-button">+</button>
+                                <form method=POST action="../../action/validate.php?device">
+                                    <div class="input-fly">
+                                        <div>
+                                            <input type="text" id="name" name="name" value="'.$device["name"].'">
+                                            <label for="name">Name</label>
+                                        </div>
                                     </div>
-                                    <div class="input-container">
-                                        <input type="text" class="dropdown-input" placeholder="Select items">
-                                        <span class="dropdown-arrow"><img src="../../icons/dropdown.png" alt="arrow"></span>
+                                    <div>
+                                        <h3 for="profile">Select profiles</h3>
+                                        <div class="dropdown">
+                                            <div class="selected-items-container">
+                                                <button type="button" class="add-button">+</button>
+                                            </div>
+                                            <div class="input-container">
+                                                <input type="text" class="dropdown-input" placeholder="Select items">
+                                                <span class="dropdown-arrow"><img src="../../icons/dropdown.png" alt="arrow"></span>
+                                            </div>
+                                            <div class="dropdown-content">
+                                                '.$profileList.'
+                                            </div>
+                                            <div class="hidden-inputs">
+                                                
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="dropdown-content">
-                                        '.$profileList.'
+                                    <div class="input-fly">
+                                        <div>
+                                            <input type="text" id="ip" name="ip" value="'.$device["ip"].'">
+                                            <label for="ip">IP Address</label>
+                                        </div>
                                     </div>
-                                    <div class="hidden-inputs">
-                                        
+                                    <div>
+                                        <label for="types">Type</label>
+                                        <select id="types" name="type">
+                                            '.$typeList.'
+                                        </select>
                                     </div>
-                                </div>
+                                    <div>
+                                        <input type="submit" name="submit" value="Add">
+                                    </div>
+                                </form>
                             </div>
-                            <div>
-                                <label for="ip">IP Address</label>
-                                <input type="text" id="ip" name="ip" placeholder="192.168.1.1.." value="'.$device["ip"].'">
-                            </div>
-                            <div>
-                                <label for="types">Type</label>
-                                <select id="types" name="type">
-                                    '.$typeList.'
-                                </select>
-                            </div>
-                            <div>
-                                <input type="submit" name="submit" value="Add">
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             ';

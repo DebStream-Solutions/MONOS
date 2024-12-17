@@ -538,7 +538,7 @@ input[type=text] {
 /* LOGIN */
 
 .log {
-    padding: 0 10rem;
+    padding: 0 10vw;
 }
 
 .login-wrap {
