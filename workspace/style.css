@@ -557,17 +557,21 @@ input[type=text] {
     input {
         background-color: transparent;
         border: none;
+        width: 100%;
+        outline: none;
     }
 
     label {
         position: absolute;
         left: 0;
+        width: 100%;
         transition: all .3s ease-in-out;
     }
 
     input:focus,
     input:active {
         transition: all .3s ease-in-out;
+        outline: none;
 
         + label {
             transform: translateY(calc(-100% - 0.25rem)); /* 100% and half of padding .input-fly */
