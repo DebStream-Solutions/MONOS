@@ -206,7 +206,7 @@ function editProfile($edit) {
                             <form method=POST action="../../action/validate.php?profile='.$profile["id"].'">
                                 <div class="input-fly">
                                     <div>
-                                        <input type="text" id="name" name="name" placeholder="MyNetwork" value="'.$profile["name"].'">
+                                        <input type="text" id="name" name="name" value="'.$profile["name"].'">
                                         <label for="name">Name</label>
                                     </div>
                                 </div>
@@ -228,7 +228,7 @@ function editProfile($edit) {
         if (isset($_SESSION['profile'])) {
             $profile = $_SESSION['profile'];
         } else {
-            $profile = "";
+            $profile = ["name" => "", "id" => ""];
         }
 
         if (isset($_SESSION["error"])) {
@@ -254,7 +254,7 @@ function editProfile($edit) {
                             <form method=POST action="../../action/validate.php?profile">
                                 <div class="input-fly">
                                     <div>
-                                        <input type="text" id="name" name="name" placeholder="MyNetwork" value="'.$profile["name"].'">
+                                        <input type="text" id="name" name="name" value="'.$profile["name"].'">
                                         <label for="name">Name</label>
                                     </div>
                                 </div>
