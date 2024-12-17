@@ -118,7 +118,7 @@ function listDevices($profile) {
         $profileId = $conn->query($profileId);
         $profileId = $profileId->fetch_all(MYSQLI_ASSOC);
 
-        if (!empty($profileId)) {
+        if (!empty($profileId[0])) {
             $profileId = $profileId[0]["profileId"];
         } else {
             $deviceList .= "There are no devices in this profile. Go and add some!";
