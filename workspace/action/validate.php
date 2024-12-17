@@ -71,7 +71,7 @@ function hashAlgoritm($str1, $str2) {
 function pass_hash($pass) {
     $salt = "solnicka";
 
-    $hash = crypt($pass, $salt);
+    $hash = password_hash($pass, PASSWORD_BCRYPT);
 
     return $hash;
 }
@@ -99,7 +99,7 @@ if (isset($_GET['login'])) {
         $password = $_POST["password"];
         $hashed = pass_hash($password);
 
-        $hashes = "SELECT hash FROM users";
+        $hashes = query("SELECT hash FROM users");
         $matches = false;
         foreach ($hash as $key => $hashes) {
             if (password_verify($password, $hash)) {
