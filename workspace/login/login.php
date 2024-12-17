@@ -66,6 +66,9 @@
                 <label for="password">Password:</label>
                 <input type="password" name="password" id="password" placeholder="Password..">
             </form>
+            <div class="errors">
+                <?php echo isset($_SESSION["error"]) ? $_SESSION["error"] : "" ?>
+            </div>
         </div>
     </div>
 </body>
