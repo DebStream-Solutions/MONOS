@@ -29,7 +29,7 @@ function query($query, $status = false) {
     # DO (INSERT/UPDATE/DELETE/SELECT)
     $status = $conn->query($query);
 
-    if (str_contains($query, "SELECT")) {
+    if (strpos($query, "SELECT")) {
         $data = $status->fetch_all(MYSQLI_ASSOC);
 
         if ($status) {
