@@ -537,11 +537,14 @@ input[type=text] {
 
 /* LOGIN */
 
+.log {
+    padding: 0 10rem;
+}
+
 .login-wrap {
     display: flex;
     flex-direction: column;
     align-items: center;
-    width: 80vw;
 }
 
 .input-fly {
