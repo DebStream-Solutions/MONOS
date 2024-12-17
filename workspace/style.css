@@ -571,7 +571,7 @@ input[type=text] {
     }
 
     &::-webkit-input-placeholder {
-        opacity: 1;
+        opacity: 0;
     }
 
     input:focus,
