@@ -69,14 +69,10 @@ function hashAlgoritm($str1, $str2) {
 
 
 function pass_hash($pass) {
-    $raw_salt = "solnicka";
+    $salt = "solnicka";
 
-    $hash_pass = password_hash($pass, PASSWORD_DEFAULT);
-    $salt = password_hash($raw_salt, PASSWORD_DEFAULT);
+    $hash = crypt($pass, $salt);
 
-    
-
-    $hash = hashAlgoritm($hash_pass, $salt);
     return $hash;
 }
 
@@ -100,11 +96,10 @@ if (isset($_GET['login'])) {
     $input = ["password"];
 
     if (count(validate($input)) == 0) {
+        $password = $_POST["password"];
         $hash = pass_hash($_POST["password"]);
-        var_dump($hash);
-        $_SESSION["hash"] = $hash;
 
-        if (!exists("users", "hash")) {
+        if (password_verify($password, $hash)) {
             $_SESSION["hash"] = "";
             $_SESSION["user"] = true;
 
