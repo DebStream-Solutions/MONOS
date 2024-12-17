@@ -69,10 +69,15 @@ function hashAlgoritm($str1, $str2) {
 
 
 function pass_hash($pass) {
-    $salt = "solnicka";
+    $raw_salt = "solnicka";
+    $algo = "sha256";
 
-    $hash = password_hash($pass, PASSWORD_BCRYPT);
+    $hash_pass = hash($algo, $pass);
+    $salt = hash($algo, $raw_salt);
 
+    
+
+    $hash = hashAlgoritm($hash_pass, $salt);
     return $hash;
 }
 
@@ -96,27 +101,17 @@ if (isset($_GET['login'])) {
     $input = ["password"];
 
     if (count(validate($input)) == 0) {
-        $password = $_POST["password"];
-        $hashed = pass_hash($password);
+        $hash = pass_hash($_POST["password"]);
+        $_SESSION["hash"] = $hash;
 
-        $hashes = query("SELECT hash FROM users");
-        $matches = false;
-        foreach ($hash as $key => $hashes) {
-            if (password_verify($password, $hash)) {
-                $matches = true;
-            } else {
-                $matches = false;
-            }
-        }
-
-        if ($matches) {
+        if (!exists("users", "hash")) {
             $_SESSION["hash"] = "";
             $_SESSION["user"] = true;
 
             header("location: ../");
             
         } else {
-            $insert = "INSERT INTO users (hash) VALUES ('{$hashed}')";
+            $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
             $insertStatus = $conn->query($insert);
             if (!$insertStatus) {
                 $_SESSION["error"] = "Wrong password";
