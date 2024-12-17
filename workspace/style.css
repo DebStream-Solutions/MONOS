@@ -552,6 +552,7 @@ input[type=text] {
 
     > div {
         position: relative;
+        display: flex;
     }
 
     input {
@@ -576,6 +577,7 @@ input[type=text] {
         + label {
             transform: translateY(calc(-100% - 0.25rem)); /* 100% and half of padding .input-fly */
             padding: 0.25rem;
+            width: fit-content;
             background-color: #121212;
         }
     }
