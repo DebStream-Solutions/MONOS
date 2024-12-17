@@ -560,13 +560,18 @@ input[type=text] {
         border: none;
         width: 100%;
         outline: none;
+        padding: 0;
+        margin: 0;
     }
 
     label {
         position: absolute;
         left: 0;
-        width: 100%;
         transition: all .3s ease-in-out;
+    }
+
+    &::-webkit-input-placeholder {
+        opacity: 1;
     }
 
     input:focus,
@@ -579,6 +584,10 @@ input[type=text] {
             padding: 0.25rem;
             width: fit-content;
             background-color: #121212;
+        }
+
+        &::-webkit-input-placeholder {
+            opacity: 0;
         }
     }
 }
