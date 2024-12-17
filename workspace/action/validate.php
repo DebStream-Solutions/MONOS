@@ -97,10 +97,15 @@ if (isset($_GET['login'])) {
 
     if (count(validate($input)) == 0) {
         $password = $_POST["password"];
+        $hashed = pass_hash($password);
+
         $hashes = "SELECT hash FROM users";
+        $matches = false;
         foreach ($hash as $key => $hashes) {
             if (password_verify($password, $hash)) {
                 $matches = true;
+            } else {
+                $matches = false;
             }
         }
 
@@ -111,7 +116,7 @@ if (isset($_GET['login'])) {
             header("location: ../");
             
         } else {
-            $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
+            $insert = "INSERT INTO users (hash) VALUES ('{$hashed}')";
             $insertStatus = $conn->query($insert);
             if (!$insertStatus) {
                 $_SESSION["error"] = "Wrong password";
