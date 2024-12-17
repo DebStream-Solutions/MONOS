@@ -101,6 +101,7 @@ if (isset($_GET['login'])) {
 
     if (count(validate($input)) == 0) {
         $hash = pass_hash($_POST["password"]);
+        var_dump($hash);
         $_SESSION["hash"] = $hash;
 
         if (exists("users", "hash")) {
@@ -108,16 +109,18 @@ if (isset($_GET['login'])) {
             $_SESSION["user"] = true;
             
         } else {
-            /*$insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
-            $insertStatus = $conn->query($insert);*/
-            $_SESSION["error"] = "Wrong password";
+            $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
+            $insertStatus = $conn->query($insert);
+            if (!$insertStatus) {
+                $_SESSION["error"] = "Wrong password";
+            }
             # TODO -- set password by random in db-setup.sh
         }
 
-        header("location: ../");
+        //header("location: ../");
     } else {
         $_SESSION["error"] = "Wrong format";
-        header("location: ../");
+        //header("location: ../");
     }
 
 } elseif (isset($_GET["profile"])) {
