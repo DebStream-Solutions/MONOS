@@ -65,11 +65,10 @@
                 <div class="login-wrap">
                     <h2>Login</h2>
                     <form action="../action/validate.php?login" method="POST">
-                        <label for="password">Password:</label>
-                        <input type="password" name="password" id="password" placeholder="Password..">
-                        <span>
-                            <input class="balloon" id="state" type="text" placeholder="Liquid, solid, gaseous..." /><label for="state">State</label>
-                        </span>
+                        <div class="input-fly">
+                            <input type="password" name="password" id="password" placeholder="Your super secret password">
+                            <label for="password">Password</label>
+                        </div>
                     </form>
                     <div class="errors">
                         <?php echo isset($_SESSION["error"]) ? $_SESSION["error"] : "" ?>
