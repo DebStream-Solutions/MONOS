@@ -576,7 +576,7 @@ input[type=text] {
         outline: none;
 
         + label {
-            transform: translate(-0.25rem, calc(-100% + 0.125)); /* 100% and half of padding .input-fly */
+            transform: translate(-0.25rem, calc(-100% + 0.125rem)); /* 100% and half of padding .input-fly */
             padding: 0.25rem;
             width: fit-content;
             background-color: #121212;
@@ -606,4 +606,8 @@ input[type=text] {
     align-items: center;
     margin: 2rem 0 0 0;
     gap: 1rem;
+
+    img {
+        width: 5rem;
+    }
 }
