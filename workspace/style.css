@@ -544,11 +544,15 @@ input[type=text] {
 }
 
 .input-fly {
-    position: relative;
     padding: 0.5rem 1.25rem;
     background-color: transparent;
     border: 1px #ffffff33 solid;
     border-radius: 10px;
+
+
+    > div {
+        position: relative;
+    }
 
     input {
         background-color: transparent;
@@ -557,18 +561,18 @@ input[type=text] {
 
     label {
         position: absolute;
+        left: 0;
         transition: all .3s ease-in-out;
     }
 
     input:focus,
     input:active {
-        position: absolute;
         transition: all .3s ease-in-out;
 
         + label {
-            transform: translateY(-100%);
-            padding: 0.5rem;
-            background-color: transparent;
+            transform: translateY(calc(-100% - 0.25rem)); /* 100% and half of padding .input-fly */
+            padding: 0.25rem;
+            background-color: #121212;
         }
     }
 }
