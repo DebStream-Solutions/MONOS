@@ -97,9 +97,14 @@ if (isset($_GET['login'])) {
 
     if (count(validate($input)) == 0) {
         $password = $_POST["password"];
-        $hash = pass_hash($_POST["password"]);
+        $hashes = "SELECT hash FROM users";
+        foreach ($hash as $key => $hashes) {
+            if (password_verify($password, $hash)) {
+                $matches = true;
+            }
+        }
 
-        if (password_verify($password, $hash)) {
+        if ($matches) {
             $_SESSION["hash"] = "";
             $_SESSION["user"] = true;
 
