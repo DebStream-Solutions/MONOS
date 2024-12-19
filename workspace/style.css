@@ -563,7 +563,7 @@ select {
 }
 
 
-div:has(input[type="submit"]) {
+div > input[type="submit"] {
     display: flex;
 }
 
