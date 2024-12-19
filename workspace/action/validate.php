@@ -24,7 +24,7 @@ function validate($input) {
             if (isset($_POST[$value])) {
                 $$value = $_POST[$value];
                 if (!isset($_POST["password"])) {
-                    $_SESSION[$value2] = $$value2;
+                    $_SESSION[$value] = $$value;
                 }
             } else {
                 $error[] = $value;
