@@ -24,6 +24,15 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 
+    $(".input-fly input").focusout(() => {
+        if ($(this).val().length > 0) {
+            $(this).siblings("label").addClass("stay");
+        } else {
+            $(this).siblings("label").removeClass("stay");
+        }
+        
+    });
+
     function toggleSidebar() {
         if ($(".sidebar-wrap").css("right").includes("-")) {
             $(".sidebar-wrap").animate({ right: '0%' }, 500);
