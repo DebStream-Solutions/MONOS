@@ -14,6 +14,16 @@ function onLoad() {
         loaded();
     }
 
+    $(".input-fly input").focusout(() => {
+        $(this).siblings("label").addClass("stay");
+        if ($(this).val().length > 0) {
+            $(this).siblings("label").addClass("stay");
+        } else {
+            $(this).siblings("label").removeClass("stay");
+        }
+        
+    });
+
     $(".sidebar-content > div").click(function() {
         if ($(this).children(".title.up").length > 0) {
             $(this).children(".roll").slideToggle(200, () => {

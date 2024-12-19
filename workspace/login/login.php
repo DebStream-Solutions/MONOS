@@ -22,17 +22,7 @@
 <title>MONOS</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="../scripts/main.js">
-    $(".input-fly input").focusout(() => {
-        $(this).siblings("label").addClass("stay");
-        if ($(this).val().length > 0) {
-            $(this).siblings("label").addClass("stay");
-        } else {
-            $(this).siblings("label").removeClass("stay");
-        }
-        
-    });
-</script>
+<script src="../scripts/main.js"></script>
 </head>
 <body>
 <div id="loading">
