@@ -24,8 +24,8 @@
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 <script type="text/javascript">
 
-    $(".input-fly input").on("focusout", () => {
-        if ($(this).length > 0) {
+    $(".input-fly input:focus").focusout(() => {
+        if ($(this).val().length > 0) {
             $(this).siblings("label").addClass("stay");
         } else {
             $(this).siblings("label").removeClass("stay");
