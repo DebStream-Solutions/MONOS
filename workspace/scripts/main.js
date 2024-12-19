@@ -15,6 +15,7 @@ function onLoad() {
     }
 
     $(".input-fly input").focusout(() => {
+        $(this).siblings("label").addClass("stay");
         if ($(this).val().length > 0) {
             $(this).siblings("label").addClass("stay");
         } else {
