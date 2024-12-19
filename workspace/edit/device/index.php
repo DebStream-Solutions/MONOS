@@ -44,6 +44,15 @@
 
 
     function loaded() {
+        $(".input-fly input").focusout(() => {
+            $(this).siblings("label").addClass("stay");
+            if ($(this).val().length > 0) {
+                $(this).siblings("label").addClass("stay");
+            } else {
+                $(this).siblings("label").removeClass("stay");
+            }
+            
+        });
 
         $(".add").click(function() {
             $(this).children(".roll").fadeToggle(200);
