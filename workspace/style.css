@@ -630,6 +630,7 @@ input[type="submit"] {
             padding: 0.25rem;
             width: fit-content;
             background-color: #121212;
+            font-size: 0.65rem !important;
         }
 
         &::-webkit-input-placeholder {
