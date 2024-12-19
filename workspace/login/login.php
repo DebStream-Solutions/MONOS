@@ -48,7 +48,8 @@
             }
         });
 
-        $(".input-fly").focusout(() => {
+
+        $(".input-fly input").focusout(() => {
             if ($(this).html().length > 0) {
                 $(this).siblings("label").addClass("stay");
             } else {
