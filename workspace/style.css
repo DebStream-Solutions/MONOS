@@ -548,6 +548,7 @@ select {
     border: none;
     padding: 0.25rem;
     border-radius: 5px;
+    outline: none;
 
     ::selection {
         background-color: #121212;
@@ -557,8 +558,19 @@ select {
     option {
         background-color: #232323;
         border: none;
-        color: #c7c7c7;
+        color: #c7c7c7;  
     }
+}
+
+
+div:has(input[type="submit"]) {
+    display: flex;
+}
+
+input[type="submit"] {
+    margin: 1rem auto;
+    align-self: center;
+    padding: 0.25rem 1.25rem;
 }
 
 /* LOGIN */
