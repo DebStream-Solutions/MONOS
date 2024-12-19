@@ -568,17 +568,17 @@ input[type=text] {
         margin: 0;
     }
 
-    input.stay {
-        transform: translate(-0.25rem, calc(-100% + 0.125rem)); /* 100% and half of padding .input-fly */
-        padding: 0.25rem;
-        width: fit-content;
-        background-color: #121212;
-    }
-
     label {
         position: absolute;
         left: 0;
         transition: all .3s ease-in-out;
+    }
+
+    label.stay {
+        transform: translate(-0.25rem, calc(-100% + 0.125rem)); /* 100% and half of padding .input-fly */
+        padding: 0.25rem;
+        width: fit-content;
+        background-color: #121212;
     }
 
     input:focus,
