@@ -441,7 +441,7 @@ body {
     font-size: 1.25rem;
     border: 1px solid white;
     border-radius: 5px;
-    padding: 2px 10px;
+    padding: 0 5px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -486,7 +486,6 @@ body {
     display: flex;
     margin: auto;
     padding-right: 5px;
-    border: #ffffff80 1px solid;
     border-radius: 0 5px 5px 0;
 }
 
@@ -514,11 +513,10 @@ body {
 
     label {
         padding: 10px;
-        display: block;
+        display: flex;
 
         input[type="checkbox"] {
             margin-right: 10px;
-            bo
         }
     }
 }
@@ -536,12 +534,31 @@ body {
     border: 1px solid #ffffff35;
     border-radius: 5px;
     white-space: nowrap;
+    font-size: 0.8rem;
 }
 
 .selected-item .remove-item {
     margin-left: 10px;
     color: rgb(255, 209, 209);
     cursor: pointer;
+}
+
+select {
+    background-color: #ffffff12;
+    border: none;
+    padding: 0.25rem;
+    border-radius: 5px;
+
+    ::selection {
+        background-color: #121212;
+        border: 1px solid #ffffff30;
+    }
+
+    option {
+        background-color: #232323;
+        border: none;
+        color: #c7c7c7;
+    }
 }
 
 /* LOGIN */
