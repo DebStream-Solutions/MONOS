@@ -47,7 +47,17 @@
                 $(this).children(".roll").css("display", "flex");
             }
         });
+
+        $(".input-fly").focusout(() => {
+            if ($(this).html().length > 0) {
+                $(this).siblings("label").addClass("stay");
+            } else {
+                $(this).siblings("label").removeClass("stay");
+            }
+            
+        });
     }
+
 
     $(document).ready(onLoad);
 </script>
