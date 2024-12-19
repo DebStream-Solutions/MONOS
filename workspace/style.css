@@ -441,7 +441,7 @@ body {
     font-size: 1.25rem;
     border: 1px solid white;
     border-radius: 5px;
-    padding: 0 5px;
+    padding: 0 8px;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -617,6 +617,7 @@ input[type="submit"] {
         padding: 0.25rem;
         width: fit-content;
         background-color: #121212;
+        font-size: 0.65rem !important;
     }
 
     input:focus,

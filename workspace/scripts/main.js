@@ -10,7 +10,9 @@ $("#net_chart").ready(() => {
 
 
 function onLoad() {
-    loaded();
+    if (window.loaded) {
+        loaded();
+    }
 
     $(".input-fly input").focusout(() => {
         if ($(this).html().length > 0) {
