@@ -4,10 +4,21 @@ function hideLoad() {
     });
 }
 
+$("#net_chart").ready(() => {
+    setTimeout(hideLoad, 1000);
+});
+
 
 function onLoad() {
-    $("#net_chart").ready(() => {
-        setTimeout(hideLoad, 1000);
+    loaded();
+
+    $(".input-fly input").focusout(() => {
+        if ($(this).html().length > 0) {
+            $(this).siblings("label").addClass("stay");
+        } else {
+            $(this).siblings("label").removeClass("stay");
+        }
+        
     });
 
     $(".sidebar-content > div").click(function() {
@@ -20,15 +31,6 @@ function onLoad() {
             $(this).children(".title").addClass("up");
             $(this).children(".roll").css("display", "flex");
         }
-    });
-
-    $(".input-fly").focusout(() => {
-        if ($(this).html().length > 0) {
-            $(this).siblings("label").addClass("stay");
-        } else {
-            $(this).siblings("label").removeClass("stay");
-        }
-        
     });
 }
 

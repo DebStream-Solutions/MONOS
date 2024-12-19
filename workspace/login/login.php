@@ -22,46 +22,7 @@
 <title>MONOS</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script type="text/javascript">
-
-    function hideLoad() {
-        $("#loading").animate({ top: '-50%', opacity: 0 }, 1000, function() {
-            $(this).fadeOut(1000);
-        });
-    }
-
-
-    function onLoad() {
-        $("#net_chart").ready(() => {
-            setTimeout(hideLoad, 1000);
-        });
-
-        $(".sidebar-content > div").click(function() {
-            if ($(this).children(".title.up").length > 0) {
-                $(this).children(".roll").slideToggle(200, () => {
-                    $(this).children(".title").removeClass("up");
-                });
-            } else {
-                $(this).children(".roll").slideToggle(200);
-                $(this).children(".title").addClass("up");
-                $(this).children(".roll").css("display", "flex");
-            }
-        });
-
-
-        $(".input-fly input").focusout(() => {
-            if ($(this).html().length > 0) {
-                $(this).siblings("label").addClass("stay");
-            } else {
-                $(this).siblings("label").removeClass("stay");
-            }
-            
-        });
-    }
-
-
-    $(document).ready(onLoad);
-</script>
+<script src="../scripts/main.js"></script>
 </head>
 <body>
 <div id="loading">

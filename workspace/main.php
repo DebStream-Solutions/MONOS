@@ -322,7 +322,7 @@ function editDevice($edit) {
                     <div class="log">
                         <div class="login-wrap">
                             <h2>Add device</h2>
-                            <div>
+                            <div id="device-form">
                                 <form method=POST action="../../action/validate.php?device">
                                     <div class="input-fly">
                                         <div>
@@ -413,7 +413,7 @@ function editDevice($edit) {
                     <div class="log">
                         <div class="login-wrap">
                             <h2>Add device</h2>
-                            <div>
+                            <div id="device-form">
                                 <form method=POST action="../../action/validate.php?device">
                                     <div class="input-fly">
                                         <div>
