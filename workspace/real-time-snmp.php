@@ -21,6 +21,82 @@ function snmpFormat($snmp_arr, $separator) {
 }
 
 
+# -- Network ----
+
+function ping($host, $timeout = 1) {
+    $output = [];
+    $status = null;
+
+    // Adjust the command based on the operating system
+    if (stristr(PHP_OS, 'WIN')) { 
+        // Windows
+        $cmd = "ping -n 1 -w " . ($timeout * 1000) . " $host";
+    } else {
+        // Linux / macOS
+        $cmd = "ping -c 1 -W $timeout $host";
+    }
+
+    // Execute the command
+    exec($cmd, $output, $status);
+
+    // Return true if the ping was successful
+    return $status === 0 ? true : false;
+}
+
+
+function telnet($host, $ports = [80, 443, 22], $timeout = 1) {
+    // Attempt to open a socket connection
+    foreach ($ports as $port) {
+        $connection = @fsockopen($host, $port, $errno, $errstr, $timeout);
+        if ($connection) {
+            fclose($connection); // Close the connection
+            return true; // Device is reachable on this port
+        }
+    }
+    return false; // Device is not reachable on any of the specified port
+}
+
+function isDeviceAlive($host, $ports = [80, 443, 22], $timeout = 1) {
+    if (ping($host)) {
+        return true;
+    } elseif (telnet($host)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+function getStateHtml($text = "", $ip, $timeout = 1) {
+    $state = isDeviceAlive($ip);
+    $class = $state ? "online" : "offline";
+    if ($text) {
+        $text = $class;
+    }
+
+    $html = '<div class="'.$class.'">'.$text.'</div>';
+
+    return $html;
+}
+
+
+# -- GET REAL STATE --------
+
+function getRealStateArray($profileId) {
+
+    $devices = query("SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId)[0];
+
+    foreach ($devices as $key => $value) {
+        $deviceIP = query("SELECT ip FROM devices WHERE id = ".$value)[0];
+
+        $stateHtml = getStateHtml($deviceIP);
+        if ($stateHtml) {
+            $elementId = "deviceState-" + $value;
+            $data[$elementId] = $stateHtml;
+        }
+
+        return $data;
+    }
+}
 
 
 # -- MAIN FUNCTION ---------
@@ -125,6 +201,11 @@ function getRealTimeArray($type, $ip) {
                 }
             }
         } # else -- not the type
+    }
+
+    $stateHtml = getStateHtml($ip);
+    if ($stateHtml) {
+        $snmpData["deviceState"] = $stateHtml;
     }
 
     return $snmpData;

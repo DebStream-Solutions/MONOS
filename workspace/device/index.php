@@ -18,11 +18,6 @@
     $_SESSION["device-type"] = $typeId;
 
     $result = getSNMPData($ipv4, $typeId, "public");
-
-
-    $ping_state = isDeviceAlive($ipv4);
-    $device_state = $ping_state ? "online" : "offline";
-    $device_state_text = $ping_state ? "Online" : "Offline";
     
     //echo $result;
 
@@ -36,7 +31,7 @@
     <title>Document</title>
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <script src="../ajax.js"></script>
+    <script src="../ajax.js?getRealTimeArray"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
         google.charts.setOnLoadCallback(drawChart);
@@ -114,7 +109,9 @@
 </head>
 <body>
     <div class="all">
-        <div class="<?php echo $device_state; ?>"><?php echo $device_state_text; ?></div>
+        <div id="deviceState">
+            <div class="unknown"></div>
+        </div>
         <div class="header">
             <h1 class="device"><?php
                 $conditions = ["id" => $device];

@@ -161,9 +161,7 @@ function listDevices($profile) {
     $deviceFound = False;
 
     foreach ($devices as $key => $value) {
-        $profileId = "SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"]." AND profileId = ".$profile;
-        $profileId = $conn->query($profileId);
-        $profileId = $profileId->fetch_all(MYSQLI_ASSOC);
+        $profileId = query("SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"]." AND profileId = ".$profile);
 
         if (!empty($profileId)) {
             $profileId = $profileId[0]["profileId"];
@@ -174,7 +172,6 @@ function listDevices($profile) {
             
             if ($profile === strval($profileId)) {
                 $deviceFound = True;
-                $ping_state = isDeviceAlive($value['ip']) ? "online" : "offline";
 
                 $deviceList .= '
                 <a href="'.$newUrl.'">
@@ -184,7 +181,9 @@ function listDevices($profile) {
                             <h3>'.$value['name'].'</h3>
                             <span>'.$value['ip'].'</span>
                         </div>
-                        <div class="'.$ping_state.'"></div>
+                        <div class="deviceState" id="deviceState-'.$value['id'].'">
+                            <div class="unknown"></div>
+                        </div>
                     </div>
                 </a>
             ';

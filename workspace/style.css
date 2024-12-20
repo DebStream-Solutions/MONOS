@@ -265,55 +265,79 @@ div:has(.roll) > .title::after {
     font-size: 0.85rem;
 }
 
-.online {
-    font-family: "Inconsolata", serif;
-    letter-spacing: 2px;
-    color: #54fb54;
-    display: flex;
-    gap: 0.5rem;
-    font-size: 0.6rem;
+#deviceState {
     position: absolute;
     margin: 0.75rem 0.75rem 0 0;
     top: 0;
     right: 0;
-    flex-direction: row-reverse;
-    align-items: center;
-}
-  
-.online::before {
-    content: "";
-    display: flex;
-    background-color: #20c520;
-    box-shadow: 0px 0px 5px 3px #01ff016e;
-    border-radius: 100%;
-    width: 0.5rem;
-    height: 0.5rem;
-}
-  
-  
-.offline {
-    font-family: "Inconsolata", serif;
-    letter-spacing: 2px;
-    color: #cfcaca;
-    display: flex;
-    gap: 0.5rem;
-    font-size: 0.6rem;
-    position: absolute;
-    margin: 0.75rem 0.75rem 0 0;
-    top: 0;
-    right: 0;
-    flex-direction: row-reverse;
-    align-items: center;
-}
-  
-.offline::before {
-    content: "";
-    display: flex;
-    background-color: #858585;
-    box-shadow: 0px 0px 5px 3px #3b3b3b;
-    border-radius: 100%;
-    width: 0.5rem;
-    height: 0.5rem;
+
+
+    .online {
+        font-family: "Inconsolata", serif;
+        text-transform: capitalize;
+        letter-spacing: 2px;
+        color: #54fb54;
+        display: flex;
+        gap: 0.5rem;
+        font-size: 0.6rem;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+    
+    .online::before {
+        content: "";
+        display: flex;
+        background-color: #20c520;
+        box-shadow: 0px 0px 5px 3px #01ff016e;
+        border-radius: 100%;
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+    
+    
+    .offline {
+        font-family: "Inconsolata", serif;
+        text-transform: capitalize;
+        letter-spacing: 2px;
+        color: #cfcaca;
+        display: flex;
+        gap: 0.5rem;
+        font-size: 0.6rem;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+    
+    .offline::before {
+        content: "";
+        display: flex;
+        background-color: #858585;
+        box-shadow: 0px 0px 5px 3px #3b3b3b;
+        border-radius: 100%;
+        width: 0.5rem;
+        height: 0.5rem;
+    }
+    
+    .unknown {
+        font-family: "Inconsolata", serif;
+        text-transform: capitalize;
+        letter-spacing: 2px;
+        color: #df8e15;
+        display: flex;
+        gap: 0.5rem;
+        font-size: 0.6rem;
+        flex-direction: row-reverse;
+        align-items: center;
+    }
+    
+    .unknown::before {
+        content: "";
+        display: flex;
+        background-color: #94641d;
+        box-shadow: 0px 0px 5px 3px #3b3b3b;
+        border-radius: 100%;
+        width: 0.5rem;
+        height: 0.5rem;
+    }
 }
 
 

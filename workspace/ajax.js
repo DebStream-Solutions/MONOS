@@ -1,8 +1,28 @@
 $(document).ready(function () {
     // Function to fetch SNMP data
-    function fetchSNMPData() {
+    function GET(param) {
+        const urlParams = new URLSearchParams(window.location.search);
+        return urlParams.get(param); // Returns the value of the parameter or null if not found
+    }
+
+    function GET_ALL() {
+        const urlParams = new URLSearchParams(window.location.search);
+        const params = {};
+        urlParams.forEach((value, key) => {
+            params[key] = value;
+        });
+        return params;
+    }
+
+    let func = GET("func");
+    func = func ? func : "";
+
+    let gets = func;
+
+
+    function fetchSNMPData(GET) {
         $.ajax({
-            url: '../ajax-snmp.php', // Path to your PHP script
+            url: '../ajax-snmp.php?' + GET, // Path to your PHP script
             method: 'GET',
             dataType: 'json',
             success: function (response) {
@@ -34,5 +54,5 @@ $(document).ready(function () {
     }
 
     // Initial fetch
-    fetchSNMPData();
+    fetchSNMPData(gets);
 });

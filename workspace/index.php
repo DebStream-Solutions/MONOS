@@ -13,6 +13,7 @@
     } else {
         if (isset($_GET['profile'])) {
             $profile = $_GET['profile'];
+            $_SESSION['profile'] = $profile;
         }
     }
 
