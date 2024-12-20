@@ -20,7 +20,7 @@
     $result = getSNMPData($ipv4, $typeId, "public");
 
 
-    $ping_state = isDeviceAlive($hostIp);
+    $ping_state = isDeviceAlive($ipv4);
     $device_state = $ping_state ? "online" : "offline";
     $device_state_text = $ping_state ? "Online" : "Offline";
     
