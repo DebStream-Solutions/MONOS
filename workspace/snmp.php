@@ -152,6 +152,10 @@ function workstation($hostIp, $community) {
             }
         }
 
+        $ping_state = isDeviceAlive($hostIp);
+        $device_state = $ping_state ? "online" : "offline";
+        $device_state_text = $ping_state ? "Online" : "Offline";
+
 
         # FOR CHART - Make variables global
         $GLOBALS["usedSpace"] = $disk_used_percentage;
@@ -159,6 +163,7 @@ function workstation($hostIp, $community) {
 
         $generative_content = "
             <div class='content'>
+                <div class='".$device_state."'>".$device_state_text."</div>
                 <div class='main-banner'>
                     <div id='donutchart'></div>
                 </div>
