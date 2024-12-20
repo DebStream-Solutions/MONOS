@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+include "db.php";
 
 
 
@@ -82,6 +82,7 @@ function getStateHtml($ip, $text = "", $timeout = 1) {
 # -- GET REAL STATE --------
 
 function getRealStateArray($profileId = false, $deviceIP = false, $text = false) {
+    global $conn;
     $data = [];
 
     if ($deviceIP) {
@@ -92,6 +93,9 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
         }
     } elseif ($profileId) {
         $devices = query("SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId)[0];
+        $devices = $conn->query($devices);
+        $devices = $devices->fetch_all(MYSQLI_ASSOC);
+
 
         foreach ($devices as $key => $value) {
             $deviceIP = query("SELECT ip FROM devices WHERE id = ".$value)[0];

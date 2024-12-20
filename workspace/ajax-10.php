@@ -12,21 +12,13 @@ function device() {
     if (isset($_SESSION['device-type']) && isset($_SESSION['device-ip']) && !empty($_SESSION['device-type']) && !empty($_SESSION['device-ip'])) {
         $deviceIp = $_SESSION['device-ip'];
 
-        if (!empty($deviceIp)) {
-            $data = getRealStateArray(false, $deviceIp);
-        } else {
-            $error = "Error: Missing either IP or Device Type";
-            $data = false;
-        }
-    } elseif (isset($_SESSION['profile'])) {
+        $data = getRealStateArray(false, $deviceIp);
+
+    } elseif (isset($_SESSION['profile']) && !empty($_SESSION['profile'])) {
         $profileId = $_SESSION['profile'];
-    
-        if (!empty($profileId)) {
-            $data = getRealStateArray($profileId);
-        } else {
-            $error = "Error: Missing either IP or Device Type";
-            $data = false;
-        }
+
+        $data = getRealStateArray($profileId);
+        
     } else {
         $data = false;
     }
