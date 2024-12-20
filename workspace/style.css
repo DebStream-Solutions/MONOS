@@ -1,5 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Bruno+Ace+SC&family=Montserrat:ital,wght@0,100..900;1,100..900&display=swap');
-
+@import url('https://fonts.googleapis.com/css2?family=Inconsolata:wght@200..900&display=swap');
 
 :root {
     color-scheme: light dark;
@@ -266,14 +266,17 @@ div:has(.roll) > .title::after {
 }
 
 .online {
-    color: #20c520;
+    font-family: "Inconsolata", serif;
+    color: #54fb54;
     display: flex;
-    gap: 0.25rem;
+    gap: 0.5rem;
     font-size: 0.6rem;
     position: absolute;
     margin: 0.75rem 0.75rem 0 0;
     top: 0;
     right: 0;
+    flex-direction: row-reverse;
+    align-items: center;
 }
   
 .online::before {
@@ -288,14 +291,17 @@ div:has(.roll) > .title::after {
   
   
 .offline {
+    font-family: "Inconsolata", serif;
     color: #cfcaca;
     display: flex;
-    gap: 0.25rem;
+    gap: 0.5rem;
     font-size: 0.6rem;
     position: absolute;
     margin: 0.75rem 0.75rem 0 0;
     top: 0;
     right: 0;
+    flex-direction: row-reverse;
+    align-items: center;
 }
   
 .offline::before {
