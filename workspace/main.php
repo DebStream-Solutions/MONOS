@@ -132,8 +132,8 @@ function profileContent() {
 function listDevices($profile) {
     global $conn;
 
-    $devices = $GLOBALS["devices"];
-    $types = $GLOBALS["types"];
+    $devices = query("SELECT * FROM devices");
+    $types = query("SELECT * FROM types");
     $deviceList = "";
 
     foreach ($devices as $key => $value) {
