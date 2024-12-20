@@ -132,16 +132,15 @@ function profileContent() {
 function listDevices($profile) {
     global $conn;
 
-    $devices = query("SELECT * FROM devices");
-    $types = query("SELECT * FROM types");
+    $devices = $GLOBALS["devices"];
+    $types = $GLOBALS["types"];
     $deviceList = "";
+    $deviceFound = False;
 
     foreach ($devices as $key => $value) {
         $profileId = "SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"]." AND profileId = ".$profile;
         $profileId = $conn->query($profileId);
         $profileId = $profileId->fetch_all(MYSQLI_ASSOC);
-
-        var_dump($profileId);
 
         if (!empty($profileId)) {
             $profileId = $profileId[0]["profileId"];
@@ -151,6 +150,7 @@ function listDevices($profile) {
             $type_str = findValueByConditions($types, $conditions, "name");
             
             if ($profile === strval($profileId)) {
+                $deviceFound = True;
                 $ping_state = ping($value['ip']) ? "online" : "offline";
 
                 $deviceList .= '
@@ -165,9 +165,10 @@ function listDevices($profile) {
                     </div>
                 </a>
             ';
+            
+
             }
-        } else {
-            var_dump($profileId);
+        } elseif ($deviceFound != True) {
             $deviceList .= "There are no devices in this profile. Go and add some!";
         }
         

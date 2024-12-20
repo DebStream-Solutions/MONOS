@@ -271,6 +271,7 @@ div:has(.roll) > .title::after {
     gap: 0.25rem;
     font-size: 0.6rem;
     position: absolute;
+    margin: 0.5rem 0.5rem 0 0;
     top: 0;
     right: 0;
 }
@@ -292,6 +293,7 @@ div:has(.roll) > .title::after {
     gap: 0.25rem;
     font-size: 0.6rem;
     position: absolute;
+    margin: 0.5rem 0.5rem 0 0;
     top: 0;
     right: 0;
 }
