@@ -101,6 +101,7 @@ $oids = $oids->fetch_all(MYSQLI_ASSOC);
 
 $GLOBALS["devices"] = $devices;
 $GLOBALS["profiles"] = $profiles;
+$GLOBALS["profileReleations"] = $profileReleations;
 $GLOBALS["templates"] = $templates;
 $GLOBALS["types"] = $types;
 $GLOBALS["oids"] = $oids;

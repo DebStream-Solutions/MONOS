@@ -1,6 +1,6 @@
 <?php
 
-include "main.php";
+session_start();
 
 # -- ADDON FUNCTIONS ------
 
