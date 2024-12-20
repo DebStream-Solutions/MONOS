@@ -58,25 +58,25 @@ $(document).ready(function () {
     // -- Ajax Call ---
 
     function ajaxProcess(timeouts, func, detail) {
-        let url = "";
 
         timeouts.forEach(time => {
             if (detail) {
-                url = '../ajax-'+time+'.php?func='+func;
+                let url = '../ajax-'+time+'.php?func='+func;
+                ajax(url, time);
             } else {
                 url = 'ajax-'+time+'.php?func='+func;
+                ajax(url, time);
             }
+
             
-            
-            ajax(url, time);
         });
     }
 
 
     function fetchData() {
-        let get = GET("profile");
-        console.log(get);
-        if (get) {
+        let profileGet = GET("profile");
+        console.log(profileGet);
+        if (profileGet) {
             let detail = false;
             let deviceGet = GET("device");
             if (deviceGet) {
