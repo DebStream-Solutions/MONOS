@@ -78,12 +78,13 @@ $(document).ready(function () {
         console.log(get);
         if (get) {
             let detail = false;
+            let timeouts = [10];
             let deviceGet = GET("device");
             if (deviceGet) {
                 detail = true;
+                timeouts = [5, 10];
             }
             
-            let timeouts = [5, 10];
             let func = "device";
             ajaxProcess(timeouts, func, detail);
         }
