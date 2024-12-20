@@ -1,6 +1,6 @@
 <?php
 
-session_start();
+include "main.php";
 
 # -- ADDON FUNCTIONS ------
 
@@ -80,7 +80,6 @@ function getStateHtml($ip, $text = "", $timeout = 1) {
 # -- GET REAL STATE --------
 
 function getRealStateArray($profileId = false, $deviceIP = false, $text = false) {
-    global $conn;
     $data = [];
 
     if ($deviceIP) {
