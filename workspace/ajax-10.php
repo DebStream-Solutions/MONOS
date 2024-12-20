@@ -18,8 +18,9 @@ function device() {
         $profileId = $_SESSION['profile'];
 
         $data = getRealStateArray($profileId);
-        
+
     } else {
+        $error = $_SESSION['profile']."--".$_SESSION['device-ip'];
         $data = false;
     }
 
