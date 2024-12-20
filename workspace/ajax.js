@@ -71,7 +71,7 @@ $(document).ready(function () {
 
 
     function fetchData() {
-        let get = GET("device");
+        let get = GET("profile");
         console.log(get);
         if (get) {
             let timeouts = [5, 10];
