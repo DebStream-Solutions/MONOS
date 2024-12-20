@@ -44,7 +44,7 @@ function getRealTimeArray($type, $ip) {
     $community = "public";
 
     $real_time_oids = [
-        "1.3.6.1.2.1.25.3.3.1.2" => [
+        "1.3.6.1.2.1.25.3.3.1.2" => [ # cpu Usage
             "type" => [3, 4],
             "id" => [
                 "cpuLoad" => "CPU Usage: {}%",
@@ -64,51 +64,21 @@ function getRealTimeArray($type, $ip) {
         "1.3.6.1.4.1.2021.4.5.0" => [ # total RAM
             "type" => [3, 4],
             "id" => [
-                "cpuLoad" => "CPU Usage: {}%",
-                "coreLoads" => ["
-                    <div class='core-load'>
-                        <div>Core ||</div>
-                        <div class='percent-wrap'>
-                            <div class='percent'>{}% </div>
-                            <div class='percent-line-wrap'>
-                                <div class='percent-line' style='width: calc({}%)'></div>
-                            </div>
-                        </div>
-                    </div>"]
+                "totalRam" => "Total Ram: {}"
             ],
             "separator" => "INTEGER: "
         ],
         "1.3.6.1.4.1.2021.4.6.0" => [ # free RAM
             "type" => [3, 4],
             "id" => [
-                "cpuLoad" => "CPU Usage: {}%",
-                "coreLoads" => ["
-                    <div class='core-load'>
-                        <div>Core ||</div>
-                        <div class='percent-wrap'>
-                            <div class='percent'>{}% </div>
-                            <div class='percent-line-wrap'>
-                                <div class='percent-line' style='width: calc({}%)'></div>
-                            </div>
-                        </div>
-                    </div>"]
+                "freeRam" => "Free Ram: {}"
             ],
             "separator" => "INTEGER: "
         ],
         "1.3.6.1.2.1.1.3" => [ # system Up
             "type" => [3, 4],
             "id" => [
-                "cpuLoad" => "CPU Usage: {}%",
-                "coreLoads" => ["
-                    <div class='core-load'>
-                        <div>Core ||</div>
-                        <div class='percent-wrap'>
-                            <div class='percent'>{}% </div>
-                            <div class='percent-line-wrap'>
-                                <div class='percent-line' style='width: calc({}%)'></div>
-                            </div>
-                        </div>
-                    </div>"]
+                "sysUp" => "System Up: {}"
             ],
             "separator" => ") "
         ],

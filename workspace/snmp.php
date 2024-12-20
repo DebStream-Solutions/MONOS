@@ -165,6 +165,16 @@ function workstation($hostIp, $community) {
                 <div class='mon-list'>
                     <div>
                         <div class='title'>
+                            SYSTEM
+                        </div>
+                        <div class='roll'>
+                            <div>
+                                <div id='sysUp'>System Up: 1d</div>
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class='title'>
                             CPU
                         </div>
                         <div class='roll'>
@@ -183,8 +193,8 @@ function workstation($hostIp, $community) {
                         </div>
                         <div class='roll'>
                             <div>
-                                <div>RAM Usage: 54%</div>
-                                <div>Frequency: 3200 MHz</div>
+                                <div id='freeRam'></div>
+                                <div id='totalRam'></div>
                             </div>
                         </div>
                     </div>
