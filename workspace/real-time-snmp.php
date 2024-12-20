@@ -1,6 +1,6 @@
 <?php
 
-include "db.php";
+//include "db.php";
 
 
 
@@ -92,14 +92,16 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
             $data[$elementId] = $stateHtml;
         }
     } elseif ($profileId) {
-        $devices = query("SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId);
+        $devices = "SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId;
         $devices = $conn->query($devices);
         $devices = $devices->fetch_all(MYSQLI_ASSOC);
 
 
         foreach ($devices as $key => $value) {
-            $deviceIP = query("SELECT ip FROM devices WHERE id = ".$value)[0];
-        
+            $deviceIP = "SELECT ip FROM devices WHERE id = ".$value;
+            $deviceIP = $conn->query($deviceIP);
+            $deviceIP = $deviceIP->fetch_all(MYSQLI_ASSOC)[0];
+
             $stateHtml = getStateHtml($deviceIP, $text);
             if ($stateHtml) {
                 $elementId = "deviceState-" + $value;
