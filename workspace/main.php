@@ -174,8 +174,7 @@ function listDevices($profile) {
             
             if ($profile === strval($profileId)) {
                 $deviceFound = True;
-                $ping_state = ping($value['ip']) ? "online" : "offline";
-                $telnet_state = telnet($host, $port);
+                $ping_state = isDeviceAlive($value['ip']) ? "online" : "offline";
 
                 $deviceList .= '
                 <a href="'.$newUrl.'">
