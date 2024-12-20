@@ -191,10 +191,11 @@ function listDevices($profile) {
             
 
             }
-        } elseif ($deviceFound != True) {
-            $deviceList .= "There are no devices in this profile. Go and add some!";
         }
-        
+    }
+
+    if ($deviceFound != True) {
+        $deviceList .= "There are no devices in this profile. Go and add some!";
     }
 
     return $deviceList;
