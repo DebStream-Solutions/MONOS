@@ -50,7 +50,7 @@ function ping($host, $timeout = 1) {
 }
 
 
-function telnet($host, $ports = [80, 443, 22], $timeout = 3) {
+function telnet($host, $ports = [80, 443, 22], $timeout = 1) {
     // Attempt to open a socket connection
     foreach ($ports as $port) {
         $connection = @fsockopen($host, $port, $errno, $errstr, $timeout);
