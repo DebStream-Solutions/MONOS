@@ -9,7 +9,7 @@ header('Content-Type: application/json');
 function device() {
     $error = "";
 
-    if (isset($_SESSION['device-type']) && $_SESSION['device-ip']) {
+    if (isset($_SESSION['device-type']) && isset($_SESSION['device-ip']) && !empty($_SESSION['device-type']) && !empty($_SESSION['device-ip'])) {
         $deviceIp = $_SESSION['device-ip'];
 
         if (!empty($deviceIp)) {

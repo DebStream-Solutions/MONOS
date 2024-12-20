@@ -89,7 +89,7 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
             $elementId = "deviceState";
             $data[$elementId] = $stateHtml;
         }
-    } else {
+    } elseif ($profileId) {
         $devices = query("SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId)[0];
 
         foreach ($devices as $key => $value) {
