@@ -93,6 +93,7 @@ function getStateHtml($ip, $text = "", $timeout = 1) {
 # -- GET REAL STATE --------
 
 function getRealStateArray($profileId = false, $deviceIP = false, $text = false) {
+    global $conn;
     $data = [];
 
     if ($deviceIP) {
@@ -102,6 +103,8 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
             $data[$elementId] = $stateHtml;
         }
     } elseif ($profileId) {
+
+        /*
         $devices = [];
         if (isset($GLOBALS['profileReleations']) && is_array($GLOBALS['profileReleations'])) {
             foreach ($GLOBALS['profileReleations'] as $relation) {
@@ -113,9 +116,14 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
                     }
                 }
             }
-        }
+        }*/
+        
+        $devices = "SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId;
+        $devices = $conn->query($devices);
+        $devices = $devices->fetch_all(MYSQLI_ASSOC);
 
         foreach ($devices as $key => $value) {
+            /*
             $deviceIP = null;
             if (isset($GLOBALS['devices']) && is_array($GLOBALS['devices'])) {
                 foreach ($GLOBALS['devices'] as $device) {
@@ -129,6 +137,10 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
                     }
                 }
             }
+            */
+            $deviceIP = "SELECT ip FROM devices WHERE id = ".$value;
+            $deviceIP = $conn->query($deviceIP);
+            $deviceIP = $deviceIP->fetch_all(MYSQLI_ASSOC)[0];
 
             $stateHtml = getStateHtml($deviceIP, $text);
             if ($stateHtml) {
