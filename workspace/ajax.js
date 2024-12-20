@@ -17,6 +17,7 @@ $(document).ready(function () {
     // -- Ajax --------
 
     function ajax(path, time) {
+        console.log(path);
         $.ajax({
             url: path, // Path to your PHP script
             method: 'GET',
