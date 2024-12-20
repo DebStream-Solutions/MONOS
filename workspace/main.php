@@ -161,8 +161,9 @@ function listDevices($profile) {
     $deviceFound = False;
 
     foreach ($devices as $key => $value) {
-        $profileId = query("SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"]." AND profileId = ".$profile);
-        
+        $profileId = "SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"]." AND profileId = ".$profile;
+        $profileId = $conn->query($profileId);
+        $profileId = $profileId->fetch_all(MYSQLI_ASSOC);
 
         if (!empty($profileId)) {
             $profileId = $profileId[0]["profileId"];
