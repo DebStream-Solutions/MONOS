@@ -27,6 +27,29 @@ function issetReturn($variable) {
 }
 
 
+# -- Network ----
+
+function ping($host, $timeout = 1) {
+    $output = [];
+    $status = null;
+
+    // Adjust the command based on the operating system
+    if (stristr(PHP_OS, 'WIN')) { 
+        // Windows
+        $cmd = "ping -n 1 -w " . ($timeout * 1000) . " $host";
+    } else {
+        // Linux / macOS
+        $cmd = "ping -c 1 -W $timeout $host";
+    }
+
+    // Execute the command
+    exec($cmd, $output, $status);
+
+    // Return true if the ping was successful
+    return $status === 0 ? true : false;
+}
+
+
 # == DATABASE ==================
 
 $devices = "SELECT * FROM devices";
@@ -126,6 +149,8 @@ function listDevices($profile) {
             $type_str = findValueByConditions($types, $conditions, "name");
             
             if ($profile === strval($profileId)) {
+                $ping_state = ping($value['ip']) ? "online" : "offline";
+
                 $deviceList .= '
                 <a href="'.$newUrl.'">
                     <div class="device">
@@ -134,6 +159,7 @@ function listDevices($profile) {
                             <h3>'.$value['name'].'</h3>
                             <span>'.$value['ip'].'</span>
                         </div>
+                        <div class="'.$ping_state.'"></div>
                     </div>
                 </a>
             ';
