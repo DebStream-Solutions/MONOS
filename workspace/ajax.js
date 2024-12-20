@@ -25,7 +25,7 @@ $(document).ready(function () {
             success: function (response) {
                 if (response.success) {
 
-                    console.log("Data refresh");
+                    console.log("Data refresh", response.data);
 
                     if (response.data && typeof response.data === 'object') {
                         Object.entries(response.data).forEach(([key, value]) => {
