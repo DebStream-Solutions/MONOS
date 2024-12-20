@@ -92,7 +92,7 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
             $data[$elementId] = $stateHtml;
         }
     } elseif ($profileId) {
-        $devices = query("SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId)[0];
+        $devices = query("SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId);
         $devices = $conn->query($devices);
         $devices = $devices->fetch_all(MYSQLI_ASSOC);
 
