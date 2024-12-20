@@ -124,11 +124,7 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
 
         foreach ($devices as $key => $value) {
 
-            $deviceIP = "SELECT ip FROM devices WHERE id = ".$value[0];
-            $deviceIP = $conn->query($deviceIP);
-            $deviceIP = $deviceIP->fetch_all(MYSQLI_ASSOC)[0];
-
-            $data[$value[0]] = $deviceIP;
+            $data = $value;
         }
     }
 
