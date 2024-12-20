@@ -83,6 +83,10 @@ $profiles = "SELECT * FROM profiles";
 $profiles = $conn->query($profiles);
 $profiles = $profiles->fetch_all(MYSQLI_ASSOC);
 
+$profileReleations = "SELECT * FROM profileReleations";
+$profileReleations = $conn->query($profileReleations);
+$profileReleations = $profileReleations->fetch_all(MYSQLI_ASSOC);
+
 $templates = "SELECT * FROM templates";
 $templates = $conn->query($templates);
 $templates = $templates->fetch_all(MYSQLI_ASSOC);

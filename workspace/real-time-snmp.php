@@ -90,15 +90,33 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
             $data[$elementId] = $stateHtml;
         }
     } elseif ($profileId) {
-        $devices = "SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId;
-        $devices = $conn->query($devices);
-        $devices = $devices->fetch_all(MYSQLI_ASSOC);
-
+        $devices = [];
+        if (isset($GLOBALS['profileReleations']) && is_array($GLOBALS['profileReleations'])) {
+            foreach ($GLOBALS['profileReleations'] as $relation) {
+                // Check if the current relation matches the desired profileId
+                if (isset($relation['profileId']) && $relation['profileId'] == $profileId) {
+                    // Add the deviceId to the $devices array
+                    if (isset($relation['deviceId'])) {
+                        $devices[] = $relation['deviceId'];
+                    }
+                }
+            }
+        }
 
         foreach ($devices as $key => $value) {
-            $deviceIP = "SELECT ip FROM devices WHERE id = ".$value;
-            $deviceIP = $conn->query($deviceIP);
-            $deviceIP = $deviceIP->fetch_all(MYSQLI_ASSOC)[0];
+            $deviceIP = null;
+            if (isset($GLOBALS['devices']) && is_array($GLOBALS['devices'])) {
+                foreach ($GLOBALS['devices'] as $device) {
+                    // Check if the current device matches the desired ID
+                    if (isset($device['id']) && $device['id'] == $value) {
+                        // Get the IP address of the device
+                        if (isset($device['ip'])) {
+                            $deviceIP = $device['ip'];
+                            break; // Exit the loop once the device is found
+                        }
+                    }
+                }
+            }
 
             $stateHtml = getStateHtml($deviceIP, $text);
             if ($stateHtml) {
