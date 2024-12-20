@@ -59,23 +59,23 @@ $(document).ready(function () {
 
     function ajaxProcess(timeouts, func, detail) {
         let url = "";
-        
+
         timeouts.forEach(time => {
             if (detail) {
                 url = '../ajax-'+time+'.php?func='+func;
             } else {
                 url = 'ajax-'+time+'.php?func='+func;
             }
-
+            
             ajax(url, time);
         });
     }
 
 
     function fetchData() {
-        let profileGet = GET("profile");
-        console.log(profileGet);
-        if (profileGet) {
+        let get = GET("profile");
+        console.log(get);
+        if (get) {
             let detail = false;
             let deviceGet = GET("device");
             if (deviceGet) {
