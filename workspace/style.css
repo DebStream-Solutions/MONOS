@@ -302,7 +302,7 @@ div:has(.roll) > .title::after {
     content: "";
     display: flex;
     background-color: #cfcaca;
-    box-shadow: 0px 0px 5px 3px #dfdfdf;
+    box-shadow: 0px 0px 5px 3px #656565;
     border-radius: 100%;
     width: 0.5rem;
     height: 0.5rem;
