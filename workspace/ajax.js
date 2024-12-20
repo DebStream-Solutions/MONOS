@@ -64,6 +64,7 @@ $(document).ready(function () {
 
     function fetchData() {
         let get = GET("device");
+        console.log(get);
         if (get) {
             let timeouts = [5, 10];
             let func = "device";
