@@ -23,7 +23,7 @@ if ($conn->connect_error) {
 
 # FUNCTIONS
 
-function query($query, $status = false) {
+function query($query, $returnStatus = false) {
     global $conn;
 
     # DO (INSERT/UPDATE/DELETE/SELECT)
@@ -32,7 +32,7 @@ function query($query, $status = false) {
     if (strpos($query, "SELECT")) {
         $data = $status->fetch_all(MYSQLI_ASSOC);
 
-        if ($status) {
+        if ($returnStatus) {
             $request = ["data" => $data, "status" => $status];
         } else {
             $request = $data;

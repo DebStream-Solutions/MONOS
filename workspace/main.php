@@ -161,10 +161,10 @@ function listDevices($profile) {
     $deviceFound = False;
 
     foreach ($devices as $key => $value) {
-        $profileId = query("SELECT * FROM profileReleations WHERE deviceId = ".$value["id"]." AND profileId = ".$profile);
+        $profileId = query("SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"]." AND profileId = ".$profile);
+        
 
         if (!empty($profileId)) {
-            var_dump($profileId);
             $profileId = $profileId[0]["profileId"];
 
             $newUrl = "device/?profile=".$profile."&device=".$value['id'];
