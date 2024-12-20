@@ -203,11 +203,6 @@ function getRealTimeArray($type, $ip) {
         } # else -- not the type
     }
 
-    $stateHtml = getStateHtml($ip);
-    if ($stateHtml) {
-        $snmpData["deviceState"] = $stateHtml;
-    }
-
     return $snmpData;
 }
 
