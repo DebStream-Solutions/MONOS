@@ -81,21 +81,33 @@ function getStateHtml($ip, $text = "", $timeout = 1) {
 
 # -- GET REAL STATE --------
 
-function getRealStateArray($profileId) {
+function getRealStateArray($profileId = false, $deviceId = false, $text = false) {
 
-    $devices = query("SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId)[0];
+    if ($deviceId) {
+        $deviceIP = query("SELECT ip FROM devices WHERE id = ".$deviceId)[0];
 
-    foreach ($devices as $key => $value) {
-        $deviceIP = query("SELECT ip FROM devices WHERE id = ".$value)[0];
+        $stateHtml = getStateHtml($deviceIP, $text);
 
-        $stateHtml = getStateHtml($deviceIP);
         if ($stateHtml) {
-            $elementId = "deviceState-" + $value;
+            $elementId = "deviceState";
             $data[$elementId] = $stateHtml;
         }
+    } else {
+        $devices = query("SELECT deviceId FROM profileReleations WHERE profileId = ".$profileId)[0];
 
-        return $data;
+        foreach ($devices as $key => $value) {
+            $deviceIP = query("SELECT ip FROM devices WHERE id = ".$value)[0];
+        
+            $stateHtml = getStateHtml($deviceIP, $text);
+            if ($stateHtml) {
+                $elementId = "deviceState-" + $value;
+                $data[$elementId] = $stateHtml;
+            }
+    
+            return $data;
+        }
     }
+    
 }
 
 
