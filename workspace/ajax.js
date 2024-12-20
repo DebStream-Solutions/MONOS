@@ -60,7 +60,7 @@ $(document).ready(function () {
     function ajaxProcess(timeouts, func) {
 
         timeouts.forEach(time => {
-            let url = '../ajax-'+toString(time)+'.php?func='+toString(func);
+            let url = '../ajax-'+time+'.php?func='+func;
             
             timeout = time * 1000;
             setTimeout(() => {
