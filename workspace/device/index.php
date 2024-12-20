@@ -18,6 +18,11 @@
     $_SESSION["device-type"] = $typeId;
 
     $result = getSNMPData($ipv4, $typeId, "public");
+
+
+    $ping_state = isDeviceAlive($hostIp);
+    $device_state = $ping_state ? "online" : "offline";
+    $device_state_text = $ping_state ? "Online" : "Offline";
     
     //echo $result;
 
@@ -109,6 +114,7 @@
 </head>
 <body>
     <div class="all">
+        <div class="<?php $device_state ?>"><?php $device_state_text ?></div>
         <div class="header">
             <h1 class="device"><?php
                 $conditions = ["id" => $device];
