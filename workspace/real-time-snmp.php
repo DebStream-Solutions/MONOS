@@ -132,7 +132,7 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
 
             $stateHtml = getStateHtml($deviceIP, $text);
             if ($stateHtml) {
-                $elementId = "deviceState-" + $value["deviceId"];
+                $elementId = "deviceState-".$value["deviceId"];
                 $data[$elementId] = $stateHtml;
             }
         }
