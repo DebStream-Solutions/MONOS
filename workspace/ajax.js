@@ -58,17 +58,16 @@ $(document).ready(function () {
     // -- Ajax Call ---
 
     function ajaxProcess(timeouts, func, detail) {
-
+        let url = "";
+        
         timeouts.forEach(time => {
             if (detail) {
-                let url = '../ajax-'+time+'.php?func='+func;
-                ajax(url, time);
+                url = '../ajax-'+time+'.php?func='+func;
             } else {
                 url = 'ajax-'+time+'.php?func='+func;
-                ajax(url, time);
             }
 
-            
+            ajax(url, time);
         });
     }
 
