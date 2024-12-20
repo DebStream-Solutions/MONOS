@@ -82,6 +82,7 @@ function getStateHtml($ip, $text = "", $timeout = 1) {
 # -- GET REAL STATE --------
 
 function getRealStateArray($profileId = false, $deviceIP = false, $text = false) {
+    $data = [];
 
     if ($deviceIP) {
         $stateHtml = getStateHtml($deviceIP, $text);
@@ -100,10 +101,10 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
                 $elementId = "deviceState-" + $value;
                 $data[$elementId] = $stateHtml;
             }
-    
-            return $data;
         }
     }
+
+    return $data;
     
 }
 
