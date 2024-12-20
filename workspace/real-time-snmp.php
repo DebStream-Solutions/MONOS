@@ -126,10 +126,13 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
 
             $deviceIP = "SELECT ip FROM devices WHERE id = ".$value["deviceId"];
             $deviceIP = $conn->query($deviceIP);
-            $deviceIP = $deviceIP->fetch_all(MYSQLI_ASSOC);
+            $deviceIP = $deviceIP->fetch_all(MYSQLI_ASSOC)[0]["ip"];
 
-            $data = $deviceIP;
-
+            $stateHtml = getStateHtml($deviceIP, $text);
+            if ($stateHtml) {
+                $elementId = "deviceState-" + $value;
+                $data[$elementId] = $stateHtml;
+            }
         }
     }
 
