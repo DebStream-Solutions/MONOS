@@ -122,7 +122,7 @@ function getRealStateArray($profileId = false, $deviceIP = false, $text = false)
         $devices = $conn->query($devices);
         $devices = $devices->fetch_all(MYSQLI_ASSOC);
 
-        
+        $data = $devices;
     }
 
     return $data;
