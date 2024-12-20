@@ -114,7 +114,7 @@
 </head>
 <body>
     <div class="all">
-        <div class="<?php $device_state ?>"><?php $device_state_text ?></div>
+        <div class="<?php echo $device_state; ?>"><?php echo $device_state_text; ?></div>
         <div class="header">
             <h1 class="device"><?php
                 $conditions = ["id" => $device];
