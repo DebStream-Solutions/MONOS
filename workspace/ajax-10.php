@@ -9,20 +9,20 @@ header('Content-Type: application/json');
 function device() {
     $error = "";
 
-    if (isset($_SESSION['profile']) && (!isset($_SESSION['device-ip']) || empty($_SESSION['device-ip']))) {
-        $profileId = $_SESSION['profile'];
-    
-        if (!empty($profileId)) {
-            $data = getRealStateArray($profileId);
+    if (isset($_SESSION['device-type']) && $_SESSION['device-ip']) {
+        $deviceIp = $_SESSION['device-ip'];
+
+        if (!empty($deviceIp)) {
+            $data = getRealStateArray(false, $deviceIp);
         } else {
             $error = "Error: Missing either IP or Device Type";
             $data = false;
         }
-    } elseif (isset($_SESSION['device-ip'])) {
-        $deviceIp = $_SESSION['device-ip'];
-
-        if (!empty($deviceIp)) {
-            $data = getRealStateArray($deviceIp);
+    } elseif (isset($_SESSION['profile'])) {
+        $profileId = $_SESSION['profile'];
+    
+        if (!empty($profileId)) {
+            $data = getRealStateArray($profileId);
         } else {
             $error = "Error: Missing either IP or Device Type";
             $data = false;
