@@ -57,15 +57,17 @@ $(document).ready(function () {
 
     // -- Ajax Call ---
 
-    function ajaxProcess(timeouts, func) {
+    function ajaxProcess(timeouts, func, detail) {
 
         timeouts.forEach(time => {
-            let url = '../ajax-'+time+'.php?func='+func;
+            if (detail) {
+                let url = '../ajax-'+time+'.php?func='+func;
+            } else {
+                let url = 'ajax-'+time+'.php?func='+func;
+            }
             
-            timeout = time * 1000;
-            setTimeout(() => {
-                ajax(url, time);
-            }, timeout);
+            
+            ajax(url, time);
         });
     }
 
@@ -74,9 +76,15 @@ $(document).ready(function () {
         let get = GET("profile");
         console.log(get);
         if (get) {
+            let detail = false;
+            let deviceGet = GET("device");
+            if (deviceGet) {
+                detail = true;
+            }
+            
             let timeouts = [5, 10];
             let func = "device";
-            ajaxProcess(timeouts, func);
+            ajaxProcess(timeouts, func, detail);
         }
     }
 
