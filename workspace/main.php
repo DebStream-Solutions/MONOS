@@ -50,6 +50,29 @@ function ping($host, $timeout = 1) {
 }
 
 
+function telnet($host, $ports = [80, 443, 22], $timeout = 3) {
+    // Attempt to open a socket connection
+    foreach ($ports as $port) {
+        $connection = @fsockopen($host, $port, $errno, $errstr, $timeout);
+        if ($connection) {
+            fclose($connection); // Close the connection
+            return true; // Device is reachable on this port
+        }
+    }
+    return false; // Device is not reachable on any of the specified port
+}
+
+function isDeviceAlive($host, $ports = [80, 443, 22], $timeout = 1) {
+    if (ping($host)) {
+        return true;
+    } elseif (telnet($host)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 # == DATABASE ==================
 
 $devices = "SELECT * FROM devices";
@@ -152,6 +175,7 @@ function listDevices($profile) {
             if ($profile === strval($profileId)) {
                 $deviceFound = True;
                 $ping_state = ping($value['ip']) ? "online" : "offline";
+                $telnet_state = telnet($host, $port);
 
                 $deviceList .= '
                 <a href="'.$newUrl.'">
