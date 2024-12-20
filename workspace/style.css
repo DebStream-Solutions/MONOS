@@ -265,7 +265,7 @@ div:has(.roll) > .title::after {
     font-size: 0.85rem;
 }
 
-#deviceState {
+.deviceState, #deviceState {
     position: absolute;
     margin: 0.75rem 0.75rem 0 0;
     top: 0;
