@@ -40,11 +40,15 @@ $(document).ready(function () {
                 }
             },
             error: function () {
-                $('.generated').text('<div style="margin: auto; text-align: center;">Error: Failed to fetch data</div>');
+                $('.generated').html('<div style="margin: auto; text-align: center;">Error: Failed to fetch data</div>');
             },
             complete: function () {
-                // Re-run the function after 5 seconds
-                setTimeout(fetchSNMPData, time);
+                // Re-run the function after X seconds
+                timeout = time * 1000;
+
+                setTimeout(() => {
+                    ajax(path, time);
+                }, timeout);
             }
         });
     }
@@ -53,12 +57,16 @@ $(document).ready(function () {
 
     // -- Ajax Call ---
 
-    function ajaxProcess(timeout, func) {
+    function ajaxProcess(timeouts, func) {
 
-        for (let time in timeout) {
+        timeouts.forEach(time => {
             let url = '../ajax-'+toString(time)+'.php?func='+toString(func);
-            ajax(url, time);
-        }
+            
+            timeout = time * 1000;
+            setTimeout(() => {
+                ajax(url, time);
+            }, timeout);
+        });
     }
 
 

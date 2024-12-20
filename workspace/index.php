@@ -27,7 +27,7 @@
 <title>MONOS</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-<script src="../ajax.js"></script>
+<script src="ajax.js"></script>
 <script type="text/javascript">
 
     function hideLoad() {
