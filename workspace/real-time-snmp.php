@@ -66,7 +66,7 @@ function isDeviceAlive($host, $ports = [80, 443, 22], $timeout = 1) {
     }
 }
 
-function getStateHtml($text = "", $ip, $timeout = 1) {
+function getStateHtml($ip, $text = "", $timeout = 1) {
     $state = isDeviceAlive($ip);
     $class = $state ? "online" : "offline";
     if ($text) {
