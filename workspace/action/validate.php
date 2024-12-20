@@ -202,7 +202,8 @@ if (isset($_GET['login'])) {
                     for ($i=1; $i <= $max; $i++) {
                         $profileCheck = "profile".$i;
                         if (isset($_POST[$profileCheck]) && !empty($_POST[$profileCheck])) {
-                            $profileIds[] = $profileCheck;
+                            $profileId = $i;
+                            $profileIds[] = $profileId;
                         }
                     }
 
