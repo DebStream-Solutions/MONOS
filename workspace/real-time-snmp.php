@@ -252,7 +252,7 @@ function getRealTimeArray($type, $ip) {
                             $ram_gb = $oid_value / 1048576;
                             $ram_gb_str = round($ram_gb, 3)." GB";
                             $used_ram_perc = round($ram_gb / $GLOBALS["totalRam"] * 100, 0)."%";
-                            $htmlResolved = str_replace("{}", $ram_gb." - ".$used_ram_perc, $htmlTemplate);
+                            $htmlResolved = str_replace("{}", $used_ram_perc, $htmlTemplate);
                         }
                         # General for Single Values
                         else {
