@@ -744,11 +744,11 @@ input[type="submit"] {
 
 /* ANIMATIONS */
 
-.deviceState > div::before {
-    animation: boxShadowPulse 2s infinite;
+#deviceState > .online::before {
+    animation: boxShadowPulse 5s infinite;
 }
 
-@keyframes boxShadowPulse {
+@keyframes boxShadowPulseOnline {
     0%, 100% {
         box-shadow: 0px 0px 5px 3px #01ff016e;
     }
