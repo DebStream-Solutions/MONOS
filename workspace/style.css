@@ -745,7 +745,7 @@ input[type="submit"] {
 /* ANIMATIONS */
 
 .deviceState > div::before {
-    animation: boxShadowPulse 5s infinite;
+    animation: boxShadowPulse 2s infinite;
 }
 
 @keyframes boxShadowPulse {
