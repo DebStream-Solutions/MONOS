@@ -750,10 +750,10 @@ input[type="submit"] {
 }
 
 @keyframes boxShadowPulseOnline {
-    0% {
+    0%, 100% {
         box-shadow: 0px 0px 5px 3px #01ff016e;
     }
-    100% {
-        box-shadow: 0px 0px 10px 3px #01ff01ab;
+    50% {
+        box-shadow: 0px 0px 15px 3px #01ff01ab;
     }
 }
