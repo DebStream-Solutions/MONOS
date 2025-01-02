@@ -746,7 +746,7 @@ input[type="submit"] {
 
 #deviceState, .deviceState {
     .online::before {
-        animation: boxShadowPulseOnline 5s ease-in-out infinite;
+        animation: boxShadowPulseOnlineSimple 2s ease-in-out infinite;
     }
 }
 
@@ -762,5 +762,17 @@ input[type="submit"] {
     }
     100% {
         box-shadow: 0px 0px 5px 3px #01ff016e;
+    }
+}
+
+@keyframes boxShadowPulseOnlineSimple {
+    0% {
+        box-shadow: 0px 0px 5px 3px #01ff016e;
+    }
+    50% {
+        box-shadow: 0px 0px 12px 3px #01ff01b0;
+    }
+    100% {
+        box-shadow: 0px 0px 12px 3px #01ff012a;
     }
 }
