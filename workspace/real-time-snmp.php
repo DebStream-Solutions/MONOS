@@ -243,14 +243,16 @@ function getRealTimeArray($type, $ip) {
                             $oid_value = $oid_arr[0];
 
                             $ram_gb = $oid_value / 1048576;
+                            $ram_gb_str = round($ram_gb, 3)." GB";
                             $GLOBALS[$elemetId] = $ram_gb;
-                            $htmlResolved = str_replace("{}", $ram_gb, $htmlTemplate);
+                            $htmlResolved = str_replace("{}", $ram_gb_str, $htmlTemplate);
                         } elseif ($elemetId == "freeRam" ) {
                             $oid_value = $oid_arr[0];
 
                             $ram_gb = $oid_value / 1048576;
-                            $used_ram_perc = $ram_gb / $GLOBALS["totalRam"];
-                            $htmlResolved = str_replace("{}", $used_ram_perc, $htmlTemplate);
+                            $ram_gb_str = round($ram_gb, 3)." GB";
+                            $used_ram_perc = round($ram_gb / $GLOBALS["totalRam"] * 100, 0)."%";
+                            $htmlResolved = str_replace("{}", $ram_gb." - ".$used_ram_perc, $htmlTemplate);
                         }
                         # General for Single Values
                         else {
