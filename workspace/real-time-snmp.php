@@ -215,6 +215,7 @@ function getRealTimeArray($type, $ip) {
                 foreach ($value["id"] as $elemetId => $htmlTemplate) {
                     $htmlResolved = "";
 
+                    # []
                     if (is_array($htmlTemplate)) {
                         $i = 1; # ||
                         $htmlTemplate = $htmlTemplate[0];
@@ -227,18 +228,38 @@ function getRealTimeArray($type, $ip) {
                             $i++;
                         }
                     } else {
-                        if (count($oid_arr) == 1) {
-                            $oid_value = $oid_arr[0];
-                            $htmlResolved = str_replace("{}", $oid_value, $htmlTemplate);
-                        } else {
-                            # Get avarage - must be int (we are not checking if it is int, it should be)
-                            $items_count = count($oid_arr);
-                            foreach ($oid_arr as $item) {
-                                $items_sum += (int) $item;
+                        # Specified
+                        if ($elemetId == "cpuLoad" ) {
+                            if (count($oid_arr) > 1) {
+                                # Get avarage - must be int (we are not checking if it is int, it should be)
+                                $items_count = count($oid_arr);
+                                foreach ($oid_arr as $item) {
+                                    $items_sum += (int) $item;
+                                }
+                                $oid_value = $items_sum / $items_count;
+                                $htmlResolved = str_replace("{}", $oid_value, $htmlTemplate);
                             }
-                            $oid_value = $items_sum / $items_count;
-                            $htmlResolved = str_replace("{}", $oid_value, $htmlTemplate);
+                        } elseif ($elemetId == "totalRam" ) {
+                            $oid_value = $oid_arr[0];
+
+                            $ram_gb = $oid_value / 1048576;
+                            $GLOBALS[$elemetId] = $ram_gb;
+                            $htmlResolved = str_replace("{}", $ram_gb, $htmlTemplate);
+                        } elseif ($elemetId == "freeRam" ) {
+                            $oid_value = $oid_arr[0];
+
+                            $ram_gb = $oid_value / 1048576;
+                            $used_ram_perc = $ram_gb / $GLOBALS["totalRam"];
+                            $htmlResolved = str_replace("{}", $used_ram_perc, $htmlTemplate);
                         }
+                        # General for Single Values
+                        else {
+                            if (count($oid_arr) == 1) {
+                                $oid_value = $oid_arr[0];
+                                $htmlResolved = str_replace("{}", $oid_value, $htmlTemplate);
+                            }
+                        }
+                        
                     }
 
                     $snmpData[$elemetId] = $htmlResolved;
