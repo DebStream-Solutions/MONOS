@@ -772,7 +772,10 @@ input[type="submit"] {
     50% {
         box-shadow: 0px 0px 12px 3px #01ff01b0;
     }
+    75% {
+        box-shadow: 0px 0px 5px 3px #01ff012a;
+    }
     100% {
-        box-shadow: 0px 0px 12px 3px #01ff012a;
+        box-shadow: 0px 0px 5px 3px #01ff016e;
     }
 }
