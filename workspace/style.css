@@ -745,15 +745,17 @@ input[type="submit"] {
 /* ANIMATIONS */
 
 #deviceState > .online::before {
-    animation: boxShadowPulseOnline 0.5s ease-in-out infinite;
-    animation-delay: 4.5s;
+    animation: boxShadowPulseOnline 5s ease-in infinite;
 }
 
 @keyframes boxShadowPulseOnline {
-    0%, 100% {
+    0%, 80% {
         box-shadow: 0px 0px 5px 3px #01ff016e;
     }
-    50% {
+    81%, 90% {
         box-shadow: 0px 0px 15px 3px #01ff01ab;
+    }
+    100% {
+        box-shadow: 0px 0px 15px 3px #01ff0131;
     }
 }
