@@ -746,7 +746,7 @@ input[type="submit"] {
 
 #deviceState, .deviceState {
     .online::before {
-        animation: boxShadowPulseOnlineSimple 2s ease-in-out infinite;
+        animation: boxShadowPulseOnline 2s ease-in-out infinite;
     }
 }
 
