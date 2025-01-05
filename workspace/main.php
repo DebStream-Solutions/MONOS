@@ -334,13 +334,12 @@ function editDevice($edit) {
     global $conn;
 
     if ($edit) {
-        if (isset($_SESSION["device"])) {
-            $device = $_SESSION['device'];
-        } elseif (isset($_GET['device'])) {
+        if (isset($_GET['device'])) {
             $device = "SELECT * FROM devices WHERE id = {$_GET['device']}";
             $device = $conn->query($device);
             $device = $device->fetch_all(MYSQLI_ASSOC)[0];
 
+            var_dump($device);
             $_SESSION["device"] = $device;
         } else {
             $content = "There was a mistake! No device to edit..";
@@ -357,7 +356,7 @@ function editDevice($edit) {
             foreach ($profileNameArr as $key => $value) {
                 $i += 1;
                 #$profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" value="'.$value["name"].'">'.$value["name"].'</label>';
-                $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="'.$device.$i.'" value="'.$value["id"].'">'.$value["name"].'</label>';
+                $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="profile'.$i.'" value="'.$value["id"].'">'.$value["name"].'</label>';
             }
 
             $typeArr = "SELECT * FROM types";
