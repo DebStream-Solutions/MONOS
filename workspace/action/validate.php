@@ -129,7 +129,6 @@ if (isset($_GET['login'])) {
 
         if (exists("profiles", "name")) {
             if (!empty($profileId)) {
-                echo $profileId." === UPDATE";
 
                 $update = "UPDATE profiles SET name='{$_SESSION['name']}' WHERE id={$profileId}";
                 $updateStatus = $conn->query($update);
@@ -137,7 +136,6 @@ if (isset($_GET['login'])) {
                 if ($updateStatus === false) {
                     $_SESSION['error'] = $updateStatus;
                 } else {
-                    session_destroy();
                     header("location: ../");
                 }
             } else {

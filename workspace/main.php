@@ -238,7 +238,7 @@ function editProfile($edit) {
 
             $_SESSION["profile"] = $profile;
         } else {
-            $content = "There is a mistake! No profile to edit..";
+            $content = "There was a mistake! No profile to edit..";
         }
 
         # ERROR checking
@@ -285,12 +285,6 @@ function editProfile($edit) {
         }
 
     } else {
-        if (isset($_SESSION['profile'])) {
-            $profile = $_SESSION['profile'];
-        } else {
-            $profile = ["name" => "", "id" => ""];
-        }
-
         if (isset($_SESSION["error"])) {
             $error = $_SESSION["error"];
             $error_msg = "";
@@ -314,7 +308,7 @@ function editProfile($edit) {
                             <form method=POST action="../../action/validate.php?profile">
                                 <div class="input-fly">
                                     <div>
-                                        <input type="text" id="name" name="name" value="'.$profile["name"].'">
+                                        <input type="text" id="name" name="name">
                                         <label for="name">Name</label>
                                     </div>
                                 </div>
@@ -345,11 +339,11 @@ function editDevice($edit) {
         } elseif (isset($_GET['device'])) {
             $device = "SELECT * FROM devices WHERE id = {$_GET['device']}";
             $device = $conn->query($device);
-            $device = $device->fetch_all(MYSQLI_ASSOC);
+            $device = $device->fetch_all(MYSQLI_ASSOC)[0];
 
             $_SESSION["device"] = $device;
         } else {
-            $content = "There is a mistake! No device to edit..";
+            $content = "There was a mistake! No device to edit..";
         }
 
         if (isset($device)) {
@@ -373,7 +367,11 @@ function editDevice($edit) {
             $typeList = "";
             $i = 1;
             foreach ($typeArr as $key => $value) {
-                $typeList .= '<option value="'.$i.'">'.$value["name"].'</option>';
+                $selected = "";
+                if ($device["type"] == $i) {
+                    $selected = "selected";
+                }
+                $typeList .= '<option value="'.$i.'" '.$selected.'>'.$value["name"].'</option>';
                 $i += 1;
             }
 
