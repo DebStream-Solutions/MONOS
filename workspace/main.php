@@ -374,6 +374,19 @@ function editDevice($edit) {
                 $i += 1;
             }
 
+            $profilesReleated = "SELECT * FROM profileReleations WHERE deviceId = {$device["id"]}";
+            $profilesReleated = $conn->query($profilesReleated);
+            $profilesReleated = $profilesReleated->fetch_all(MYSQLI_ASSOC);
+
+            $selectedProfiles = "";
+            foreach ($profilesReleated as $key => $value) {
+                $releatedProfile = "SELECT * FROM profiles WHERE id = {$value}";
+                $releatedProfile = $conn->query($releatedProfile);
+                $releatedProfile = $releatedProfile->fetch_all(MYSQLI_ASSOC)[0];
+
+                $selectedProfiles .= '<div class="selected-item">'.$releatedProfile["name"].'<span class="remove-item">x</span></div>';
+            }
+
             $content = '
                 <div class="form-wrap">
                     <div class="log">
@@ -391,6 +404,7 @@ function editDevice($edit) {
                                         <h3 for="profile">Select profiles</h3>
                                         <div class="dropdown">
                                             <div class="selected-items-container">
+                                                '.$selectedProfiles.'
                                                 <button type="button" class="add-button">+</button>
                                             </div>
                                             <div class="input-container">
