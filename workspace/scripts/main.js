@@ -14,6 +14,23 @@ function onLoad() {
         loaded();
     }
 
+    if ($(".input-fly input").val()) {
+        $(this).addClass("default");
+    }
+
+    $(".input-fly input").focusout(() => {
+        console.log("focusout");
+        console.log($(this).val());
+        console.log($(this).val().length);
+        if ($(this).val().length > 0) {
+            $(this).siblings("label").addClass("stay");
+        } else {
+            $(this).siblings("label").removeClass("stay");
+        }
+        
+    });
+
+
     $("input").focusout(() => {
         console.log("focusout");
         console.log($(this).val());
