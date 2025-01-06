@@ -338,8 +338,6 @@ function editDevice($edit) {
             $device = "SELECT * FROM devices WHERE id = {$_GET['device']}";
             $device = $conn->query($device);
             $device = $device->fetch_all(MYSQLI_ASSOC)[0];
-
-            var_dump($device);
             $_SESSION["device"] = $device;
         } else {
             $content = "There was a mistake! No device to edit..";
@@ -378,6 +376,7 @@ function editDevice($edit) {
             $profilesReleated = $conn->query($profilesReleated);
             $profilesReleated = $profilesReleated->fetch_all(MYSQLI_ASSOC);
 
+            var_dump($profilesReleated);
             $selectedProfiles = "";
             foreach ($profilesReleated as $key => $value) {
                 $releatedProfile = "SELECT * FROM profiles WHERE id = {$value}";
