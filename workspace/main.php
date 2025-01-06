@@ -375,11 +375,10 @@ function editDevice($edit) {
             $profilesReleated = "SELECT * FROM profileReleations WHERE deviceId = {$device["id"]}";
             $profilesReleated = $conn->query($profilesReleated);
             $profilesReleated = $profilesReleated->fetch_all(MYSQLI_ASSOC);
-
-            var_dump($profilesReleated);
+            
             $selectedProfiles = "";
             foreach ($profilesReleated as $key => $value) {
-                $releatedProfile = "SELECT * FROM profiles WHERE id = {$value}";
+                $releatedProfile = "SELECT * FROM profiles WHERE id = {$value["profileId"]}";
                 $releatedProfile = $conn->query($releatedProfile);
                 $releatedProfile = $releatedProfile->fetch_all(MYSQLI_ASSOC)[0];
 
