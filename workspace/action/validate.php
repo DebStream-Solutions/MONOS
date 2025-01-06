@@ -3,7 +3,7 @@
 include "../db.php";
 
 
-function validate($input) {
+function validate($input, $empty = false) {
     $error = [];
 
     //overovani jestli jsou vsechna pole vyplnena
@@ -12,7 +12,16 @@ function validate($input) {
         if (is_array($value)) {
             foreach ($value as $key => $value2) {
                 if (isset($_POST[$value2])) {
-                    $$value2 = $_POST[$value2];
+                    if ($empty) {
+                        if (!empty($value2)) {
+                            $$value2 = $_POST[$value2];
+                        } else {
+                            $error[] = $value2;
+                        }
+                    } else {
+                        $$value2 = $_POST[$value2];
+                    }
+
                     if (!isset($_POST["password"])) {
                         $_SESSION[$value2] = $$value2;
                     }
@@ -22,7 +31,16 @@ function validate($input) {
             }		
         } else {
             if (isset($_POST[$value])) {
-                $$value = $_POST[$value];
+                if ($empty) {
+                    if (!empty($value)) {
+                        $$value = $_POST[$value];
+                    } else {
+                        $error[] = $value;
+                    }
+                } else {
+                    $$value = $_POST[$value];
+                }
+
                 if (!isset($_POST["password"])) {
                     $_SESSION[$value] = $$value;
                 }
@@ -167,7 +185,7 @@ if (isset($_GET['login'])) {
 
     var_dump($_POST["profile1"]);
 
-    if (count(validate($input)) == 0) {
+    if (count(validate($input, true)) == 0) {
 
         if (true) {
             if (!empty($deviceId)) {
@@ -179,6 +197,7 @@ if (isset($_GET['login'])) {
                     $_SESSION['error'] = $updateStatus;
                 }
             } else {
+
                 $insert = "INSERT INTO devices (name, type, ip) VALUES ('{$_SESSION['name']}', '{$_SESSION['type']}', '{$_SESSION['ip']}')";
                 $insertStatus = $conn->query($insert);
 
