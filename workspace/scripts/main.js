@@ -15,6 +15,9 @@ function onLoad() {
     }
 
     $("input").focusout(() => {
+        console.log("focusout");
+        console.log($(this).val());
+        console.log($(this).val().length);
         if ($(this).val().length > 0) {
             $(this).siblings("label").addClass("stay");
         } else {
