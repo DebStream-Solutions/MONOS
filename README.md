@@ -228,9 +228,9 @@ sudo systemctl restart httpd
 ```
 
 
-How to CURL tar.gz?
+Download MONOS application using curl or wget:
 ```sh
-curl http://mat.whistlers.site/versions/monos.tar.gz -o - | tar -xz -C /var/www/html/monos
+curl https://github.com/MatejPiskac/MONOS/versions/monos.tar.gz -o - | tar -xz -C /var/www/html/monos
 ```
 
 
@@ -269,6 +269,9 @@ sudo systemctl start mariadb
 
 ### <a name="db-setup"> Download DB setup script </a>
 Visit [debstream.org](www.debstream.org/monos/db-setup.sh) and download _db-setup.sh_
+```sh
+curl https://www.debstream.org/monos/db-setup.sh /your/path/
+```
 
 Run _db-setup.sh_ on your server:
 ```sh
