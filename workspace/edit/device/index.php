@@ -235,7 +235,7 @@
                         </a>
                     </div>
                 </div>
-                <img src="icons/close-menu.png" class="close-menu" alt="close-menu">
+                <img src="../../icons/close-menu.png" class="close-menu" alt="close-menu">
             </div>
         </div>
         <div class="footer">
