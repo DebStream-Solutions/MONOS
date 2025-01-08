@@ -142,6 +142,8 @@ function workstation($hostIp, $community) {
                 $used_arr = snmpFormat($used_size, "INTEGER: ");
                 $total_size = 0;
                 $total_used = 0;
+                
+                var_dump($disk_size, $used_arr);
 
                 foreach ($size_arr as $key => $value) {
                     if (strpos($type_arr[$key], "25.2.1.4") !== false) {
