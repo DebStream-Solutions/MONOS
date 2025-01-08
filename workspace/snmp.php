@@ -146,13 +146,15 @@ function workstation($hostIp, $community) {
                 var_dump($disk_size, $used_arr, $storage_type);
 
                 foreach ($size_arr as $key => $value) {
-                    if (strpos($type_arr[$key], "25.2.1.4") !== false) {
+                    # needle > 25.2.1.4
+                    # needle > hrStorageFixedDisk
+                    if (strpos($type_arr[$key], "hrStorageFixedDisk") !== false) {
                         $total_size += (int)$value;
                     }
                 }
 
                 foreach ($used_arr as $key => $value) {
-                    if (strpos($type_arr[$key], "25.2.1.4") !== false) {
+                    if (strpos($type_arr[$key], "hrStorageFixedDisk") !== false) {
                         $total_used += (int)$value;
                     }
                 }
