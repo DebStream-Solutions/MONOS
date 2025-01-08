@@ -44,7 +44,7 @@ function SNMPDataRecord() {
 # Device OID Functions
 
 function workstation($hostIp, $community) {
-
+    /*
     $oids = [
         "cpu" => [
             "usage" => [
@@ -103,6 +103,7 @@ function workstation($hostIp, $community) {
             ]
         ]
     ];
+    */
 
     $oid_list = [
         "disk" => [
@@ -212,7 +213,7 @@ function workstation($hostIp, $community) {
         }
 
         # NEW VERSION OF SNMP OIDS SYSTEM
-        
+        /*
         if ($session->getError()) {
             $generative_content = "Error: " . $session->getError();
         } else {
@@ -233,7 +234,7 @@ function workstation($hostIp, $community) {
                 }
             }
         }
-
+        */
 
         # FOR CHART - Make variables global
         $GLOBALS["usedSpace"] = $disk_used_percentage;
