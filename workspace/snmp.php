@@ -143,7 +143,7 @@ function workstation($hostIp, $community) {
                 $total_size = 0;
                 $total_used = 0;
                 
-                var_dump($disk_size, $used_arr);
+                var_dump($disk_size, $used_arr, $storage_type);
 
                 foreach ($size_arr as $key => $value) {
                     if (strpos($type_arr[$key], "25.2.1.4") !== false) {
