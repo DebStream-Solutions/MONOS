@@ -209,19 +209,21 @@ div:has(.roll) > .title::after {
 }
 
 .profile-table .edit-btn {
-    display: block;
     position: absolute;
     top: 0;
     right: 0;
-    margin: 1rem;
-    width: 1rem;
-    height: 1rem;
-    background-image: url(icons/edit.png);
-    background-size: contain;
-    background-repeat: no-repeat;
-    border: none;
-    padding: 0;
-    border-radius: 0;
+    padding: 1rem;
+
+    a {
+        width: 1rem;
+        height: 1rem;
+        background-image: url(icons/edit.png);
+        background-size: contain;
+        background-repeat: no-repeat;
+        border: none;
+        padding: 0;
+        border-radius: 0;
+    }
 }
 
 .profile-table a:hover {
