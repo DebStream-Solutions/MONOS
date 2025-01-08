@@ -195,7 +195,7 @@ div:has(.roll) > .title::after {
     margin: auto;
 }
 
-.profile-table a {
+.profile-table > a {
     display: flex;
     text-decoration: none;
     color: #000;
@@ -205,7 +205,7 @@ div:has(.roll) > .title::after {
     position: relative;
 }
 
-.profile-table a > .edit-btn {
+.profile-table .edit-btn {
     display: block;
     position: absolute;
     top: 0;
@@ -216,11 +216,11 @@ div:has(.roll) > .title::after {
     background-image: url(icons/edit.png);
 }
 
-.profile-table a:hover {
+.profile-table > a:hover {
     background-color: rgba(132, 94, 192, 0.096);
 }
 
-.profile-table a span {
+.profile-table > a span {
     color: #707070;
 }
 
