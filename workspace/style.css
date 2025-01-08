@@ -213,16 +213,16 @@ div:has(.roll) > .title::after {
     top: 0;
     right: 0;
     padding: 1rem;
+    width: 1rem;
+    height: 1rem;
+    background-image: url(icons/edit.png);
+    background-size: contain;
+    background-repeat: no-repeat;
+    border: none;
+    border-radius: 0;
 
-    a {
+    img {
         width: 1rem;
-        height: 1rem;
-        background-image: url(icons/edit.png);
-        background-size: contain;
-        background-repeat: no-repeat;
-        border: none;
-        padding: 0;
-        border-radius: 0;
     }
 }
 

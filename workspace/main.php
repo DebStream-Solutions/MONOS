@@ -132,9 +132,9 @@ function listProfiles() {
                             <span>'.$devices[0]['device_count'].' monitored devices</span>
                         </div>
                     </a>
-                    <div class="edit-btn">
-                        <a href="edit/profile/'.$newUrl.'"></a>
-                    </div>
+                    <a href="edit/profile/'.$newUrl.'" class="edit-btn">
+                        <img src="icons/edit.png" alt="edit-icon">
+                    </a>
                 </div>
                 
             ';
