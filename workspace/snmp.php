@@ -45,6 +45,65 @@ function SNMPDataRecord() {
 
 function workstation($hostIp, $community) {
 
+    $oids = [
+        "cpu" => [
+            "usage" => [
+                "oid" => "1.3.6.1.2.1.25.3.3.1.2",
+                "type" => [3, 4],
+                "id" => [
+                    "cpuLoad" => "CPU Usage: {}%",
+                    "coreLoads" => ["
+                        <div class='core-load'>
+                            <div>Core ||</div>
+                            <div class='percent-wrap'>
+                                <div class='percent'>{}% </div>
+                                <div class='percent-line-wrap'>
+                                    <div class='percent-line' style='width: calc({}%)'></div>
+                                </div>
+                            </div>
+                        </div>"]
+                ],
+                "separator" => "INTEGER: "
+            ],
+            "name" => [
+                "oid" => "1.3.6.1.2.1.25.3.2.1.3",
+                "type" => [3, 4],
+                "id" => [
+                    "cpuName" => ""
+                ],
+                "separator" => "STRING: "
+            ],
+        ],
+        "ram" => [
+            "total" => [
+                "oid" => "1.3.6.1.4.1.2021.4.5.0",
+                "type" => [3, 4],
+                "id" => [
+                    "totalRam" => "Total Ram: {}"
+                ],
+                "separator" => "INTEGER: "
+            ],
+            "free" => [
+                "oid" => "1.3.6.1.4.1.2021.4.6.0",
+                "type" => [3, 4],
+                "id" => [
+                    "freeRam" => "Free Ram: {}"
+                ],
+                "separator" => "INTEGER: "
+            ]
+        ],
+        "system" => [
+            "uptime" => [
+                "oid" => "1.3.6.1.2.1.1.3",
+                "type" => [3, 4],
+                "id" => [
+                    "sysUp" => "System Up: {}"
+                ],
+                "separator" => ") "
+            ]
+        ]
+    ];
+
     $oid_list = [
         "disk" => [
             "size" => "1.3.6.1.2.1.25.2.3.1.5",
@@ -152,6 +211,29 @@ function workstation($hostIp, $community) {
             }
         }
 
+        # NEW VERSION OF SNMP OIDS SYSTEM
+        
+        if ($session->getError()) {
+            $generative_content = "Error: " . $session->getError();
+        } else {
+            foreach ($oids as $key_group => $value) {
+                foreach ($value as $key_type => $value2) {
+                    foreach ($value2 as $key => $value3) {
+                        $oid_unparsed = @snmpwalk($hostIp, $community, $key);
+                        $oid_parsed = snmpFormat($oid_unparsed, $value["separator"]);
+                        
+                        foreach ($value3["id"] as $elementId => $htmlTemplate) {
+                            if ($key_group == "cpu") {
+                                if ($key_type == "name") {
+    
+                                }
+                            }
+                        }
+                    }
+                }
+            }
+        }
+
 
         # FOR CHART - Make variables global
         $GLOBALS["usedSpace"] = $disk_used_percentage;
@@ -179,7 +261,7 @@ function workstation($hostIp, $community) {
                         </div>
                         <div class='roll'>
                             <div>
-                                <div>{$cpu_name}</div>
+                                <div id='cpuName'>{$cpu_name}</div>
                                 <div class='drop-roll'>
                                     <div id='cpuLoad' class='title'>CPU Usage: {$cpu_load}%</div>
                                     <div id='coreLoads' class='group roll'>{$cpu_arr_load}</div>
