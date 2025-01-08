@@ -142,8 +142,6 @@ function workstation($hostIp, $community) {
                 $used_arr = snmpFormat($used_size, "INTEGER: ");
                 $total_size = 0;
                 $total_used = 0;
-                
-                var_dump($disk_size, $used_arr, $storage_type);
 
                 foreach ($size_arr as $key => $value) {
                     # needle > 25.2.1.4
