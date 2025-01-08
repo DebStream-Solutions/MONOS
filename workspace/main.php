@@ -125,13 +125,16 @@ function listProfiles() {
             $devices = $devices->fetch_all(MYSQLI_ASSOC);
 
             $profileList .= '
-                <a href="'.$newUrl.'">
-                    <div>
-                        <h3>'.$value['name'].'</h3>
-                        <span>'.$devices[0]['device_count'].' monitored devices</span>
-                    </div>
+                <div class="profile">
+                    <a href="'.$newUrl.'">
+                        <div>
+                            <h3>'.$value['name'].'</h3>
+                            <span>'.$devices[0]['device_count'].' monitored devices</span>
+                        </div>
+                    </a>
                     <a href="edit/profile/'.$newUrl.'" class="edit-btn"></a>
-                </a>
+                </div>
+                
             ';
         }
     } else {
