@@ -130,7 +130,7 @@ function listProfiles() {
                         <h3>'.$value['name'].'</h3>
                         <span>'.$devices[0]['device_count'].' monitored devices</span>
                     </div>
-                    <a class="edit-btn" href="edit/profile/'.$newUrl.'"></a>
+                    <a href="edit/profile/'.$newUrl.'" class="edit-btn"></a>
                 </a>
             ';
         }
