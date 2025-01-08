@@ -193,6 +193,10 @@ div:has(.roll) > .title::after {
     gap: 0.25rem;
     max-width: 80vw;
     margin: auto;
+
+    .profile {
+        position: relative;
+    }
 }
 
 .profile-table a {
@@ -202,7 +206,6 @@ div:has(.roll) > .title::after {
     padding: 0.75rem 2rem;
     border: #804fcf solid 1px;
     border-radius: 0.5rem;
-    position: relative;
 }
 
 .profile-table .edit-btn {
@@ -217,7 +220,8 @@ div:has(.roll) > .title::after {
     background-size: contain;
     background-repeat: no-repeat;
     border: none;
-    padding: none;
+    padding: 0;
+    border-radius: 0;
 }
 
 .profile-table a:hover {
