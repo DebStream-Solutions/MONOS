@@ -109,7 +109,7 @@
 </head>
 <body>
     <div class="all">
-        <a href="../edit/profile/?device=<?php echo $device?>" class="edit-btn">
+        <a href="../edit/profile/?device=<?php echo $device?>" class="edit-btn device">
             <img src="icons/edit.png" alt="edit-icon">
         </a>
         <div id="deviceState">

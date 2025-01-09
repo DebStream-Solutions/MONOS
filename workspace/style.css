@@ -208,7 +208,7 @@ div:has(.roll) > .title::after {
     border-radius: 0.5rem;
 }
 
-.profile-table .edit-btn {
+.edit-btn {
     position: absolute;
     top: 0;
     right: 0;
@@ -222,6 +222,11 @@ div:has(.roll) > .title::after {
     img {
         width: 1rem;
     }
+}
+
+.edit-btn.device {
+    right: initial;
+    left: 0;
 }
 
 .profile-table a:hover {
