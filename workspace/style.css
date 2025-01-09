@@ -224,7 +224,7 @@ div:has(.roll) > .title::after {
     }
 }
 
-.edit-btn.device {
+.edit-btn.edit-dev {
     right: initial;
     left: 0;
 }
