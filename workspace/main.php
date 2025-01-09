@@ -436,7 +436,10 @@ function editDevice($edit) {
                                         </select>
                                     </div>
                                     <div>
-                                        <input type="submit" name="submit" value="Add">
+                                        <input type="submit" name="submit" value="Edit">
+                                    </div>
+                                    <div class="delete-wrap">
+                                        <input type="submit" name="submit" value="Delete">
                                     </div>
                                 </form>
                             </div>
