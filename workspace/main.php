@@ -395,7 +395,7 @@ function editDevice($edit) {
                 <div class="form-wrap">
                     <div class="log">
                         <div class="login-wrap">
-                            <h2>Add device</h2>
+                            <h2>Edit device</h2>
                             <div id="device-form">
                                 <form method=POST action="../../action/validate.php?device">
                                     <div class="input-fly">
