@@ -143,7 +143,7 @@ if (isset($_GET['login'])) {
     $profileId = $_GET["profile"];
     $input = ["name"];
 
-    if (count(validate(["delete_id"])) == 0) {
+    if (count(validate(["delete_id"], true)) == 0) {
 
         $profile_id = mysqli_real_escape_string($conn, $_POST['delete_id']);
         $query = "DELETE FROM profiles WHERE id = '$profile_id'";
@@ -166,7 +166,7 @@ if (isset($_GET['login'])) {
             }
         }
 
-    } elseif (count(validate($input)) == 0) {
+    } elseif (count(validate($input), true) == 0) {
 
         if (exists("profiles", "name")) {
             if (!empty($profileId)) {
