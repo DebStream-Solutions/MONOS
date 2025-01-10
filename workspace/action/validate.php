@@ -143,7 +143,24 @@ if (isset($_GET['login'])) {
     $profileId = $_GET["profile"];
     $input = ["name"];
 
-    if (count(validate($input)) == 0) {
+    if (count(validate(["delete_id"])) == 0) {
+
+        $profile_id = mysqli_real_escape_string($conn, $_POST['delete_id']);
+        $query = "DELETE FROM profiles WHERE id = '$profile_id'";
+        $deleteStatus = $conn->query($query);
+
+        if ($deleteStatus === false) {
+            $_SESSION['error'] = $deleteStatus;
+        } else {
+            $query = "DELETE FROM profileReleations WHERE profile_id = '$profile_id'";
+            $deleteStatus = $conn->query($query);
+
+            if ($deleteStatus === false) {
+                $_SESSION['error'] = $deleteStatus;
+            }
+        }
+
+    } elseif (count(validate($input)) == 0) {
 
         if (exists("profiles", "name")) {
             if (!empty($profileId)) {
@@ -183,9 +200,25 @@ if (isset($_GET['login'])) {
     $deviceId = $_GET["device"];
     $input = ["name", "ip", "type"];
 
-    var_dump($_POST["profile1"]);
+    if (count(validate(["delete_id"], true)) ) {
 
-    if (count(validate($input, true)) == 0) {
+        $device_id = mysqli_real_escape_string($conn, $_POST['delete_id']);
+        $query = "DELETE FROM devices WHERE id = '$device_id'";
+        $deleteStatus = $conn->query($query);
+
+        if ($deleteStatus === false) {
+            $_SESSION['error'] = $deleteStatus;
+        } else {
+            $query = "DELETE FROM profileReleations WHERE device_id = '$device_id'";
+            $deleteStatus = $conn->query($query);
+
+            if ($deleteStatus === false) {
+                $_SESSION['error'] = $deleteStatus;
+            }
+        }
+        
+
+    } elseif (count(validate($input, true)) == 0) {
 
         if (true) {
             if (!empty($deviceId)) {
@@ -221,8 +254,6 @@ if (isset($_GET['login'])) {
                             $profileIds[] = $profileId;
                         }
                     }
-
-                    var_dump($profileIds);
                     
                     foreach ($profileIds as $key => $value) {
                         $insert = "INSERT INTO profileReleations (profileId, deviceId) VALUES ('{$value}', '{$deviceId}')";
@@ -237,7 +268,7 @@ if (isset($_GET['login'])) {
         $_SESSION['error'] = "You have to enter a name for the profile.";
     }
 
-
+    header("location: ../");
 }
 
 ?>

@@ -675,6 +675,20 @@ input[type="submit"] {
     padding: 0.25rem 1.25rem;
 }
 
+.delete-wrap {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+
+    button[type="submit"] {
+        border: none;
+        background-color: red;
+        color: white;
+        padding: 0.25rem 1.25rem;
+    }
+}
+
 /* LOGIN */
 
 .log {
@@ -717,10 +731,6 @@ input[type="submit"] {
         width: fit-content;
         background-color: #121212;
         font-size: 0.65rem !important;
-    }
-
-    label.stay {
-        
     }
 
     input:focus,
