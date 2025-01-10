@@ -546,6 +546,9 @@ function editDevice($edit) {
                                     </div>
                                 </form>
                             </div>
+                            <div class="error">
+                                '.isset($_SESSION["error"]) ? $_SESSION["error"] : "".'
+                            </div>
                         </div>
                     </div>
                 </div>
