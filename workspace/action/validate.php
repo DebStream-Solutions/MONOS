@@ -285,7 +285,7 @@ if (isset($_GET['login'])) {
                     }
                 }
 
-                header("location: ../edit/device/?device=".$deviceId);
+                //header("location: ../edit/device/?device=".$deviceId);
             }
         }
         
