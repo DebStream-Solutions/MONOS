@@ -32,7 +32,7 @@ function validate($input, $empty = false) {
         } else {
             if (isset($_POST[$value])) {
                 if ($empty) {
-                    if (!empty($value)) {
+                    if (!empty($_POST[$value])) {
                         $$value = $_POST[$value];
                     } else {
                         $error[] = $value;
