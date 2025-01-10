@@ -13,7 +13,7 @@ function validate($input, $empty = false) {
             foreach ($value as $key => $value2) {
                 if (isset($_POST[$value2])) {
                     if ($empty) {
-                        if (!empty($value2)) {
+                        if (!empty($_POST[$value2])) {
                             $$value2 = $_POST[$value2];
                         } else {
                             $error[] = $value2;
