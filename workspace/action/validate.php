@@ -203,6 +203,8 @@ if (isset($_GET['login'])) {
             
     } else {
         $_SESSION['error'] = "You have to enter a name for the profile.";
+    
+        header("location: ../edit/profile/?profile=".$profileId);
     }
 
 } elseif (isset($_GET["device"])) {
@@ -290,10 +292,8 @@ if (isset($_GET['login'])) {
         
             
     } else {
-        $_SESSION['error'] = "You have to enter a name for the profile.";
+        $_SESSION['error'] = "You have to enter a name of the device.";
     }
-
-    header("location: ../");
 }
 
 ?>
