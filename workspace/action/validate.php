@@ -166,7 +166,7 @@ if (isset($_GET['login'])) {
             }
         }
 
-    } elseif (count(validate($input), true) == 0) {
+    } elseif (count(validate($input, true)) == 0) {
 
         if (exists("profiles", "name")) {
             if (!empty($profileId)) {
