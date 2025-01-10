@@ -22,7 +22,7 @@ function validate($input, $empty = false) {
                         $$value2 = $_POST[$value2];
                     }
 
-                    if (!isset($_POST["password"])) {
+                    if (isset($$value2) && !isset($_POST["password"])) {
                         $_SESSION[$value2] = $$value2;
                     }
                 } else {
