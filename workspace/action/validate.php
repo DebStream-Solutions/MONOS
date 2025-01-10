@@ -192,7 +192,6 @@ if (isset($_GET['login'])) {
 
                     header("location: ../edit/profile/");
                 } else {
-                    session_destroy();
                     header("location: ../");
                 }
             }

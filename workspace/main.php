@@ -288,7 +288,7 @@ function editProfile($edit) {
                             </form>
                         </div>
                         <div class="error">
-                            '.isset($_SESSION["error"]) ? $_SESSION["error"] : "".'
+                            '.isset($_SESSION["error"]).'
                         </div>
                     </div>
                 </div>
