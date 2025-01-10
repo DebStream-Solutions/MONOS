@@ -41,7 +41,7 @@ function validate($input, $empty = false) {
                     $$value = $_POST[$value];
                 }
 
-                if (!isset($_POST["password"])) {
+                if (isset($$value) && !isset($_POST["password"])) {
                     $_SESSION[$value] = $$value;
                 }
             } else {
