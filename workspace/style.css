@@ -208,7 +208,7 @@ div:has(.roll) > .title::after {
     border-radius: 0.5rem;
 }
 
-.edit-btn {
+a.edit-btn {
     position: absolute;
     top: 0;
     right: 0;
@@ -553,7 +553,7 @@ body {
 
 #device-form {
     display: flex;
-    width: 80%;
+    flex-direction: column;
 }
 
 .input-container {
@@ -683,10 +683,18 @@ input[type="submit"] {
 
     button[type="submit"] {
         border: none;
-        background-color: red;
+        background-color: #931111;
         color: white;
-        padding: 0.25rem 1.25rem;
+        padding: 0.5rem 1.25rem;
+        border-radius: 5px;
     }
+}
+
+.error {
+    display: flex;
+    flex-direction: column;
+    gap: 0.25rem;
+    color: crimson;
 }
 
 /* LOGIN */

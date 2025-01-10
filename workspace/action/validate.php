@@ -151,12 +151,18 @@ if (isset($_GET['login'])) {
 
         if ($deleteStatus === false) {
             $_SESSION['error'] = $deleteStatus;
+
+            header("location: ../edit/profile/?profile=".$profile_id);
         } else {
             $query = "DELETE FROM profileReleations WHERE profile_id = '$profile_id'";
             $deleteStatus = $conn->query($query);
 
             if ($deleteStatus === false) {
                 $_SESSION['error'] = $deleteStatus;
+
+                header("location: ../edit/profile/?profile=".$profile_id);
+            } else {
+                header("location: ../");
             }
         }
 
@@ -170,6 +176,8 @@ if (isset($_GET['login'])) {
 
                 if ($updateStatus === false) {
                     $_SESSION['error'] = $updateStatus;
+
+                    header("location: ../edit/profile/?profile=".$profileId);
                 } else {
                     header("location: ../");
                 }
@@ -181,6 +189,8 @@ if (isset($_GET['login'])) {
 
                 if ($insertStatus === false) {
                     $_SESSION['error'] = $insertStatus;
+
+                    header("location: ../edit/profile/");
                 } else {
                     session_destroy();
                     header("location: ../");
@@ -214,6 +224,13 @@ if (isset($_GET['login'])) {
 
             if ($deleteStatus === false) {
                 $_SESSION['error'] = $deleteStatus;
+                header("location: ../edit/device/".$device_id);
+            } else {
+                if ($_SESSION["profile"]) {
+                    header("location: ../?profile=".$_SESSION["profile"]);
+                } else {
+                    header("location: ../");
+                }
             }
         }
         
@@ -228,6 +245,13 @@ if (isset($_GET['login'])) {
 
                 if ($updateStatus === false) {
                     $_SESSION['error'] = $updateStatus;
+                    header("location: ../edit/device/?device=".$deviceId);
+                } else {
+                    if (isset($_SESSION["profile"])) {
+                        header("location: ../device/?profile=".$_SESSION["profile"]."&device=".$deviceId);
+                    } else {
+                        header("location: ../");
+                    }
                 }
             } else {
 
@@ -260,6 +284,8 @@ if (isset($_GET['login'])) {
                         $insertStatus = $conn->query($insert);
                     }
                 }
+
+                header("location: ../edit/device/?device=".$deviceId);
             }
         }
         

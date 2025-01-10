@@ -288,7 +288,7 @@ function editProfile($edit) {
                             </form>
                         </div>
                         <div class="error">
-                            '.$_SESSION["error"].'
+                            '.isset($_SESSION["error"]) ? $_SESSION["error"] : "".'
                         </div>
                     </div>
                 </div>
@@ -453,7 +453,7 @@ function editDevice($edit) {
                                 </form>
                             </div>
                             <div class="error">
-                                '.$_SESSION["error"].'
+                                '.isset($_SESSION["error"]) ? $_SESSION["error"] : "".'
                             </div>
                         </div>
                     </div>
