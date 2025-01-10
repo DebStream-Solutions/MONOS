@@ -253,7 +253,7 @@ function editProfile($edit) {
             $error_msg = "";
             if (is_array($error)) {
                 foreach ($error as $key => $value) {
-                    $error_msg .= $value;
+                    $error_msg .= $value."<br>";
                 }
             } else {
                 $error_msg = $error;
@@ -288,7 +288,7 @@ function editProfile($edit) {
                             </form>
                         </div>
                         <div class="error">
-                            '.isset($_SESSION["error"]).'
+                            '.$error_msg.'
                         </div>
                     </div>
                 </div>
