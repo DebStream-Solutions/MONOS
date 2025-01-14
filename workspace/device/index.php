@@ -12,13 +12,12 @@
 
     $conditions = ["id" => $device];
     $ipv4 = findValueByConditions($devices, $conditions, "ip");
-    $typeId = (int)findValueByConditions($devices, $conditions, "type");
+    $typeId = findValueByConditions($devices, $conditions, "type");
 
     $_SESSION["device-ip"] = $ipv4;
     $_SESSION["device-type"] = $typeId;
 
     $result = getSNMPData($ipv4, $typeId, "public");
-    var_dump($typeId);
     
     //echo $result;
 
