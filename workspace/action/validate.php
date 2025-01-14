@@ -211,7 +211,7 @@ if (isset($_GET['login'])) {
     $deviceId = $_GET["device"];
     $input = ["name", "ip", "type"];
 
-    if (count(validate(["delete_id"], true)) ) {
+    if (count(validate(["delete_id"], true)) == 0) {
 
         $device_id = mysqli_real_escape_string($conn, $_POST['delete_id']);
         $query = "DELETE FROM devices WHERE id = '$device_id'";
