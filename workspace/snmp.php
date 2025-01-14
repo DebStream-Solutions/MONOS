@@ -7,6 +7,7 @@ function getSNMPData($hostIp, $deviceType, $community) {
     // Check for type and redirect to return value
 
     $deviceTypeArray = [
+        1 => 'router',
         3 => 'workstation',
     ];
 
@@ -42,6 +43,166 @@ function SNMPDataRecord() {
 }
 
 # Device OID Functions
+
+function router($hostIp, $community) {
+    $oid_list = [
+        "interface" => [
+            "name" => "IF-MIB::ifDescr",
+            "admin-stat" => "IF-MIB::ifAdminStatus",
+            "oper-stat" => "IF-MIB::ifOperStatus",
+            "in-bytes" => "IF-MIB::ifInOctets",
+            "out-bytes" => "IF-MIB::ifOutOctets",
+            "ip" => "1.3.6.1.2.1.4.20.1.1",
+            "mask" => "1.3.6.1.2.1.4.20.1.3",
+            "mac" => "IF-MIB::ifPhysAddress"
+        ],
+        "cpu" => [
+            "name" => "1.3.6.1.2.1.25.3.2.1.3",
+            "load" => "1.3.6.1.2.1.25.3.3.1.2",
+            "temp" => "1.3.6.1.4.1.2021.11"
+        ]
+
+    ];
+
+    $generative_content = '';
+
+    $session = new SNMP(SNMP::VERSION_2c, $hostIp, $community);
+
+    $session->oid_output_format = SNMP_OID_OUTPUT_SUFFIX;
+    $session->valueretrieval = SNMP_VALUE_LIBRARY;
+    $session->quick_print = 1;
+    $session->enum_print = 0;
+
+    if ($session->getError()) {
+        $generative_content = "Error: " . $session->getError();
+    } else {
+        foreach ($oid_list as $key => $value) {
+            if ($key == "interface") {
+                $if_name_arr = @snmpwalk($hostIp, $community, $value["name"]);
+                $if_name_arr = snmpFormat($if_name_arr, "STRING: ");
+
+                $if_admin_status_arr = @snmpwalk($hostIp, $community, $value["admin-stat"]);
+                $if_admin_status_arr = snmpFormat($if_admin_status_arr, "INTEGER: ");
+
+                $if_oper_status_arr = @snmpwalk($hostIp, $community, $value["oper-stat"]);
+                $if_oper_status_arr = snmpFormat($if_oper_status_arr, "INTEGER: ");
+
+                $in_bytes_arr = @snmpwalk($hostIp, $community, $value["in-bytes"]);
+                $in_bytes_arr = snmpFormat($in_bytes_arr, "Counter32: ");
+
+                $out_bytes_arr = @snmpwalk($hostIp, $community, $value["out-bytes"]);
+                $out_bytes_arr = snmpFormat($out_bytes_arr, "Counter32: ");
+
+                $ip_arr = @snmpwalk($hostIp, $community, $value["ip"]);
+                $ip_arr = snmpFormat($ip_arr, "IpAddress: ");
+
+                $mask_arr = @snmpwalk($hostIp, $community, $value["ip"]);
+                $mask_arr = snmpFormat($mask_arr, "IpAddress: ");
+
+                $mac_arr = @snmpwalk($hostIp, $community, $value["ip"]);
+                $mac_arr = snmpFormat($mac_arr, "IpAddress: ");
+
+                $intefraceHTML = "";
+                foreach ($if_name_arr as $key => $value) {
+                    
+
+                    $intefraceHTML .= "
+                    <div>
+                        <div class='title'>
+                            {$if_name_arr[$key]}
+                        </div>
+                        <div class='roll'>
+                            <div>
+                                <div id='adminStatus{$key}'>Admin Status: {$if_admin_status_arr[$key]}</div>
+                                <div id='operStatus{$key}'>Operational Status: {$if_oper_status_arr[$key]}</div>
+                                <div id='ipAddress{$key}'>IP Address: {$ip_arr[$key]}</div>
+                                <div id='mask{$key}'>Mask: {$mask_arr[$key]}</div>
+                                <div id='macAddress{$key}'>MAC: {$mac_arr[$key]}</div>
+                                <div id='inBytes{$key}'>Inbound Bytes: {$in_bytes_arr[$key]} bytes</div>
+                                <div id='outBytes{$key}'>Outbound Bytes: {$out_bytes_arr[$key]} bytes</div>
+                            </div>
+                        </div>
+                    </div>
+                    ";
+                }
+            
+            
+            } elseif ($key == "cpus") {
+                $cpu_name = @snmpwalk($hostIp, $community, $value["name"]);
+                $cpu_load = @snmpwalk($hostIp, $community, $value["load"]);
+                $cpu_temp = @snmpwalk($hostIp, $community, $value["temp"]);
+
+                $cpu_load_parse = [];
+                $cpu_freq_parse = [];
+                $cpu_arr_load = "";
+
+
+                if ($cpu_name !== false) {
+                    $cpu_name = $cpu_name[0];
+                    $cpu_name = preg_replace('/^.*: :/', '', $cpu_name);
+                    $cpu_name_arr = explode(":", $cpu_name);
+                    $cpu_name = $cpu_name_arr[count($cpu_name_arr) - 1];
+                }
+                if ($cpu_load !== false) {
+                    foreach ($cpu_load as $key => $value) {
+                        $value = preg_replace('/^.*: :/', '', $value);
+                        $value = explode("INTEGER: ", $value)[1];
+                        $cpu_load_parse[] = $value;
+                    }
+                }
+
+                foreach ($cpu_load_parse as $cpu_int => $load) {
+                    $cpu_int = intval($cpu_int) + 1;
+                    $cpu_arr_load .= "
+                    <div class='core-load'>
+                        <div>Core {$cpu_int}</div>
+                        <div class='percent-wrap'>
+                            <div class='percent'>{$load}% </div>
+                            <div class='percent-line-wrap'>
+                                <div class='percent-line' style='width: calc({$load}%)'></div>
+                            </div>
+                        </div>
+                    </div>";
+                }
+
+                $cpu_sum = 0;
+                $freq_sum = 0;
+                $cpu_count = count($cpu_load);
+                foreach ($cpu_load_parse as $cpu) {
+                    $cpu_sum += (int) $cpu;
+                }
+                foreach ($cpu_freq_parse as $cpu) {
+                    $freq_sum += (int) $cpu;
+                }
+                $cpu_load = $cpu_sum / $cpu_count;
+                $cpu_freq = $freq_sum / $cpu_count;
+            }
+        }
+
+        $generative_content = "
+            <div class='content'>
+                <div class='main-banner'>
+                    <div id='donutchart'></div>
+                </div>
+                <div class='mon-list'>
+                    <div>
+                        <div class='title'>
+                            SYSTEM
+                        </div>
+                        <div class='roll'>
+                            <div>
+                                <div id='sysUp'>System Up: 1d</div>
+                            </div>
+                        </div>
+                    </div>
+                    ".$intefraceHTML."
+                </div>
+            </div>
+        ";
+
+    }
+}
+
 
 function workstation($hostIp, $community) {
     /*
