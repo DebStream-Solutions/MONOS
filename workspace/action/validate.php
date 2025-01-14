@@ -13,7 +13,7 @@ function validate($input, $empty = false) {
             foreach ($value as $key => $value2) {
                 if (isset($_POST[$value2])) {
                     if ($empty) {
-                        if (!empty($value2)) {
+                        if (!empty($_POST[$value2])) {
                             $$value2 = $_POST[$value2];
                         } else {
                             $error[] = $value2;
@@ -22,7 +22,7 @@ function validate($input, $empty = false) {
                         $$value2 = $_POST[$value2];
                     }
 
-                    if (!isset($_POST["password"])) {
+                    if (isset($$value2) && !isset($_POST["password"])) {
                         $_SESSION[$value2] = $$value2;
                     }
                 } else {
@@ -32,7 +32,7 @@ function validate($input, $empty = false) {
         } else {
             if (isset($_POST[$value])) {
                 if ($empty) {
-                    if (!empty($value)) {
+                    if (!empty($_POST[$value])) {
                         $$value = $_POST[$value];
                     } else {
                         $error[] = $value;
@@ -41,7 +41,7 @@ function validate($input, $empty = false) {
                     $$value = $_POST[$value];
                 }
 
-                if (!isset($_POST["password"])) {
+                if (isset($$value) && !isset($_POST["password"])) {
                     $_SESSION[$value] = $$value;
                 }
             } else {
@@ -143,7 +143,30 @@ if (isset($_GET['login'])) {
     $profileId = $_GET["profile"];
     $input = ["name"];
 
-    if (count(validate($input)) == 0) {
+    if (count(validate(["delete_id"], true)) == 0) {
+
+        $profile_id = mysqli_real_escape_string($conn, $_POST['delete_id']);
+        $query = "DELETE FROM profiles WHERE id = '$profile_id'";
+        $deleteStatus = $conn->query($query);
+
+        if ($deleteStatus === false) {
+            $_SESSION['error'] = $deleteStatus;
+
+            header("location: ../edit/profile/?profile=".$profile_id);
+        } else {
+            $query = "DELETE FROM profileReleations WHERE profile_id = '$profile_id'";
+            $deleteStatus = $conn->query($query);
+
+            if ($deleteStatus === false) {
+                $_SESSION['error'] = $deleteStatus;
+
+                header("location: ../edit/profile/?profile=".$profile_id);
+            } else {
+                header("location: ../");
+            }
+        }
+
+    } elseif (count(validate($input, true)) == 0) {
 
         if (exists("profiles", "name")) {
             if (!empty($profileId)) {
@@ -153,6 +176,8 @@ if (isset($_GET['login'])) {
 
                 if ($updateStatus === false) {
                     $_SESSION['error'] = $updateStatus;
+
+                    header("location: ../edit/profile/?profile=".$profileId);
                 } else {
                     header("location: ../");
                 }
@@ -164,8 +189,9 @@ if (isset($_GET['login'])) {
 
                 if ($insertStatus === false) {
                     $_SESSION['error'] = $insertStatus;
+
+                    header("location: ../edit/profile/");
                 } else {
-                    session_destroy();
                     header("location: ../");
                 }
             }
@@ -177,15 +203,40 @@ if (isset($_GET['login'])) {
             
     } else {
         $_SESSION['error'] = "You have to enter a name for the profile.";
+    
+        header("location: ../edit/profile/?profile=".$profileId);
     }
 
 } elseif (isset($_GET["device"])) {
     $deviceId = $_GET["device"];
     $input = ["name", "ip", "type"];
 
-    var_dump($_POST["profile1"]);
+    if (count(validate(["delete_id"], true)) ) {
 
-    if (count(validate($input, true)) == 0) {
+        $device_id = mysqli_real_escape_string($conn, $_POST['delete_id']);
+        $query = "DELETE FROM devices WHERE id = '$device_id'";
+        $deleteStatus = $conn->query($query);
+
+        if ($deleteStatus === false) {
+            $_SESSION['error'] = $deleteStatus;
+        } else {
+            $query = "DELETE FROM profileReleations WHERE device_id = '$device_id'";
+            $deleteStatus = $conn->query($query);
+
+            if ($deleteStatus === false) {
+                $_SESSION['error'] = $deleteStatus;
+                header("location: ../edit/device/".$device_id);
+            } else {
+                if ($_SESSION["profile"]) {
+                    header("location: ../?profile=".$_SESSION["profile"]);
+                } else {
+                    header("location: ../");
+                }
+            }
+        }
+        
+
+    } elseif (count(validate($input, true)) == 0) {
 
         if (true) {
             if (!empty($deviceId)) {
@@ -195,6 +246,13 @@ if (isset($_GET['login'])) {
 
                 if ($updateStatus === false) {
                     $_SESSION['error'] = $updateStatus;
+                    header("location: ../edit/device/?device=".$deviceId);
+                } else {
+                    if (isset($_SESSION["profile"])) {
+                        header("location: ../device/?profile=".$_SESSION["profile"]."&device=".$deviceId);
+                    } else {
+                        header("location: ../");
+                    }
                 }
             } else {
 
@@ -221,23 +279,21 @@ if (isset($_GET['login'])) {
                             $profileIds[] = $profileId;
                         }
                     }
-
-                    var_dump($profileIds);
                     
                     foreach ($profileIds as $key => $value) {
                         $insert = "INSERT INTO profileReleations (profileId, deviceId) VALUES ('{$value}', '{$deviceId}')";
                         $insertStatus = $conn->query($insert);
                     }
                 }
+
+                //header("location: ../edit/device/?device=".$deviceId);
             }
         }
         
             
     } else {
-        $_SESSION['error'] = "You have to enter a name for the profile.";
+        $_SESSION['error'] = "You have to enter a name of the device.";
     }
-
-
 }
 
 ?>

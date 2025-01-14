@@ -257,7 +257,7 @@ function editProfile($edit) {
             $error_msg = "";
             if (is_array($error)) {
                 foreach ($error as $key => $value) {
-                    $error_msg .= $value;
+                    $error_msg .= $value."<br>";
                 }
             } else {
                 $error_msg = $error;
@@ -284,9 +284,15 @@ function editProfile($edit) {
                                     <input type="submit" name="submit" value="Edit">
                                 </div>
                             </form>
-                            <div class="error-msg">
-                                '.$error_msg.'
-                            </div>
+                            <form method=POST action="../../action/validate.php?profile='.$profile["id"].'">
+                                <div class="delete-wrap">
+                                    <input type="hidden" name="delete_id" value="'.$profile["id"].'">
+                                    <button type="submit" onclick="return confirm(\'Are you sure you want to delete this profile? It will remove every device within it.\')">Delete profile</button>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="error">
+                            '.$error_msg.'
                         </div>
                     </div>
                 </div>
@@ -399,9 +405,9 @@ function editDevice($edit) {
                 <div class="form-wrap">
                     <div class="log">
                         <div class="login-wrap">
-                            <h2>Add device</h2>
+                            <h2>Edit device</h2>
                             <div id="device-form">
-                                <form method=POST action="../../action/validate.php?device">
+                                <form method=POST action="../../action/validate.php?device='.$device["id"].'">
                                     <div class="input-fly">
                                         <div>
                                             <input type="text" id="name" name="name" value="'.$device["name"].'">
@@ -440,9 +446,18 @@ function editDevice($edit) {
                                         </select>
                                     </div>
                                     <div>
-                                        <input type="submit" name="submit" value="Add">
+                                        <input type="submit" name="submit" value="Edit">
                                     </div>
                                 </form>
+                                <form method=POST action="../../action/validate.php?device='.$device["id"].'">
+                                    <div class="delete-wrap">
+                                        <input type="hidden" name="delete_id" value="'.$device["id"].'">
+                                        <button type="submit" onclick="return confirm(\'Are you sure you want to remove this device?\')">Remove device</button>
+                                    </div>
+                                </form>
+                            </div>
+                            <div class="error">
+                                '.isset($_SESSION["error"]) ? $_SESSION["error"] : "".'
                             </div>
                         </div>
                     </div>
@@ -534,6 +549,9 @@ function editDevice($edit) {
                                         <input type="submit" name="submit" value="Add">
                                     </div>
                                 </form>
+                            </div>
+                            <div class="error">
+                                '.isset($_SESSION["error"]).'
                             </div>
                         </div>
                     </div>
