@@ -12,6 +12,7 @@ function getSNMPData($hostIp, $deviceType, $community) {
     ];
 
     foreach ($deviceTypeArray as $key => $value) {
+        var_dump($deviceType, $key);
         if ($deviceType == $key) {
             $return = $value($hostIp, $community);
         } else {
