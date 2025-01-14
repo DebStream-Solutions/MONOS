@@ -409,6 +409,36 @@ function workstation($hostIp, $community) {
         $GLOBALS["freeSpace"] = $disk_free_percentage;
 
         $generative_content = "
+            <script>
+                google.charts.load('current', {'packages':['corechart']});
+        
+                 google.charts.setOnLoadCallback(drawChart);
+
+                function drawChart() {
+                    var data = google.visualization.arrayToDataTable([
+                        ['Type', 'Space'],
+                        ['Used Space', ".issetReturn($GLOBALS["usedSpace"])."],
+                        ['Free Space', ".issetReturn($GLOBALS["freeSpace"])."]
+                    ]);
+
+                    var theme = 'dark'; // Change this to 'light' to see the light theme
+
+                    var options = {
+                        title: 'Disk Storage',
+                        backgroundColor: theme === 'dark' ? '#121212' : '#ffffff',
+                        titleTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                        legendTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                        pieSliceTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                        slices: {
+                            0: { color: '#9b21ff' },
+                            1: { color: '#5900ff' }
+                        }
+                    };
+
+                    var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
+                    chart.draw(data, options);
+                }
+            </script>
             <div class='content'>
                 <div class='main-banner'>
                     <div id='donutchart'></div>
