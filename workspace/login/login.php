@@ -8,10 +8,6 @@
     //include "snmp.php";
     include "main.php";
 
-    if (isset($_SESSION['user'])) {
-        header('location: ../');
-    }
-
 ?>
 <!DOCTYPE html>
 <html lang="en">
