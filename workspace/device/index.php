@@ -33,37 +33,6 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <script src="../ajax.js"></script>
     <script type="text/javascript">
-        google.charts.load('current', {'packages':['corechart']});
-        
-        <?php echo isset($GLOBALS["freeSpace"]) ? "google.charts.setOnLoadCallback(drawChart);" : "" ?>
-
-        function drawChart() {
-            var data = google.visualization.arrayToDataTable([
-                ['Type', 'Space'],
-                ['Used Space', <?php echo issetReturn($GLOBALS["usedSpace"]) ?>],
-                ['Free Space', <?php echo issetReturn($GLOBALS["freeSpace"]) ?>]
-            ]);
-
-            var theme = 'dark'; // Change this to 'light' to see the light theme
-
-            var options = {
-                title: 'Disk Storage',
-                backgroundColor: theme === 'dark' ? '#121212' : '#ffffff',
-                titleTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
-                legendTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
-                pieSliceTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
-                slices: {
-                    0: { color: '#9b21ff' },
-                    1: { color: '#5900ff' }
-                }
-            };
-
-            var chart = new google.visualization.PieChart(document.getElementById('donutchart'));
-            chart.draw(data, options);
-        }
-
-
-
 
         function toggleSidebar() {
             if ($(".sidebar-wrap").css("right").includes("-")) {
