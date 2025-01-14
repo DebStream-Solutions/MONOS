@@ -237,31 +237,24 @@ if (isset($_GET['login'])) {
         
 
     } elseif (count(validate($input, true)) == 0) {
+        var_dump($_POST["name"], $_POST["ip"], $_POST["type"]);
+        if (!empty($deviceId)) {
 
-        if (true) {
-            if (!empty($deviceId)) {
+            $update = "UPDATE devices SET name='{$_SESSION['name']}' WHERE id={$deviceId}";
+            $updateStatus = $conn->query($update);
 
-                $update = "UPDATE devices SET name='{$_SESSION['name']}' WHERE id={$deviceId}";
-                $updateStatus = $conn->query($update);
-
-                if ($updateStatus === false) {
-                    $_SESSION['error'] = $updateStatus;
-                    header("location: ../edit/device/?device=".$deviceId);
-                } else {
-                    if (isset($_SESSION["profile"])) {
-                        header("location: ../device/?profile=".$_SESSION["profile"]."&device=".$deviceId);
-                    } else {
-                        header("location: ../");
-                    }
-                }
+            if ($updateStatus === false) {
+                $_SESSION['error'] = $updateStatus;
+                header("location: ../edit/device/?device=".$deviceId);
             } else {
-                $_SESSION['error'] = "Error - missing device ID";
+                if (isset($_SESSION["profile"])) {
+                    header("location: ../device/?profile=".$_SESSION["profile"]."&device=".$deviceId);
+                } else {
+                    header("location: ../");
+                }
             }
-        }
-        
-            
-    } elseif (count(validate($input)) == 0) {
-        if (empty($device_id)) {
+        } else {
+
             $insert = "INSERT INTO devices (name, type, ip) VALUES ('{$_SESSION['name']}', '{$_SESSION['type']}', '{$_SESSION['ip']}')";
             $insertStatus = $conn->query($insert);
 
@@ -293,9 +286,9 @@ if (isset($_GET['login'])) {
             }
 
             //header("location: ../edit/device/?device=".$deviceId);
-        } else {
-            $_SESSION['error'] = "You have to enter all device data.";
         }
+        
+            
     } else {
         $_SESSION['error'] = "You have to enter all device data.";
     }
