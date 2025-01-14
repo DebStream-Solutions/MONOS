@@ -18,6 +18,7 @@
     $_SESSION["device-type"] = $typeId;
 
     $result = getSNMPData($ipv4, $typeId, "public");
+    var_dump($typeId);
     
     //echo $result;
 
