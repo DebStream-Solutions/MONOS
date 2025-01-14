@@ -203,6 +203,10 @@ function router($hostIp, $community) {
         ";
 
     }
+
+    $session->close();
+
+    return $generative_content;
 }
 
 
