@@ -12,7 +12,7 @@
 
     $conditions = ["id" => $device];
     $ipv4 = findValueByConditions($devices, $conditions, "ip");
-    $typeId = findValueByConditions($devices, $conditions, "type");
+    $typeId = (int)findValueByConditions($devices, $conditions, "type");
 
     $_SESSION["device-ip"] = $ipv4;
     $_SESSION["device-type"] = $typeId;
