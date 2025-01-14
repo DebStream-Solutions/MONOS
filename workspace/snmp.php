@@ -14,7 +14,6 @@ function getSNMPData($hostIp, $deviceType, $community) {
     foreach ($deviceTypeArray as $key => $value) {
         if ($deviceType == $key) {
             $return = $value($hostIp, $community);
-            var_dump($return);
             break;
         } else {
             $return = "NO SUCH DEVICE TYPE!!";
@@ -98,11 +97,11 @@ function router($hostIp, $community) {
                 $ip_arr = @snmpwalk($hostIp, $community, $value["ip"]);
                 $ip_arr = snmpFormat($ip_arr, "IpAddress: ");
 
-                $mask_arr = @snmpwalk($hostIp, $community, $value["ip"]);
+                $mask_arr = @snmpwalk($hostIp, $community, $value["mask"]);
                 $mask_arr = snmpFormat($mask_arr, "IpAddress: ");
 
-                $mac_arr = @snmpwalk($hostIp, $community, $value["ip"]);
-                $mac_arr = snmpFormat($mac_arr, "IpAddress: ");
+                $mac_arr = @snmpwalk($hostIp, $community, $value["mac"]);
+                $mac_arr = snmpFormat($mac_arr, "STRING: ");
 
                 $intefraceHTML = "";
                 foreach ($if_name_arr as $key => $value) {
