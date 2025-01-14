@@ -260,7 +260,7 @@ if (isset($_GET['login'])) {
         }
         
             
-    } elseif (count(validate($input, true)) == 0) {
+    } elseif (count(validate($input)) == 0) {
         if (empty($device_id)) {
             $insert = "INSERT INTO devices (name, type, ip) VALUES ('{$_SESSION['name']}', '{$_SESSION['type']}', '{$_SESSION['ip']}')";
             $insertStatus = $conn->query($insert);
