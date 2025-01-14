@@ -255,44 +255,49 @@ if (isset($_GET['login'])) {
                     }
                 }
             } else {
-
-                $insert = "INSERT INTO devices (name, type, ip) VALUES ('{$_SESSION['name']}', '{$_SESSION['type']}', '{$_SESSION['ip']}')";
-                $insertStatus = $conn->query($insert);
-
-                if ($insertStatus === false) {
-                    $_SESSION['error'] = $insertStatus;
-                } else {
-                    $deviceId = $conn->insert_id;
-
-                    $profiles = "SELECT COUNT(*) AS profile_count FROM profiles";
-                    $profiles = $conn->query($profiles);
-                    $profiles = $profiles->fetch_all(MYSQLI_ASSOC);
-                    
-                    $max = $profiles[0]["profile_count"];
-                    $tryProfiles = true;
-                    $profileIds = [];
-
-                    for ($i=1; $i <= $max; $i++) {
-                        $profileCheck = "profile".$i;
-                        if (isset($_POST[$profileCheck]) && !empty($_POST[$profileCheck])) {
-                            $profileId = $i;
-                            $profileIds[] = $profileId;
-                        }
-                    }
-                    
-                    foreach ($profileIds as $key => $value) {
-                        $insert = "INSERT INTO profileReleations (profileId, deviceId) VALUES ('{$value}', '{$deviceId}')";
-                        $insertStatus = $conn->query($insert);
-                    }
-                }
-
-                //header("location: ../edit/device/?device=".$deviceId);
+                $_SESSION['error'] = "Error - missing device ID";
             }
         }
         
             
+    } elseif (count(validate($input, true)) == 0) {
+        if (empty($device_id)) {
+            $insert = "INSERT INTO devices (name, type, ip) VALUES ('{$_SESSION['name']}', '{$_SESSION['type']}', '{$_SESSION['ip']}')";
+            $insertStatus = $conn->query($insert);
+
+            if ($insertStatus === false) {
+                $_SESSION['error'] = $insertStatus;
+            } else {
+                $deviceId = $conn->insert_id;
+
+                $profiles = "SELECT COUNT(*) AS profile_count FROM profiles";
+                $profiles = $conn->query($profiles);
+                $profiles = $profiles->fetch_all(MYSQLI_ASSOC);
+                
+                $max = $profiles[0]["profile_count"];
+                $tryProfiles = true;
+                $profileIds = [];
+
+                for ($i=1; $i <= $max; $i++) {
+                    $profileCheck = "profile".$i;
+                    if (isset($_POST[$profileCheck]) && !empty($_POST[$profileCheck])) {
+                        $profileId = $i;
+                        $profileIds[] = $profileId;
+                    }
+                }
+                
+                foreach ($profileIds as $key => $value) {
+                    $insert = "INSERT INTO profileReleations (profileId, deviceId) VALUES ('{$value}', '{$deviceId}')";
+                    $insertStatus = $conn->query($insert);
+                }
+            }
+
+            //header("location: ../edit/device/?device=".$deviceId);
+        } else {
+            $_SESSION['error'] = "You have to enter all device data.";
+        }
     } else {
-        $_SESSION['error'] = "You have to enter a name of the device.";
+        $_SESSION['error'] = "You have to enter all device data.";
     }
 }
 

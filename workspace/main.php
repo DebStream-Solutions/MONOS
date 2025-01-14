@@ -401,6 +401,20 @@ function editDevice($edit) {
                 $selectedProfiles .= '<div class="selected-item">'.$releatedProfile["name"].'<span class="remove-item">x</span></div>';
             }
 
+            if (isset($_SESSION["error"])) {
+                $error = $_SESSION["error"];
+                $error_msg = "";
+                if (is_array($error)) {
+                    foreach ($error as $key => $value) {
+                        $error_msg .= $value."<br>";
+                    }
+                } else {
+                    $error_msg = $error;
+                }
+            } else {
+                $error_msg = "";
+            }
+
             $content = '
                 <div class="form-wrap">
                     <div class="log">
@@ -457,7 +471,7 @@ function editDevice($edit) {
                                 </form>
                             </div>
                             <div class="error">
-                                '.isset($_SESSION["error"]) ? $_SESSION["error"] : "".'
+                                '.$error_msg.'
                             </div>
                         </div>
                     </div>
@@ -501,6 +515,22 @@ function editDevice($edit) {
                 $typeList .= '<option value="'.$i.'">'.$value["name"].'</option>';
                 $i += 1;
             }
+
+            if (isset($_SESSION["error"])) {
+                $error = $_SESSION["error"];
+                $error_msg = "";
+                if (is_array($error)) {
+                    foreach ($error as $key => $value) {
+                        $error_msg .= $value."<br>";
+                    }
+                } else {
+                    $error_msg = $error;
+                }
+            } else {
+                $error_msg = "";
+            }
+
+            
 
             $content = '
                 <div class="form-wrap">
@@ -551,7 +581,7 @@ function editDevice($edit) {
                                 </form>
                             </div>
                             <div class="error">
-                                '.isset($_SESSION["error"]).'
+                                '.$error_msg.'
                             </div>
                         </div>
                     </div>
