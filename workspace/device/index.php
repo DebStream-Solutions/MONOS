@@ -34,7 +34,8 @@
     <script src="../ajax.js"></script>
     <script type="text/javascript">
         google.charts.load('current', {'packages':['corechart']});
-        google.charts.setOnLoadCallback(drawChart);
+        
+        <?php echo isset($GLOBALS["freeSpace"]) ? "google.charts.setOnLoadCallback(drawChart);" : "" ?>
 
         function drawChart() {
             var data = google.visualization.arrayToDataTable([
