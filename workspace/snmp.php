@@ -204,20 +204,8 @@ function router($hostIp, $community) {
                 data.addColumn('number', 'Upload (Bytes/sec)');
 
                 var theme = 'dark'; // Change this to 'light' to see the light theme
-
-                    var options = {
-                        title: 'Disk Storage',
-                        backgroundColor: theme === 'dark' ? '#121212' : '#ffffff',
-                        titleTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
-                        legendTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
-                        pieSliceTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
-                        slices: {
-                            0: { color: '#9b21ff' },
-                            1: { color: '#5900ff' }
-                        }
-                    };
         
-                options = {
+                var options = {
                     title: 'Network Traffic',
                     backgroundColor: theme === 'dark' ? '#121212' : '#ffffff',
                     titleTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
