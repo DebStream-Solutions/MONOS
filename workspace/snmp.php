@@ -258,10 +258,8 @@ function router($hostIp, $community) {
                         const now = new Date();
                         const time = new Date(now.getFullYear(), now.getMonth(), now.getDate(), timeParts[0], timeParts[1], timeParts[2]);
 
-                        const formattedTime = new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
-
                         // Add new data point to the chart
-                        data.addRow([formattedTime, response.downloadRate, response.uploadRate]);
+                        data.addRow([time, response.downloadRate, response.uploadRate]);
                         chart.draw(data, options);
                     },
                     error: function() {
