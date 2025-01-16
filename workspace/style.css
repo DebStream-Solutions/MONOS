@@ -489,7 +489,7 @@ div:has(.title.up) > .roll {
     border: var(--default-border);
     color: var(--primary);
     border-radius: 5px;
-    padding: 0.5rem 1rem;
+    padding: 0.5rem 1rem 0.5rem 0;
     text-decoration: none;
     display: flex;
     align-items: center;
