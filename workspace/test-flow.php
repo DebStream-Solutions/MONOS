@@ -22,8 +22,6 @@ if (isset($_SESSION["chart-interface"])) {
     $interface = "1";
 }
 
-var_dump($interface);
-
 if (isset($_GET["host"]) && isset($_GET["community"])) {
     $host = $_GET["host"];
     $community = $_GET["community"];
