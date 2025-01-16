@@ -82,6 +82,8 @@ foreach ($GLOBALS['networkData'] as $data) {
 
 // Encode the data to JSON for use in Google Charts
 $jsonChartData = json_encode($chartData);
+
+var_dump($jsonChartData);
 ?>
 
 <!DOCTYPE html>
