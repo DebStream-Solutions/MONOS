@@ -281,7 +281,7 @@ function router($hostIp, $community) {
         </script>
             <div class='content'>
                 <div class='main-banner'>
-                    <div id='curve_chart' style='width: 900px; height: 500px;'></div>
+                    <div id='curve_chart'></div>
                 </div>
                 <div class='mon-list'>
                     <div>
