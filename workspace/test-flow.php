@@ -1,4 +1,20 @@
 <?php
+
+function snmpFormat($snmp_arr, $separator) {
+    $snmp_formatted_arr = [];
+
+    if ($snmp_arr !== false) {
+        foreach ($snmp_arr as $key => $value) {
+            $value = preg_replace('/^.*: :/', '', $value);
+            $value = explode($separator, $value)[1];
+            $snmp_formatted_arr[] = $value;
+        }
+    }
+
+    return $snmp_formatted_arr;
+}
+
+
 // SNMP OIDs for InOctets and OutOctets
 $interface = "1"; // Change this to the correct interface number
 $host = "192.168.1.1";
@@ -12,7 +28,12 @@ $GLOBALS['networkData'] = [];
 
 // Function to get current SNMP data
 function getSnmpData($oid) {
-    return (int)snmpget($GLOBALS['host'], $GLOBALS['community'], $oid);
+    global $host, $community;
+
+    $oid_req = @snmpwalk($host, $community, $oid);
+    $oid_res = snmpFormat($oid_req, "Counter32: ");
+
+    return $oid_res;
 }
 
 // Function to calculate data

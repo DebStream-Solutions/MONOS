@@ -63,6 +63,15 @@ function router($hostIp, $community) {
             "temp" => "1.3.6.1.4.1.2021.11"
         ]
 
+        /*
+            up time          HOST-RESOURCES-MIB::hrSystemUptime.0
+            memory size      HOST-RESOURCES-MIB::hrMemorySize.0
+            system name      SNMPv2-MIB::sysName.0
+            system os        SNMPv2-MIB::sysDescr.0
+            cpu load         HOST-RESOURCES-MIB::hrProcessorLoad
+
+        */
+
     ];
 
     $generative_content = '';
