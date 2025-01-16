@@ -12,16 +12,17 @@
 
         function initChart() {
             // Initialize chart with empty data
-            data = google.visualization.arrayToDataTable([
-                ['Time', 'Download (Bytes/sec)', 'Upload (Bytes/sec)'],
-            ]);
+            data = new google.visualization.DataTable();
+            data.addColumn('datetime', 'Time');
+            data.addColumn('number', 'Download (Bytes/sec)');
+            data.addColumn('number', 'Upload (Bytes/sec)');
 
             options = {
                 title: 'Network Traffic',
                 curveType: 'function',
                 legend: { position: 'bottom' },
                 vAxis: { title: 'Bytes/sec' },
-                hAxis: { title: 'Time' }
+                hAxis: { title: 'Time', format: 'HH:mm:ss' }
             };
 
             chart = new google.visualization.LineChart(document.getElementById('curve_chart'));
@@ -33,15 +34,16 @@
 
         function fetchAndUpdateData() {
             $.ajax({
-                url: 'test-flow.php', // Your endpoint
+                url: 'fetch_data.php', // Your endpoint
                 method: 'GET',
                 success: function(response) {
+                    // Convert time string into a Date object
+                    const timeParts = response.time.split(':');
+                    const now = new Date();
+                    const time = new Date(now.getFullYear(), now.getMonth(), now.getDate(), timeParts[0], timeParts[1], timeParts[2]);
+
                     // Add new data point to the chart
-                    data.addRow([
-                        response.time,
-                        response.downloadRate,
-                        response.uploadRate
-                    ]);
+                    data.addRow([time, response.downloadRate, response.uploadRate]);
                     chart.draw(data, options);
                 },
                 error: function() {
