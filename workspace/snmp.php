@@ -191,63 +191,73 @@ function router($hostIp, $community) {
 
         $generative_content = "
             <script type='text/javascript'>
-            google.charts.load('current', {packages: ['corechart']});
-            google.charts.setOnLoadCallback(initChart);
-        
-            let chart, data, options;
-        
-            function initChart() {
-                // Initialize chart with empty data
-                data = new google.visualization.DataTable();
-                data.addColumn('datetime', 'Time');
-                data.addColumn('number', 'Download (Bytes/sec)');
-                data.addColumn('number', 'Upload (Bytes/sec)');
+                google.charts.load('current', {packages: ['corechart']});
+                google.charts.setOnLoadCallback(initChart);
 
-                var theme = 'dark'; // Change this to 'light' to see the light theme
-        
-                var options = {
+                let chart, data;
+                const theme = 'dark'; // Change this to 'light' for light theme
+
+                const options = {
                     title: 'Network Traffic',
                     backgroundColor: theme === 'dark' ? '#121212' : '#ffffff',
                     titleTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
                     legendTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
                     legend: { position: 'bottom' },
-                    vAxis: { title: 'Bytes/sec' },
-                    hAxis: { title: 'Time', format: 'HH:mm:ss' },
+                    vAxis: {
+                        title: 'Bytes/sec',
+                        textStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                        gridlines: { color: theme === 'dark' ? '#333333' : '#e5e5e5' }
+                    },
+                    hAxis: {
+                        title: 'Time',
+                        format: 'HH:mm:ss',
+                        textStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                        gridlines: { color: theme === 'dark' ? '#333333' : '#e5e5e5' }
+                    },
                     curveType: 'function', // Smooth curves
                     areaOpacity: 0.2, // Fill transparency (20%)
                     series: {
-                        0: { color: '#9b21ff', lineWidth: 2 }, // Download (blue line)
-                        1: { color: '#5900ff', lineWidth: 2 }  // Upload (red line)
+                        0: { color: '#9b21ff', lineWidth: 2 }, // Download (purple)
+                        1: { color: '#5900ff', lineWidth: 2 }  // Upload (dark purple)
                     }
                 };
-        
-                chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
-                chart.draw(data, options);
-        
-                // Start fetching data every 5 seconds
-                setInterval(fetchAndUpdateData, 5000);
-            }
-        
-            function fetchAndUpdateData() {
-                $.ajax({
-                    url: '../test-flow.php?host=".$hostIp."&community=".$community."', // Your endpoint
-                    method: 'GET',
-                    success: function(response) {
-                        // Convert time string into a Date object
-                        const timeParts = response.time.split(':');
-                        const now = new Date();
-                        const time = new Date(now.getFullYear(), now.getMonth(), now.getDate(), timeParts[0], timeParts[1], timeParts[2]);
-        
-                        // Add new data point to the chart
-                        data.addRow([time, response.downloadRate, response.uploadRate]);
-                        chart.draw(data, options);
-                    },
-                    error: function() {
-                        console.error('Failed to fetch data');
-                    }
-                });
-            }
-        </script>
+
+                function initChart() {
+                    // Initialize chart with empty data
+                    data = new google.visualization.DataTable();
+                    data.addColumn('datetime', 'Time');
+                    data.addColumn('number', 'Download (Bytes/sec)');
+                    data.addColumn('number', 'Upload (Bytes/sec)');
+
+                    chart = new google.visualization.AreaChart(document.getElementById('curve_chart'));
+                    chart.draw(data, options);
+
+                    // Start fetching data every 5 seconds
+                    setInterval(fetchAndUpdateData, 5000);
+                }
+
+                function fetchAndUpdateData() {
+                    $.ajax({
+                        url: '../test-flow.php', // Your endpoint
+                        method: 'GET',
+                        success: function(response) {
+                            // Convert time string into a Date object
+                            const timeParts = response.time.split(':');
+                            const now = new Date();
+                            const time = new Date(now.getFullYear(), now.getMonth(), now.getDate(), timeParts[0], timeParts[1], timeParts[2]);
+
+                            // Add new data point to the chart
+                            data.addRow([time, response.downloadRate, response.uploadRate]);
+
+                            // Redraw the chart with persistent options
+                            chart.draw(data, options);
+                        },
+                        error: function() {
+                            console.error('Failed to fetch data');
+                        }
+                    });
+                }
+            </script>
             <div class='content'>
                 <div class='main-banner'>
                     <div id='curve_chart' style='width: 900px; height: 500px;'></div>
