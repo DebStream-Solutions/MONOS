@@ -4,6 +4,7 @@
 :root {
     color-scheme: light dark;
     --default-border: #804fcf solid 1px;
+    --primary: #804fcf;
 }
 
 
@@ -486,6 +487,7 @@ div:has(.title.up) > .roll {
 
 .interface-chart-btn {
     border: var(--default-border);
+    color: var(--primary);
     border-radius: 5px;
     padding: 0.5rem 1rem;
     text-decoration: none;
