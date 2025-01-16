@@ -10,6 +10,10 @@
         header('location: ../');
     }
 
+    if (isset($_GET['chart-interface'])) {
+        $_SESSION['chart-interface'] = $_GET['chart-interface'];
+    }
+
     $conditions = ["id" => $device];
     $ipv4 = findValueByConditions($devices, $conditions, "ip");
     $typeId = findValueByConditions($devices, $conditions, "type");

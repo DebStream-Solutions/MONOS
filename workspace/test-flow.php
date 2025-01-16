@@ -14,8 +14,11 @@ function snmpFormat($snmp_arr, $separator) {
     return $snmp_formatted_arr;
 }
 
-// SNMP OIDs for InOctets and OutOctets
-$interface = "1"; // Change this to the correct interface number
+if (isset($_SESSION["chart-interface"])) {
+    $interface = $_SESSION["chart-interface"];
+} else {
+    $interface = "1";
+}
 
 if (isset($_GET["host"]) && isset($_GET["community"])) {
     $host = $_GET["host"];

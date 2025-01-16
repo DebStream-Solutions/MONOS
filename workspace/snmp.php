@@ -115,6 +115,8 @@ function router($hostIp, $community) {
                 $intefraceHTML = "";
                 foreach ($if_name_arr as $key => $value) {
                     
+                    $interfaceId = (int)$key + 1;
+                    $interfaceId = (string)$interfaceId;
 
                     $intefraceHTML .= "
                     <div>
@@ -123,13 +125,16 @@ function router($hostIp, $community) {
                         </div>
                         <div class='roll'>
                             <div>
-                                <div id='adminStatus{$key}'>Admin Status: {$if_admin_status_arr[$key]}</div>
-                                <div id='operStatus{$key}'>Operational Status: {$if_oper_status_arr[$key]}</div>
-                                <div id='ipAddress{$key}'>IP Address: {$ip_arr[$key]}</div>
-                                <div id='mask{$key}'>Mask: {$mask_arr[$key]}</div>
-                                <div id='macAddress{$key}'>MAC: {$mac_arr[$key]}</div>
-                                <div id='inBytes{$key}'>Inbound Bytes: {$in_bytes_arr[$key]} bytes</div>
-                                <div id='outBytes{$key}'>Outbound Bytes: {$out_bytes_arr[$key]} bytes</div>
+                                <div id='adminStatus{$interfaceId}'>Admin Status: {$if_admin_status_arr[$key]}</div>
+                                <div id='operStatus{$interfaceId}'>Operational Status: {$if_oper_status_arr[$key]}</div>
+                                <div id='ipAddress{$interfaceId}'>IP Address: {$ip_arr[$key]}</div>
+                                <div id='mask{$interfaceId}'>Mask: {$mask_arr[$key]}</div>
+                                <div id='macAddress{$interfaceId}'>MAC: {$mac_arr[$key]}</div>
+                                <div id='inBytes{$interfaceId}'>Inbound Bytes: {$in_bytes_arr[$key]} bytes</div>
+                                <div id='outBytes{$interfaceId}'>Outbound Bytes: {$out_bytes_arr[$key]} bytes</div>
+                                <div>
+                                    <a href='?chart-interface={$interfaceId}'></a>
+                                </div>
                             </div>
                         </div>
                     </div>
