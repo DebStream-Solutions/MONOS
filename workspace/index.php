@@ -70,8 +70,10 @@
 
         $(".open-menu").click(toggleSidebar);
         $(".close-menu").click(toggleSidebar);
+
+        hideLoad();
     }
-    
+
     $(document).ready(onLoad);
 </script>
 </head>
