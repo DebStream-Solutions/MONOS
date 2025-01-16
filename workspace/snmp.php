@@ -202,17 +202,34 @@ function router($hostIp, $community) {
                 data.addColumn('datetime', 'Time');
                 data.addColumn('number', 'Download (Bytes/sec)');
                 data.addColumn('number', 'Upload (Bytes/sec)');
+
+                var theme = 'dark'; // Change this to 'light' to see the light theme
+
+                    var options = {
+                        title: 'Disk Storage',
+                        backgroundColor: theme === 'dark' ? '#121212' : '#ffffff',
+                        titleTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                        legendTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                        pieSliceTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                        slices: {
+                            0: { color: '#9b21ff' },
+                            1: { color: '#5900ff' }
+                        }
+                    };
         
                 options = {
                     title: 'Network Traffic',
+                    backgroundColor: theme === 'dark' ? '#121212' : '#ffffff',
+                    titleTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                    legendTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
                     legend: { position: 'bottom' },
                     vAxis: { title: 'Bytes/sec' },
                     hAxis: { title: 'Time', format: 'HH:mm:ss' },
                     curveType: 'function', // Smooth curves
                     areaOpacity: 0.2, // Fill transparency (20%)
                     series: {
-                        0: { color: '#4285F4', lineWidth: 2 }, // Download (blue line)
-                        1: { color: '#EA4335', lineWidth: 2 }  // Upload (red line)
+                        0: { color: '#9b21ff', lineWidth: 2 }, // Download (blue line)
+                        1: { color: '#5900ff', lineWidth: 2 }  // Upload (red line)
                     }
                 };
         
