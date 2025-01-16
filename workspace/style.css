@@ -474,6 +474,15 @@ div:has(.title.up) > .roll {
     -o-transform: rotate(180deg); /* Opera */
 }
 
+.interface-chart-btn-mini {
+    padding: 0 1rem;
+}
+
+.interface-chart-btn-mini > img {
+    width: 1rem;
+}
+
+
 /* Cpu */
 
 .group {

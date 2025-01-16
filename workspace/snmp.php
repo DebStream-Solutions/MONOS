@@ -121,10 +121,16 @@ function router($hostIp, $community) {
                     $intefraceHTML .= "
                     <div>
                         <div class='title'>
+                            <a class='interface-chart-btn-mini' href='".$_SESSION["path"]."&chart-interface={$interfaceId}'>
+                                <img src='../icons/pie-chart.png' alt=''>
+                            </a>
                             {$if_name_arr[$key]}
                         </div>
-                        <div class='roll'>
+                        <div class='roll interface'>
                             <div>
+                                <a class='interface-chart-btn-mini' href='".$_SESSION["path"]."&chart-interface={$interfaceId}'>
+                                    <img src='../icons/pie-chart.png' alt=''>
+                                </a>
                                 <div id='adminStatus{$interfaceId}'>Admin Status: {$if_admin_status_arr[$key]}</div>
                                 <div id='operStatus{$interfaceId}'>Operational Status: {$if_oper_status_arr[$key]}</div>
                                 <div id='ipAddress{$interfaceId}'>IP Address: {$ip_arr[$key]}</div>
@@ -132,9 +138,6 @@ function router($hostIp, $community) {
                                 <div id='macAddress{$interfaceId}'>MAC: {$mac_arr[$key]}</div>
                                 <div id='inBytes{$interfaceId}'>Inbound Bytes: {$in_bytes_arr[$key]} bytes</div>
                                 <div id='outBytes{$interfaceId}'>Outbound Bytes: {$out_bytes_arr[$key]} bytes</div>
-                                <div>
-                                    <a href='".$_SESSION["path"]."&chart-interface={$interfaceId}'>CHART</a>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -194,6 +197,15 @@ function router($hostIp, $community) {
             }
         }
 
+
+        if (isset($_SESSION["chart-interface"])) {
+            $currentInterfaceId = $_SESSION["chart-interface"];
+            $interfaceTitle = $if_name_arr[((int)$currentInterfaceId - 1)];
+        } else {
+            $interfaceTitle = $if_name_arr[0];
+        }
+
+
         $generative_content = "
             <script type='text/javascript'>
             google.charts.load('current', {packages: ['corechart']});
@@ -204,7 +216,7 @@ function router($hostIp, $community) {
             const theme = 'dark'; // Change this to 'light' to see the light theme
         
             const options = {
-                title: 'Network Traffic',
+                title: 'Network Traffic of {$interfaceTitle}',
                 backgroundColor: theme === 'dark' ? '#121212' : '#ffffff',
                 titleTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
                 legendTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
