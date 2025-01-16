@@ -14,6 +14,20 @@
         $_SESSION['chart-interface'] = $_GET['chart-interface'];
     }
 
+    // Get the current path (without domain) and all GET parameters
+    $currentPath = $_SERVER['REQUEST_URI'];
+
+    // Alternatively, to only get the query parameters and append to the path:
+    $queryString = $_SERVER['QUERY_STRING'];
+
+    if ($queryString) {
+        $currentPath = strtok($_SERVER['REQUEST_URI'], '?') . '?' . $queryString;
+    } else {
+        $currentPath = $_SERVER['REQUEST_URI'];
+    }
+
+    $_SESSION["path"] = $currentPath;
+
     $conditions = ["id" => $device];
     $ipv4 = findValueByConditions($devices, $conditions, "ip");
     $typeId = findValueByConditions($devices, $conditions, "type");
