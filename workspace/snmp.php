@@ -123,7 +123,7 @@ function router($hostIp, $community) {
                         <div class='title'>
                             <div>
                                 <a class='interface-chart-btn-mini' href='".$_SESSION["path"]."&chart-interface={$interfaceId}'>
-                                    <img src='../icons/pie-chart.png' alt=''>
+                                    <img src='../icons/graph-white.png' alt=''>
                                 </a>
                                 {$if_name_arr[$key]}
                             </div>
