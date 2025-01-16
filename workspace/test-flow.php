@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 function snmpFormat($snmp_arr, $separator) {
     $snmp_formatted_arr = [];
 
@@ -41,7 +43,6 @@ function getSnmpData($oid) {
 
 // Function to calculate rates
 function calculateRates() {
-    session_start();
 
     // Fetch the current values
     $currentIn = getSnmpData("IF-MIB::ifInOctets.1");
