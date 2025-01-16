@@ -225,7 +225,7 @@ function router($hostIp, $community) {
         
             function fetchAndUpdateData() {
                 $.ajax({
-                    url: 'test-flow.php?host=".$hostIp."&community=".$community."', // Your endpoint
+                    url: '../test-flow.php?host=".$hostIp."&community=".$community."', // Your endpoint
                     method: 'GET',
                     success: function(response) {
                         // Convert time string into a Date object
