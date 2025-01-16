@@ -223,7 +223,6 @@ function monitorContent($profile) {
     $monitorContent = '
 
     <div class="monitor">
-        <div id="net_chart"></div>
         <div class="devices">
             '.listDevices($profile).'
         </div>
