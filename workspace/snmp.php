@@ -204,14 +204,25 @@ function router($hostIp, $community) {
                 titleTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
                 legendTextStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
                 legend: { position: 'bottom' },
-                vAxis: { title: 'Bytes/sec' },
-                hAxis: { title: 'Time', format: 'HH:mm:ss' },
+                vAxis: {
+                    title: 'Bytes/sec',
+                    textStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                    gridlines: { color: theme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)' } // Transparent gridlines
+                },
+                hAxis: {
+                    title: 'Time',
+                    format: 'HH:mm:ss',
+                    textStyle: { color: theme === 'dark' ? '#ffffff' : '#000000' },
+                    gridlines: { color: theme === 'dark' ? 'rgba(255,255,255,0.2)' : 'rgba(0,0,0,0.1)' } // Transparent gridlines
+                },
                 curveType: 'function', // Smooth curves
                 areaOpacity: 0.2, // Fill transparency (20%)
                 series: {
-                    0: { color: '#9b21ff', lineWidth: 2 }, // Download (blue line)
-                    1: { color: '#5900ff', lineWidth: 2 }  // Upload (red line)
-                }
+                    0: { color: '#9b21ff', lineWidth: 2 }, // Download (purple)
+                    1: { color: '#5900ff', lineWidth: 2 }  // Upload (dark purple)
+                },
+                focusTarget: 'category', // Highlight when hovering over a single data point
+                tooltip: { isHtml: true }, // Enable detailed tooltips
             };
         
             function initChart() {
@@ -225,7 +236,16 @@ function router($hostIp, $community) {
                 chart.draw(data, options);
         
                 // Start fetching data every 5 seconds
-                setInterval(fetchAndUpdateData, 5000);
+                setInterval(fetchAndUpdateData, 1000);
+
+                // Add interaction for legend to toggle series visibility
+                google.visualization.events.addListener(chart, 'select', function() {
+                    const selection = chart.getSelection();
+                    if (selection.length) {
+                        const seriesIndex = selection[0].column - 1; // Adjust for first column being datetime
+                        toggleSeries(seriesIndex);
+                    }
+                });
             }
         
             function fetchAndUpdateData() {
@@ -237,15 +257,28 @@ function router($hostIp, $community) {
                         const timeParts = response.time.split(':');
                         const now = new Date();
                         const time = new Date(now.getFullYear(), now.getMonth(), now.getDate(), timeParts[0], timeParts[1], timeParts[2]);
-        
+
+                        const formattedTime = new Date(time).toLocaleTimeString([], { hour: '2-digit', minute: '2-digit' });
+
                         // Add new data point to the chart
-                        data.addRow([time, response.downloadRate, response.uploadRate]);
+                        data.addRow([formattedTime, response.downloadRate, response.uploadRate]);
                         chart.draw(data, options);
                     },
                     error: function() {
                         console.error('Failed to fetch data');
                     }
                 });
+            }
+
+            function toggleSeries(seriesIndex) {
+                // Toggle visibility by setting series color to 'transparent' or restoring original color
+                const currentColor = options.series[seriesIndex].color;
+                if (currentColor === 'transparent') {
+                    options.series[seriesIndex].color = seriesIndex === 0 ? '#9b21ff' : '#5900ff'; // Restore original color
+                } else {
+                    options.series[seriesIndex].color = 'transparent'; // Hide the series
+                }
+                chart.draw(data, options);
             }
         </script>
             <div class='content'>
