@@ -225,10 +225,10 @@ function router($hostIp, $community) {
                 chart.draw(data, options);
         
                 // Start fetching data every 5 seconds
-                setInterval(() => {fetchAndUpdateData(data, options);}, 5000);
+                setInterval(fetchAndUpdateData, 5000);
             }
         
-            function fetchAndUpdateData(let data, let options) {
+            function fetchAndUpdateData() {
                 $.ajax({
                     url: '../test-flow.php?host=".$hostIp."&community=".$community."', // Your endpoint
                     method: 'GET',
