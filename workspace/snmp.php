@@ -121,10 +121,12 @@ function router($hostIp, $community) {
                     $intefraceHTML .= "
                     <div>
                         <div class='title'>
-                            <a class='interface-chart-btn-mini' href='".$_SESSION["path"]."&chart-interface={$interfaceId}'>
-                                <img src='../icons/pie-chart.png' alt=''>
-                            </a>
-                            {$if_name_arr[$key]}
+                            <div>
+                                <a class='interface-chart-btn-mini' href='".$_SESSION["path"]."&chart-interface={$interfaceId}'>
+                                    <img src='../icons/pie-chart.png' alt=''>
+                                </a>
+                                {$if_name_arr[$key]}
+                            </div>
                         </div>
                         <div class='roll interface'>
                             <div>
