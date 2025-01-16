@@ -257,7 +257,7 @@ a.edit-btn {
     flex-direction: column;
     gap: 0.25rem;
     max-width: 80vw;
-    margin: 4rem auto;
+    margin: 0 auto 4rem;
 }
 
 .devices h3 {
