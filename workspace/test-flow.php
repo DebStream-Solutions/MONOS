@@ -16,8 +16,12 @@ function snmpFormat($snmp_arr, $separator) {
 
 // SNMP OIDs for InOctets and OutOctets
 $interface = "1"; // Change this to the correct interface number
-$host = "192.168.1.1";
-$community = "public";
+
+if (isset($_GET["host"]) && isset($_GET["community"])) {
+    $host = $_GET["host"];
+    $community = $_GET["community"];
+}
+
 
 $inOid = "IF-MIB::ifInOctets.$interface";
 $outOid = "IF-MIB::ifOutOctets.$interface";
