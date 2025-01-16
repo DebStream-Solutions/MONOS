@@ -133,7 +133,7 @@ function router($hostIp, $community) {
                                 <div id='inBytes{$interfaceId}'>Inbound Bytes: {$in_bytes_arr[$key]} bytes</div>
                                 <div id='outBytes{$interfaceId}'>Outbound Bytes: {$out_bytes_arr[$key]} bytes</div>
                                 <div>
-                                    <a href='?chart-interface={$interfaceId}'></a>
+                                    <a href='?chart-interface={$interfaceId}'>CHART</a>
                                 </div>
                             </div>
                         </div>
