@@ -130,7 +130,8 @@ function router($hostIp, $community) {
                         </div>
                         <div class='roll interface'>
                             <div>
-                                <a class='interface-chart-btn-mini' href='".$_SESSION["path"]."&chart-interface={$interfaceId}'>
+                                <a class='interface-chart-btn' href='".$_SESSION["path"]."&chart-interface={$interfaceId}'>
+                                    <span>See in chart</span>
                                     <img src='../icons/pie-chart.png' alt=''>
                                 </a>
                                 <div id='adminStatus{$interfaceId}'>Admin Status: {$if_admin_status_arr[$key]}</div>

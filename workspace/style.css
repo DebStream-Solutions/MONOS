@@ -3,6 +3,7 @@
 
 :root {
     color-scheme: light dark;
+    --default-border: #804fcf solid 1px;
 }
 
 
@@ -481,6 +482,16 @@ div:has(.title.up) > .roll {
 
 .interface-chart-btn-mini > img {
     height: 1rem;
+}
+
+.interface-chart-btn {
+    border: var(--default-border);
+    border-radius: 5px;
+    padding: 0.25rem 1rem;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+    gap: 0.25rem;
 }
 
 
