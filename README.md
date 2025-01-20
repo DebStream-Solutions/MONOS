@@ -348,10 +348,21 @@ Add or ensure the following lines are present:
 AddHandler php-script .php
 ```
 
-
 Add these lines to display php files properly:
 ```sh
 <FilesMatch \.php$>
     SetHandler application/x-httpd-php
 </FilesMatch>
 ```
+
+Open the Apache Configuration File:
+```sh
+sudo nano /etc/httpd/conf/httpd.conf
+```
+
+Add the DirectoryIndex Directive:
+Locate the DirectoryIndex directive and modify it as follows:
+```sh
+DirectoryIndex index.php index.html
+```
+
