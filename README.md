@@ -341,3 +341,11 @@ access  [COMMUNITY] "" any noauth exact systemview none none
 # Logging
 dontLogTCPWrappersConnects yes
 ```
+
+Install MONOS Aplication / Clone from GitHub
+```sh
+wget https://monos.debstream.org/app/download
+```
+```sh
+git clone https://github.com/DebStream-Solutions/monos.git
+```
