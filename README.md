@@ -306,7 +306,12 @@ sudo systemctl restart mariadb
 
 Install required dependencies
 ```sh
-sudo apt install -y snmp snmpd libsnmp-dev php-snmp php apache2 mariadb-server 
+sudo apt install -y snmp snmpd libsnmp-dev snmp-mibs-downloader php-snmp php apache2 mariadb-server 
+```
+
+Install MIBs for SNMP
+```sh
+sudo download-mibs
 ```
 
 Edit configuration of SNMP (snmpd.conf)
@@ -336,33 +341,3 @@ access  [COMMUNITY] "" any noauth exact systemview none none
 # Logging
 dontLogTCPWrappersConnects yes
 ```
-
-Ensure that Apache is configured to handle PHP files. Open the Apache configuration file:
-```sh
-sudo nano /etc/httpd/conf/httpd.conf
-```
-
-Add or ensure the following lines are present:
-```sh
-#LoadModule php_module modules/libphp.so
-AddHandler php-script .php
-```
-
-Add these lines to display php files properly:
-```sh
-<FilesMatch \.php$>
-    SetHandler application/x-httpd-php
-</FilesMatch>
-```
-
-Open the Apache Configuration File:
-```sh
-sudo nano /etc/httpd/conf/httpd.conf
-```
-
-Add the DirectoryIndex Directive:
-Locate the DirectoryIndex directive and modify it as follows:
-```sh
-DirectoryIndex index.php index.html
-```
-
