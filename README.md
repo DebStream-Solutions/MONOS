@@ -300,3 +300,58 @@ Restart Apache and MariaDB:
 sudo systemctl restart httpd
 sudo systemctl restart mariadb
 ```
+
+
+## Setup Debian Server for MONOS
+
+Install required dependencies
+```sh
+sudo apt install -y snmp snmpd libsnmp-dev php-snmp php apache2 mariadb-server 
+```
+
+Edit configuration of SNMP (snmpd.conf)
+```sh
+nano /etc/snmp/snmpd.conf
+```
+Content:
+```sh
+rwcommunity [COMMUNITY] default
+
+# Disk monitoring
+disk  / 100
+
+# Agent user
+agentuser  [USER]
+
+# Agent address
+agentAddress udp:161
+
+# System location and contact
+syslocation Unknown
+syscontact Root <root@localhost>
+
+# Access control
+access  [COMMUNITY] "" any noauth exact systemview none none
+
+# Logging
+dontLogTCPWrappersConnects yes
+```
+
+Ensure that Apache is configured to handle PHP files. Open the Apache configuration file:
+```sh
+sudo nano /etc/httpd/conf/httpd.conf
+```
+
+Add or ensure the following lines are present:
+```sh
+#LoadModule php_module modules/libphp.so
+AddHandler php-script .php
+```
+
+
+Add these lines to display php files properly:
+```sh
+<FilesMatch \.php$>
+    SetHandler application/x-httpd-php
+</FilesMatch>
+```
