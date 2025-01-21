@@ -347,6 +347,7 @@ Navigate to `/var/www/html/` directory:
 ```sh
 cd /var/www/html/
 ```
+Download the Monos App
 ```sh
 wget https://monos.debstream.org/app/download
 ```
