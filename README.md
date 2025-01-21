@@ -304,17 +304,17 @@ sudo systemctl restart mariadb
 
 ## Setup Debian Server for MONOS
 
-Install required dependencies
+### Install required dependencies
 ```sh
 sudo apt install -y snmp snmpd libsnmp-dev snmp-mibs-downloader php-snmp php apache2 mariadb-server 
 ```
 
-Install MIBs for SNMP
+### Install MIBs for SNMP
 ```sh
 sudo download-mibs
 ```
 
-Edit configuration of SNMP (snmpd.conf)
+### Edit configuration of SNMP (snmpd.conf)
 ```sh
 nano /etc/snmp/snmpd.conf
 ```
@@ -342,7 +342,11 @@ access  [COMMUNITY] "" any noauth exact systemview none none
 dontLogTCPWrappersConnects yes
 ```
 
-Install MONOS Aplication / Clone from GitHub
+### Install MONOS Aplication / Clone from GitHub
+Navigate to `/var/www/html/` directory:
+```sh
+cd /var/www/html/
+```
 ```sh
 wget https://monos.debstream.org/app/download
 ```
