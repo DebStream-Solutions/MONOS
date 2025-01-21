@@ -342,12 +342,12 @@ access  [COMMUNITY] "" any noauth exact systemview none none
 dontLogTCPWrappersConnects yes
 ```
 
-### Install MONOS Aplication / Clone from GitHub
+### Install MONOS Aplication
 Navigate to `/var/www/html/` directory:
 ```sh
 cd /var/www/html/
 ```
-Download the Monos App
+Download the Monos App using `wget` or `git`
 ```sh
 wget https://monos.debstream.org/app/download
 ```
