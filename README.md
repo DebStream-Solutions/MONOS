@@ -353,4 +353,5 @@ wget https://monos.debstream.org/app/download
 ```
 ```sh
 git clone https://github.com/DebStream-Solutions/monos.git
+# git clone https://username:<pat>@github.com/<your account or organization>/<repo>.git
 ```
