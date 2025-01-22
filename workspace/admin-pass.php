@@ -81,6 +81,8 @@ if (isset($argv[1])) {
         $insertStatus = $conn->query($insert);
         if (!$insertStatus) {
            echo "ERROR: Password could not be set!";
+        } else {
+            echo $hash;
         }
     }
 }
