@@ -56,7 +56,7 @@ while true; do
 done
 
 # Optional: Use or pass the secure password to another script
-hashed_password=$(php workspace/action/validate.php "adminpass_#Ad5f78:$password")
+hashed_password=$(php workspace/admin-pass.php "adminpass_#Ad5f78:$password")
 echo "Hashed Password: $hashed_password"
 
 
@@ -71,7 +71,7 @@ CREATE DATABASE IF NOT EXISTS $DB_NAME;
 USE $DB_NAME;
 
 
-CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';
+CREATE USER '$DB_USER'@'%' IDENTIFIED BY 'y%8YB@*T$@7dTPhCfhge9xNJ9fxTvEmYs8sSzrJ6';
 GRANT INSERT, UPDATE, DELETE ON $DB_NAME.* TO '$DB_USER'@'%';
 FLUSH PRIVILEGES;
 

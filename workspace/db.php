@@ -9,7 +9,7 @@ error_reporting(E_ALL);
 
 $servername = "localhost";
 $username = "root";
-$password = "abcdef";
+$password = "y%8YB@*T$@7dTPhCfhge9xNJ9fxTvEmYs8sSzrJ6";
 $dbname = "monos";
 
 // Create connection
