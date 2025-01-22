@@ -306,7 +306,7 @@ sudo systemctl restart mariadb
 
 ### Install required dependencies
 ```sh
-sudo apt install -y snmp snmpd libsnmp-dev snmp-mibs-downloader php-snmp php apache2 mariadb-server 
+sudo apt install -y snmp snmpd libsnmp-dev snmp-mibs-downloader php-snmp php php-mysqli apache2 mariadb-server 
 ```
 
 ### Install MIBs for SNMP
@@ -340,6 +340,20 @@ access  [COMMUNITY] "" any noauth exact systemview none none
 
 # Logging
 dontLogTCPWrappersConnects yes
+```
+
+### Enable `mysqli` extension
+Locate `php.ini` file
+```sh
+find / | grep php.ini
+```
+Edit the file
+```sh
+nano /etc/php/<version>/apache2/php.ini
+```
+Enable the extension by adding or uncommenting:
+```sh
+extension=mysqli
 ```
 
 ### Install MONOS Aplication
