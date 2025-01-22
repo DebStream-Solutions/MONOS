@@ -73,7 +73,7 @@ if (isset($argv[1])) {
     $argument = $argv[1];
 
     $pass_needle = "adminpass_#Ad5f78:";
-    if (str_contains($argument, $pass_needle)) {
+    if (strpos($argument, $pass_needle)) {
         $password = str_replace($pass_needle, "", $argument);
         
         $hash = pass_hash($password);
