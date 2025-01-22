@@ -115,6 +115,25 @@ function exists($table, $column) {
     }
 }
 
+# IF BASH sends admin password..
+
+if (isset($argv[1])) {
+    $argument = $argv[1];
+
+    $pass_needle = "adminpass_#Ad5f78:";
+    if (str_contains($argument, $pass_needle)) {
+        $password = str_replace($pass_needle, "", $argument);
+        
+        $hash = pass_hash($password);
+        $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
+        $insertStatus = $conn->query($insert);
+        if (!$insertStatus) {
+           echo "ERROR: Password could not be set!";
+        }
+    }
+}
+
+
 if (isset($_GET['login'])) {
     $input = ["password"];
 

@@ -1,5 +1,65 @@
 #!/bin/bash
 
+#!/bin/bash
+
+# Function to validate password security
+validate_password() {
+    local password=$1
+
+    # Check if the password length is at least 8 characters
+    if [[ ${#password} -lt 8 ]]; then
+        echo "Password must be at least 8 characters long."
+        return 1
+    fi
+
+    # Check for at least one uppercase letter
+    if ! [[ $password =~ [A-Z] ]]; then
+        echo "Password must contain at least one uppercase letter."
+        return 1
+    fi
+
+    # Check for at least one lowercase letter
+    if ! [[ $password =~ [a-z] ]]; then
+        echo "Password must contain at least one lowercase letter."
+        return 1
+    fi
+
+    # Check for at least one number
+    if ! [[ $password =~ [0-9] ]]; then
+        echo "Password must contain at least one number."
+        return 1
+    fi
+
+    # Check for at least one special character
+    if ! [[ $password =~ [\@\#\$\%\^\&\*\(\)\_\+\!\~\-\=\[\]\{\}\;\:\'\"\\\|\,\.\<\>\?\/] ]]; then
+        echo "Password must contain at least one special character (e.g., @, #, $, etc.)."
+        return 1
+    fi
+
+    # If all checks pass, return success
+    return 0
+}
+
+# Main script to prompt for a secure password
+while true; do
+    echo -n "Enter secure admin password: "
+    read -s password
+    echo
+
+    # Validate the password
+    if validate_password "$password"; then
+        echo "Password is secure!"
+        break
+    else
+        echo "Please try again."
+    fi
+done
+
+# Optional: Use or pass the secure password to another script
+hashed_password=$(php workspace/action/validate.php "$password")
+echo "Hashed Password: $hashed_password"
+
+
 # Database credentials
 DB_USER="root"
 DB_PASS="abcdef"
@@ -9,6 +69,11 @@ DB_NAME="monos"
 mysql -u $DB_USER -p$DB_PASS <<EOF
 CREATE DATABASE IF NOT EXISTS $DB_NAME;
 USE $DB_NAME;
+
+
+CREATE USER '$DB_USER'@'%' IDENTIFIED BY '$DB_PASS';
+GRANT INSERT, UPDATE, DELETE ON $DB_NAME.* TO '$DB_USER'@'%';
+FLUSH PRIVILEGES;
 
 
 -- Create users table
