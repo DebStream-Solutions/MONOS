@@ -14,71 +14,38 @@ USE $DB_NAME;
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    hash VARCHAR(255)
+    hash VARCHAR(255) NOT NULL
+);
+
+-- Create types table
+CREATE TABLE IF NOT EXISTS types (
+    id INT AUTO_INCREMENT PRIMARY KEY,
+    name VARCHAR(255) NOT NULL
 );
 
 
 -- Create profiles table
 CREATE TABLE IF NOT EXISTS profiles (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255)
+    name VARCHAR(255) NOT NULL
 );
 
 -- Create devices table
 CREATE TABLE IF NOT EXISTS devices (
     id INT AUTO_INCREMENT PRIMARY KEY,
-    type INT,
-    name VARCHAR(255),
-    ip VARCHAR(15)
+    type INT NOT NULL,
+    name VARCHAR(255) NOT NULL,
+    ip VARCHAR(45) NOT NULL,
+    FOREIGN KEY (type) REFERENCES types(id)
 );
 
 -- Create profileReleations table
 CREATE TABLE IF NOT EXISTS profileReleations (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    profileId INT,
-    deviceId INT
-);
-
---Create networkTraffic table
-CREATE TABLE IF NOT EXISTS networkTraffic (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    timestamp DATETIME NOT NULL,
-    upload BIGINT NOT NULL,
-    download BIGINT NOT NULL
-);
-
--- Create templates table
-CREATE TABLE IF NOT EXISTS templates (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    typeId INT,
-    name VARCHAR(255)
-);
-
--- Create oids table
-CREATE TABLE IF NOT EXISTS oids (
-    templateId INT,
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    oid VARCHAR(255),
-    name VARCHAR(255)
-);
-
--- Insert data into oids table
-INSERT INTO oids (templateId, id, oid, name) VALUES
-(1, 1, '1.3.2.1.6.1.1.0', 'cpu'),
-(1, 2, '1.3.2.1.6.1.1.0', 'gpu'),
-(1, 3, '1.3.2.1.6.1.1.0', 'disk'),
-(1, 4, '1.3.2.1.6.1.1.0', 'users'),
-(2, 5, '1.3.2.1.6.1.1.0', 'network'),
-(2, 6, '1.3.2.1.6.1.1.0', 'processes'),
-(2, 7, '1.3.2.1.6.1.1.0', 'ram'),
-(2, 8, '1.3.2.1.6.1.1.0', 'last-log'),
-(2, 9, '1.3.2.1.6.1.1.0', 'power-usage'),
-(2, 10, '1.3.2.1.6.1.1.0', 'user-name');
-
--- Create types table
-CREATE TABLE IF NOT EXISTS types (
-    id INT AUTO_INCREMENT PRIMARY KEY,
-    name VARCHAR(255)
+    profileId INT NOT NULL,
+    deviceId INT NOT NULL,
+    PRIMARY KEY (profileId, deviceId),
+    FOREIGN KEY (profileId) REFERENCES profiles(id) ON DELETE CASCADE,
+    FOREIGN KEY (deviceId) REFERENCES devices(id) ON DELETE CASCADE
 );
 
 -- Insert data into types table
