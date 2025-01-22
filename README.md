@@ -300,3 +300,57 @@ Restart Apache and MariaDB:
 sudo systemctl restart httpd
 sudo systemctl restart mariadb
 ```
+
+
+## Setup Debian Server for MONOS
+
+### Install required dependencies
+```sh
+sudo apt install -y snmp snmpd libsnmp-dev snmp-mibs-downloader php-snmp php apache2 mariadb-server 
+```
+
+### Install MIBs for SNMP
+```sh
+sudo download-mibs
+```
+
+### Edit configuration of SNMP (snmpd.conf)
+```sh
+nano /etc/snmp/snmpd.conf
+```
+Content:
+```sh
+rwcommunity [COMMUNITY] default
+
+# Disk monitoring
+disk  / 100
+
+# Agent user
+agentuser  [USER]
+
+# Agent address
+agentAddress udp:161
+
+# System location and contact
+syslocation Unknown
+syscontact Root <root@localhost>
+
+# Access control
+access  [COMMUNITY] "" any noauth exact systemview none none
+
+# Logging
+dontLogTCPWrappersConnects yes
+```
+
+### Install MONOS Aplication
+Navigate to `/var/www/html/` directory:
+```sh
+cd /var/www/html/
+```
+Download the Monos App using `wget` or `git`
+```sh
+wget https://monos.debstream.org/app/download
+```
+```sh
+git clone https://github.com/DebStream-Solutions/monos.git
+```
