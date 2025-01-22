@@ -62,7 +62,7 @@ echo "Hashed Password: $hashed_password"
 
 # Database credentials
 DB_USER="root"
-DB_PASS="abcdef"
+DB_PASS=$password
 DB_NAME="monos"
 
 # Connect to MySQL and create the database
