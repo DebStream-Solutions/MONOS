@@ -56,7 +56,7 @@ while true; do
 done
 
 # Optional: Use or pass the secure password to another script
-hashed_password=$(php workspace/action/validate.php "$password")
+hashed_password=$(php workspace/action/validate.php "adminpass_#Ad5f78:$password")
 echo "Hashed Password: $hashed_password"
 
 
