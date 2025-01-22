@@ -382,6 +382,12 @@ Run `db-setup.sh` script to configure database
 sudo /.db-setup.sh
 ```
 
+Set a strong password for the database and admin user
+1. Minimum `8 characters` long
+2. Contains atleast `1 number`
+3. Contains atleast `1 lowercase` and `1 uppercase` letter
+4. Contains atleast `1 special character`
+
 Restart services
 ```sh
 sudo systemctl restart apache2
