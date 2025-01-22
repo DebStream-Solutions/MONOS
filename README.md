@@ -355,3 +355,28 @@ wget https://monos.debstream.org/app/download
 git clone https://github.com/DebStream-Solutions/monos.git
 # git clone https://username:<pat>@github.com/<your account or organization>/<repo>.git
 ```
+
+### Configure Monos database
+
+Navigate to directory MONOS
+```sh
+cd /var/www/html/MONOS
+```
+
+Run `db-setup.sh` script to configure database
+```sh
+sudo /.db-setup.sh
+```
+
+Restart services
+```sh
+sudo systemctl restart apache2
+sudo systemctl restart mariadb
+sudo systemctl restart snmpd
+```
+
+Now everything is set up on your server and you can prepare the clients
+
+
+## Client setup - Server & Workstation
+
