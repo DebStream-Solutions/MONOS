@@ -56,10 +56,6 @@ while true; do
     fi
 done
 
-# Optional: Use or pass the secure password to another script
-hashed_password=$(php workspace/admin-pass.php "adminpass_#Ad5f78:$password")
-echo "Hashed Password: $hashed_password"
-
 # Database credentials
 DB_USER="muser"
 DB_PASS=$password
@@ -129,3 +125,7 @@ INSERT INTO types (id, name) VALUES
 EOF
 
 echo "Database and tables created successfully."
+
+
+hashed_password=$(php workspace/admin-pass.php "adminpass_#Ad5f78:$password")
+echo "Hashed Password: $hashed_password"
