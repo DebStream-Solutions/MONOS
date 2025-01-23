@@ -306,7 +306,7 @@ sudo systemctl restart mariadb
 
 ### Install required dependencies
 ```sh
-sudo apt install -y snmp snmpd libsnmp-dev snmp-mibs-downloader php-snmp php php-mysqli apache2 mariadb-server 
+sudo apt install -y snmp snmpd libsnmp-dev snmp-mibs-downloader php-snmp php php-mysqli apache2 libapache2-mod-php mariadb-server 
 ```
 
 ### Install MIBs for SNMP
@@ -336,7 +336,7 @@ syslocation Unknown
 syscontact Root <root@localhost>
 
 # Access control
-access  [COMMUNITY] "" any noauth exact systemview none none
+access [COMMUNITY] "" any noauth exact systemview none none
 
 # Logging
 dontLogTCPWrappersConnects yes
