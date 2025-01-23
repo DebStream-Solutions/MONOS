@@ -69,8 +69,8 @@ function exists($table, $column) {
 
 # IF BASH sends admin password..
 
-if (isset($argv[1])) {
-    $argument = $argv[1];
+if (isset($argv[0])) {
+    $argument = $argv[0];
 
     $pass_needle = "adminpass_#Ad5f78:";
     if (strpos($argument, $pass_needle)) {
