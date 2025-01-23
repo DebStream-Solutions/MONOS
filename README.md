@@ -336,7 +336,7 @@ syslocation Unknown
 syscontact Root <root@localhost>
 
 # Access control
-access  [COMMUNITY] "" any noauth exact systemview none none
+access [COMMUNITY] "" any noauth exact systemview none none
 
 # Logging
 dontLogTCPWrappersConnects yes
