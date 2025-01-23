@@ -6,7 +6,7 @@ error_reporting(E_ALL);
 
 
 $servername = "localhost";
-$username = "root";
+$username = "muser";
 $password = "y%8YB@*T$@7dTPhCfhge9xNJ9fxTvEmYs8sSzrJ6";
 $dbname = "monos";
 

@@ -49,6 +49,7 @@ while true; do
     # Validate the password
     if validate_password "$password"; then
         echo "Password is secure!"
+        echo "HASH-BASH: $password"
         break
     else
         echo "Please try again."
@@ -59,9 +60,8 @@ done
 hashed_password=$(php workspace/admin-pass.php "adminpass_#Ad5f78:$password")
 echo "Hashed Password: $hashed_password"
 
-
 # Database credentials
-DB_USER="root"
+DB_USER="muser"
 DB_PASS=$password
 DB_NAME="monos"
 
