@@ -69,6 +69,8 @@ function exists($table, $column) {
 
 # IF BASH sends admin password..
 
+var_dump($argv);
+
 if (isset($argv[0])) {
     $argument = $argv[0];
 
