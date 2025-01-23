@@ -389,6 +389,7 @@ Set a strong password for the database and admin user
 4. Contains atleast `1 special character`
 
 Login to Monos with username `admin` and the admin password
+
 Login to database with username `mroot` and the admin password
 
 
