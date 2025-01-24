@@ -80,7 +80,7 @@ config_file="db_config.php"
 
 config_host='localhost'
 config_user='mroot'
-config_pass=$GENERATED_PASS
+config_pass='heslo'
 config_name=$DB_NAME
 
 content=$(cat <<EOF
