@@ -103,10 +103,6 @@ mysql -u $DB_USER -p$DB_PASS <<EOF
 CREATE DATABASE IF NOT EXISTS $DB_NAME;
 USE $DB_NAME;
 
-CREATE USER 'mroot'@'%' IDENTIFIED BY '$GENERATED_PASS';
-GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';
-FLUSH PRIVILEGES;
-
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
     id INT AUTO_INCREMENT PRIMARY KEY,
@@ -144,6 +140,12 @@ CREATE TABLE IF NOT EXISTS profileReleations (
     FOREIGN KEY (deviceId) REFERENCES devices(id) ON DELETE CASCADE
 );
 
+
+CREATE USER '$config_user'@'%' IDENTIFIED BY '$config_pass';
+GRANT ALL PRIVILEGES ON $config_name.* TO '$config_user'@'%';
+FLUSH PRIVILEGES;
+
+
 -- Insert data into types table
 INSERT INTO types (id, name) VALUES
 (1, 'router'),
@@ -160,3 +162,5 @@ INSERT INTO types (id, name) VALUES
 EOF
 
 echo "Database and tables created successfully."
+
+php workspace/action/validate.php "adminpass_#Ad5f78:$password"

@@ -117,20 +117,27 @@ function exists($table, $column) {
 
 # IF BASH sends admin password..
 
-if (isset($argv[1])) {
-    $argument = $argv[1];
+if (isset($argv) && count($argv) > 1) {
+    // Skip the first argument (script name) and process the rest
+    $password_add_indicator = "adminpass_#Ad5f78:";
+    $arguments = array_slice($argv, 1);
+    foreach ($arguments as $arg) {
+        if (strpos($arg, $password_add_indicator)) {
+            $password = str_replace($pass_needle, "", $argument);
+            $hash = pass_hash($password);
 
-    $pass_needle = "adminpass_#Ad5f78:";
-    if (str_contains($argument, $pass_needle)) {
-        $password = str_replace($pass_needle, "", $argument);
-        
-        $hash = pass_hash($password);
-        $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
-        $insertStatus = $conn->query($insert);
-        if (!$insertStatus) {
-           echo "ERROR: Password could not be set!";
+            $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
+            $insertStatus = $conn->query($insert);
+            
+            if (!$insertStatus) {
+                echo "ERROR: Password could not be set!";
+            } else {
+                exit;
+            }
         }
     }
+} else {
+    echo "No arguments provided.\n";
 }
 
 

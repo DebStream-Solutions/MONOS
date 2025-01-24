@@ -1,22 +1,50 @@
 <?php
 
-function adminPass($password, $key = "") {
-    if ($key) {
+function hashAlgoritm($str1, $str2) {
+    $len1 = strlen($str1);
+    $len2 = strlen($str2);
+    $len = max($len1, $len2);
+    $result = '';
+    
+    for ($i = 0; $i < $len; $i++) {
+        $char1 = $i < $len1 ? $str1[$i] : '';
+        $char2 = $i < $len2 ? $str2[$i] : '';
         
-    } else {
-
+        if ($char1 === $char2) {
+            $result .= $char1; // Same characters are merged
+        } else {
+            $result .= "{$char1}{$char2}"; // Different characters with delimiter
+        }
     }
+    return $result;
 }
 
+function pass_hash($pass) {
+    $raw_salt = "solnicka";
+    $algo = "sha256";
 
+    $hash_pass = hash($algo, $pass);
+    $salt = hash($algo, $raw_salt);
 
-if (isset($argv[1]) && isset($argv[2])) {
-    $password = $argv[1];
-    $key = $argv[2];
+    $hash = hashAlgoritm($hash_pass, $salt);
+    return $hash;
+}
 
-    adminPass($password, $key);
+// Access arguments passed from the command line
+if (isset($argv) && count($argv) > 1) {
+    // Skip the first argument (script name) and process the rest
+    $password_add_indicator = "";
+    $arguments = array_slice($argv, 1);
+    foreach ($arguments as $arg) {
+        if (strpos($arg, $password_add_indicator)) {
+            $password = str_replace($pass_needle, "", $argument);
+            $hash = pass_hash($password);
+
+            
+        }
+    }
 } else {
-    $error = "Either password or key is missing";
+    echo "No arguments provided.\n";
 }
 
 function encryptFile($inputFile, $outputFile, $key) {
