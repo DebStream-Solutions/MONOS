@@ -1,6 +1,6 @@
 <?php
 
-include "../db.php";
+include __DIR__."/../db.php";
 
 
 function validate($input, $empty = false) {

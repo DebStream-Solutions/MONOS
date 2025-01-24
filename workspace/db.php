@@ -1,6 +1,6 @@
 <?php
 
-$config = include '../db_config.php';
+$config = include __DIR__.'/../db_config.php';
 
 session_start();
 

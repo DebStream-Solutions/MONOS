@@ -141,7 +141,7 @@ CREATE TABLE IF NOT EXISTS profileReleations (
 );
 
 
-CREATE USER '$config_user'@'%' IDENTIFIED BY '$config_pass';
+CREATE USER IF NOT EXISTS '$config_user'@'%' IDENTIFIED BY '$config_pass';
 GRANT ALL PRIVILEGES ON $config_name.* TO '$config_user'@'%';
 FLUSH PRIVILEGES;
 
