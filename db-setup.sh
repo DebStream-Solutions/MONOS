@@ -83,7 +83,7 @@ config_user='mroot'
 config_pass=$GENERATED_PASS
 config_name=$DB_NAME
 
-content=<<EOF
+content=$(cat <<EOF
 <?php
 return [
     'db_host' => '$config_host',
@@ -92,6 +92,7 @@ return [
     'db_name' => '$config_name',
 ];
 EOF
+)
 
 echo "$content" > "$config_file"
 chmod 600 "$config_file"
