@@ -83,7 +83,7 @@ config_user='mroot'
 config_pass=$GENERATED_PASS
 config_name=$DB_NAME
 
-$content = <<EOF
+content=<<EOF
 <?php
 return [
     'db_host' => '$config_host',
@@ -160,7 +160,3 @@ INSERT INTO types (id, name) VALUES
 EOF
 
 echo "Database and tables created successfully."
-
-
-hashed_password=$(php admin/edit_admin.sh "adminpass_#Ad5f78:$password")
-echo "Hashed Password: $hashed_password"
