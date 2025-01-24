@@ -100,12 +100,12 @@ chmod 600 "$config_file"
 # Creates database "monos" and primary user
 
 mysql -u $DB_USER -p$DB_PASS <<EOF
+CREATE DATABASE IF NOT EXISTS $DB_NAME;
+USE $DB_NAME;
+
 CREATE USER 'mroot'@'%' IDENTIFIED BY '$GENERATED_PASS';
 GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';
 FLUSH PRIVILEGES;
-
-CREATE DATABASE IF NOT EXISTS $DB_NAME;
-USE $DB_NAME;
 
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
