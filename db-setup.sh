@@ -60,6 +60,7 @@ while true; do
     # Check if the password was correct
     if [ $? -eq 0 ]; then
         echo "Password is correct!"
+        break
     else
         echo "Incorrect password."
     fi
