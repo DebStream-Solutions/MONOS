@@ -1,5 +1,7 @@
 <?php
 
+$config = include '../db_config.php';
+
 session_start();
 
 ini_set('display_errors', '1');
@@ -7,10 +9,10 @@ ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
 
-$servername = "localhost";
-$username = "root";
-$password = "y%8YB@*T$@7dTPhCfhge9xNJ9fxTvEmYs8sSzrJ6";
-$dbname = "monos";
+$servername = $config["db_host"];
+$username = $config["db_user"];
+$password = $config["db_pass"];
+$dbname = $config["db_name"];
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);

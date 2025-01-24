@@ -42,35 +42,69 @@ validate_password() {
 
 # Main script to prompt for a secure password
 while true; do
-    echo -n "Enter secure admin password: "
+    echo -n "Enter your root password: "
     read -s password
     echo
 
     # Validate the password
-    if validate_password "$password"; then
-        echo "Password is secure!"
-        echo "HASH-BASH: $password"
-        break
+    #if validate_password "$password"; then
+    #    echo "Password is secure!"
+    #    echo "HASH-BASH: $password"
+    #    break
+    #else
+    #    echo "Please try again."
+    #fi
+
+    echo "$password" | sudo -S echo > /dev/null 2>&1
+
+    # Check if the password was correct
+    if [ $? -eq 0 ]; then
+        echo "Password is correct!"
     else
-        echo "Please try again."
+        echo "Incorrect password."
     fi
+
 done
 
 # Database credentials
-DB_USER="muser"
+DB_USER="root"
 DB_PASS=$password
 DB_NAME="monos"
 
-# Connect to MySQL and create the database
+
+GENERATED_PASS=$(head /dev/urandom | tr -dc 'A-Za-z0-9!@#$%^&*()_+{}|:<>?' | head -c 32)
+
+# Generate or edit config_file
+config_file="db_config.php"
+
+config_host='localhost'
+config_user='mroot'
+config_pass=$GENERATED_PASS
+config_name=$DB_NAME
+
+$content = <<EOF
+<?php
+return [
+    'db_host' => '$config_host',
+    'db_user' => '$config_user',
+    'db_pass' => '$config_pass',
+    'db_name' => '$config_name',
+];
+EOF
+
+echo "$content" > "$config_file"
+chmod 600 "$config_file"
+
+
+# Creates database "monos" and primary user
+
 mysql -u $DB_USER -p$DB_PASS <<EOF
-CREATE DATABASE IF NOT EXISTS $DB_NAME;
-USE $DB_NAME;
-
-
-CREATE USER '$DB_USER'@'%' IDENTIFIED BY 'y%8YB@*T$@7dTPhCfhge9xNJ9fxTvEmYs8sSzrJ6';
-GRANT INSERT, UPDATE, DELETE ON $DB_NAME.* TO '$DB_USER'@'%';
+CREATE USER 'mroot'@'%' IDENTIFIED BY '$GENERATED_PASS';
+GRANT ALL PRIVILEGES ON $DB_NAME.* TO '$DB_USER'@'%';
 FLUSH PRIVILEGES;
 
+CREATE DATABASE IF NOT EXISTS $DB_NAME;
+USE $DB_NAME;
 
 -- Create users table
 CREATE TABLE IF NOT EXISTS users (
@@ -127,5 +161,5 @@ EOF
 echo "Database and tables created successfully."
 
 
-hashed_password=$(php workspace/admin-pass.php "adminpass_#Ad5f78:$password")
+hashed_password=$(php admin/edit_admin.sh "adminpass_#Ad5f78:$password")
 echo "Hashed Password: $hashed_password"
