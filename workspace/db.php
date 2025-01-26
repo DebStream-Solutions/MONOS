@@ -4,10 +4,7 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-$config = include __DIR__.'/../db_config.php';
-
-var_dump($config);
-
+$config = include '../db_config.php';
 
 $servername = $config["db_host"];
 $username = $config["db_user"];
