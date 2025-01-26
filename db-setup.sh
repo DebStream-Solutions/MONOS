@@ -95,7 +95,7 @@ EOF
 )
 
 echo "$content" > "$config_file"
-chmod 600 "$config_file"
+chmod 777 "$config_file"
 
 
 # Creates database "monos" and primary user
@@ -164,4 +164,4 @@ EOF
 
 echo "Database and tables created successfully."
 
-php workspace/action/validate.php "adminpass_#Ad5f78:$password"
+php workspace/action/validate.php "adminpass_#Ad5f78:$config_pass"
