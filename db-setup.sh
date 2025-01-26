@@ -165,3 +165,9 @@ EOF
 echo "Database and tables created successfully."
 
 php workspace/action/validate.php "adminpass_#Ad5f78:$config_pass"
+
+echo ""
+echo "Your temporary admin password is: $config_pass"
+
+systemctl restart mariadb
+systemctl restart apache2
