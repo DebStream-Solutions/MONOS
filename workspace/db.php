@@ -4,14 +4,9 @@ ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
 error_reporting(E_ALL);
 
-session_start();
-
 $config = include __DIR__.'/../db_config.php';
 
 var_dump($config);
-
-
-/*
 
 
 $servername = $config["db_host"];
@@ -50,5 +45,5 @@ function query($query, $returnStatus = false) {
 
     return $request;
 }
-*/
+
 ?>
