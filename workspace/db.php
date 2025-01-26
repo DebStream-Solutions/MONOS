@@ -4,6 +4,8 @@ session_start();
 
 $config = include __DIR__.'/../db_config.php';
 
+var_dump($config);
+
 
 ini_set('display_errors', '1');
 ini_set('display_startup_errors', '1');
