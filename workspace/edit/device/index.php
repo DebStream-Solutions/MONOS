@@ -8,8 +8,20 @@
     //include "snmp.php";
     include "../../main.php";
 
-    if (isset($_GET['profile'])) {
-        $profile = $_GET['profile'];
+    if (isset($_GET['device'])) {
+        $device = $_GET['device'];
+
+        $conditions = ["id" => $device];
+        $deviceName = findValueByConditions($devices, $conditions, "name");
+    
+    }
+
+    if (isset($_SESSION['profile'])) {
+        $profile = $_SESSION['profile'];
+
+        $conditions = ["id" => $profile];
+        $profileName = findValueByConditions($profiles, $conditions, "name");
+    
     }
 
 ?>
@@ -194,6 +206,35 @@
 <div id="loading">
     <div class="logo-img"></div>
 </div>
+    <div class="navbar">
+        <a href="../../">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+        </a>
+        <div class="path">
+            <a href="../../"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg></a>
+            <?php
+                if (isset($profileName)) {
+                    echo "
+                        <a href='../../?profile={$profile}'>{$profileName}</a>
+                    ";
+                }
+
+                if (isset($deviceName)) {
+                    echo "
+                        <a href='../../?profile={$profile}&device={$device}'>{$deviceName}</a>
+                    ";
+                }
+            ?>
+        </div>
+        <?php
+            if ($USER == "admin") {
+                echo "
+                <div class=\"admin-tools\">
+                    ADMIN
+                </div>";
+            }
+        ?>
+    </div>
     <div class="all">
         <div class="header">
             <h1>MONOS</h1>
