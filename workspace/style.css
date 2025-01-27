@@ -146,6 +146,7 @@ body {
 .roll.pop-add > div {
     display: flex;
     justify-content: space-around;
+    padding: 1rem;
 }
 
 .roll.pop-add a {

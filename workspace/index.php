@@ -131,11 +131,11 @@
                 <div class="roll pop-add">
                     <div>
                         <a href="edit/profile/">
-                            <img src="icons/add-white.png" alt="">
+                            <img src="icons/plus.png" alt="">
                             <div class="add-img">Add profile</div>
                         </a>
                         <a href="edit/device/">
-                            <img src="icons/add-white.png" alt="">
+                            <img src="icons/plus.png" alt="">
                             <div class="add-img">Add device</div>
                         </a>
                     </div>
