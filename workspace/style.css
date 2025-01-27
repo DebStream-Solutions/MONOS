@@ -600,6 +600,10 @@ div:has(.title.up) > .roll {
     padding: 0.25rem;
 }
 
+.table-2 > div > div {
+    flex: 1;
+}
+
 
 /* Cpu */
 
