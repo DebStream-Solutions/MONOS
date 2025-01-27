@@ -64,6 +64,7 @@ body {
     display: flex;
     flex-direction: column;
     min-height: 100dvh;
+    position: relative;
 }
 
 .darken {
@@ -79,6 +80,34 @@ body {
 }
 
 /* COMPONENTS */
+
+.navbar {
+    display: flex;
+    padding: 0.25rem 1rem;
+    background-color: #592485;
+    flex-direction: row;
+    align-items: center;
+    justify-content: flex-start;
+    gap: 0.5rem;
+}
+
+.navbar a {
+    color: white;
+    text-decoration: none;
+    display: flex;
+    align-items: center;
+}
+
+.path {
+    display: flex;
+    align-items: center;
+}
+
+.path > a:not(:last-child)::after {
+    content: "|";
+    padding: 0.5rem;
+}
+
 
 .header {
     padding: 4dvh 0;
