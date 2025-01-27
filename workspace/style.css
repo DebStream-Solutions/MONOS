@@ -12,6 +12,11 @@
     font-family: 'Montserrat', sans-serif;
 }
 
+body {
+    background-color: #121212;
+    color: white;
+}
+
 #loading {
     height: 100dvh;
     width: 100vw;

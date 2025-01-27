@@ -203,7 +203,7 @@ function listDevices($profile) {
     }
 
     if ($deviceFound != True) {
-        $deviceList .= "There are no devices in this profile. Go and add some!";
+        $deviceList .= "<div style='margin: auto; font-wrap-style: pretty;'>There are no devices in this profile. Go and add some!</div>";
     }
 
     return $deviceList;
