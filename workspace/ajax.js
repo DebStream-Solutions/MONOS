@@ -41,7 +41,7 @@ $(document).ready(function () {
                     console.log(response.message);
                 }
             },
-            error: function () {
+            error: function (response) {
                 $('.generated').html('<div style="margin: auto; text-align: center;">Error: Failed to fetch data</div>');
                 console.log(response.message);
             },
