@@ -175,7 +175,7 @@ function router($hostIp, $community) {
             
             } elseif ($key == "system") {
                 $sys_up_raw = @snmpwalk($hostIp, $community, $value["up"]);
-                $sys_up_raw = snmpFormat($sys_up_raw, ") ");
+                $sys_up_raw = snmpFormat($sys_up_raw, ") ")[0];
 
                 $sys_up = preg_replace_callback(
                     '/(\d+) days?, (\d+):(\d+):(\d+)/',
@@ -189,10 +189,10 @@ function router($hostIp, $community) {
                 );
 
                 $sys_name = @snmpwalk($hostIp, $community, $value["name"]);
-                $sys_name = snmpFormat($sys_name, "STRING: ");
+                $sys_name = snmpFormat($sys_name, "STRING: ")[0];
 
                 $os = @snmpwalk($hostIp, $community, $value["os"]);
-                $os = snmpFormat($os, ") ");
+                $os = snmpFormat($os, ") ")[0];
 
 
                 $systemHTML = "
