@@ -43,6 +43,7 @@ $(document).ready(function () {
             },
             error: function () {
                 $('.generated').html('<div style="margin: auto; text-align: center;">Error: Failed to fetch data</div>');
+                console.log(response.message);
             },
             complete: function () {
                 // Re-run the function after X seconds
