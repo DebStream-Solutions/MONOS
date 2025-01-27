@@ -67,6 +67,8 @@ $(document).ready(function () {
             } else {
                 url = 'ajax-'+time+'.php?func='+func;
             }
+
+            console.log(url, time);
             
             ajax(url, time);
         });
