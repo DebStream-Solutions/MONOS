@@ -89,7 +89,6 @@ function router($hostIp, $community) {
         $generative_content = "Error: " . $session->getError();
     } elseif (ping($hostIp) != true) {
         $generative_content = "<div style='margin: auto; text-align: center; max-width: 80vw;'>Host is offline (No route to host)</div>";
-        $_SESSION["offline"] = $hostIp;
     } else {
         foreach ($oid_list as $key => $value) {
             if ($key == "interface") {
@@ -431,7 +430,6 @@ function workstation($hostIp, $community) {
         $generative_content = "Error: " . $session->getError();
     } elseif (ping($hostIp) != true) {
         $generative_content = "<div style='margin: auto; text-align: center; max-width: 80vw;'>Host is offline (No route to host)</div>";
-        $_SESSION["offline"] = $hostIp;
     } else {
         foreach ($oid_list as $key => $value) {
             if ($key == "disk") {
