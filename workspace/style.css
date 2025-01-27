@@ -108,6 +108,10 @@ body {
     padding: 0.5rem;
 }
 
+.navbar .admin-tools {
+    margin-left: auto;
+}
+
 
 .header {
     padding: 4dvh 0;
