@@ -12,11 +12,6 @@
     font-family: 'Montserrat', sans-serif;
 }
 
-body {
-    background-color: #121212;
-    color: white;
-}
-
 #loading {
     height: 100dvh;
     width: 100vw;
@@ -118,7 +113,6 @@ body {
 .sidebar {
     height: 100%;
     width: 85%;
-    background-color: #121212;
     position: relative;
 }
 
@@ -143,7 +137,6 @@ body {
 }
 
 .sidebar .roll {
-    color: white;
     font-size: 1.2rem;
 }
 
@@ -155,7 +148,6 @@ body {
     gap: 1rem;
     display: flex;
     align-items: center;
-    color: white;
 }
 
 .sidebar .roll .add-img::before {
@@ -246,10 +238,6 @@ a.edit-btn {
 
 
 /* MONITOR */
-
-.monitor {
-
-}
 
 .net-chart {
     width: 100vw;
@@ -385,6 +373,10 @@ a.edit-btn {
         color: white;
     }
 
+    .sidebar {
+        background-color: #121212;
+    }
+
     h1, h2, h3, p {
         color: white;
     }
@@ -395,6 +387,51 @@ a.edit-btn {
 
     div:has(.roll) > .title::after {
         background-image: url("icons/down-white.png");
+    }
+
+    .sidebar .add-img, .sidebar .roll {
+        color: white;
+    }
+
+    .sidebar-content > div .title {
+        color: white;
+    }
+
+    .group {
+        background-color: #171717;
+    }
+
+    .percent-line-wrap {
+        background-color: #292929;
+    }
+
+    .add-button {
+        color: white;
+        border: 1px solid white;
+    }
+
+    .dropdown-content {
+        background-color: #121212;
+        border: #ffffff30 1px solid;
+    }
+    
+    .selected-item {
+        background-color: #1e1e1e;
+        border: 1px solid #ffffff35;
+    }
+    
+    select {
+        background-color: #ffffff12;
+    
+        ::selection {
+            background-color: #121212;
+            border: 1px solid #ffffff30;
+        }
+    
+        option {
+            background-color: #232323;
+            color: #c7c7c7;  
+        }
     }
 }
 
@@ -423,6 +460,43 @@ a.edit-btn {
 
     div:has(.roll) > .title::after {
         background-image: url("../icons/down-black.png");
+    }
+
+    .group {
+        background-color: #dadada;
+    }
+
+    .percent-line-wrap {
+        background-color: #e1e1e1;
+    }
+
+    .add-button {
+        color: black;
+        border: 1px solid black;
+    }
+
+    .dropdown-content {
+        background-color: #e8e8e8;
+        border: #00000030 1px solid;
+    }
+    
+    .selected-item {
+        background-color: #e0e0e0;
+        border: 1px solid #00000035;
+    }
+    
+    select {
+        background-color: #00000012;
+    
+        ::selection {
+            background-color: #f1efef;
+            border: 1px solid #00000030;
+        }
+    
+        option {
+            background-color: #e3e1e1;
+            color: #403f3f;  
+        }
     }
 }
 
@@ -517,7 +591,6 @@ div:has(.title.up) > .roll {
     font-size: 0.9rem;
     padding: 0.25rem 0;
     padding: 0.75rem;
-    background-color: #171717;
     margin: 0.75rem 0;
 }
 
@@ -543,7 +616,6 @@ div:has(.title.up) > .roll {
 
 .percent-line-wrap {
     flex: 1;
-    background-color: #292929;
     display: flex;
 }
 
@@ -573,9 +645,7 @@ body {
 
 .add-button {
     background-color: transparent;
-    color: white;
     font-size: 1.25rem;
-    border: 1px solid white;
     border-radius: 5px;
     padding: 0 8px;
     display: flex;
@@ -641,11 +711,9 @@ body {
     display: none;
     position: absolute;
     width: calc(100% - 2px);
-    background-color: #121212;
     z-index: 1;
     max-height: 200px;
     overflow-y: auto;
-    border: #ffffff30 1px solid;
 
     label {
         padding: 10px;
@@ -666,8 +734,6 @@ body {
     display: flex;
     align-items: center;
     padding: 5px 10px;
-    background-color: #1e1e1e;
-    border: 1px solid #ffffff35;
     border-radius: 5px;
     white-space: nowrap;
     font-size: 0.8rem;
@@ -680,21 +746,13 @@ body {
 }
 
 select {
-    background-color: #ffffff12;
     border: none;
     padding: 0.25rem;
     border-radius: 5px;
     outline: none;
 
-    ::selection {
-        background-color: #121212;
-        border: 1px solid #ffffff30;
-    }
-
     option {
-        background-color: #232323;
         border: none;
-        color: #c7c7c7;  
     }
 }
 
