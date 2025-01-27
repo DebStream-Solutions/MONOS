@@ -35,6 +35,9 @@
     $_SESSION["device-ip"] = $ipv4;
     $_SESSION["device-type"] = $typeId;
 
+    $conditions = ["id" => $profile];
+    $profileName = findValueByConditions($profiles, $conditions, "name");
+
     $result = getSNMPData($ipv4, $typeId, "public");
     
     //echo $result;
@@ -97,6 +100,21 @@
 </head>
 <body>
     <div class="all">
+        <div class="navbar">
+            <svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z"/></svg>
+            <div class="path">
+                <a href="../"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="24px" fill="currentColor"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg></a>
+                <a href="../?profile=<?php echo $profile ?>"><?php echo $profileName ?></a>
+            </div>
+            <?php
+                if ($USER == "admin") {
+                    echo "
+                    <div class=\"admin-tools\">
+                        ADMIN
+                    </div>";
+                }
+            ?>
+        </div>
         <a href="../edit/device/?device=<?php echo $device?>" class="edit-btn edit-dev">
             <img src="../icons/edit.png" alt="edit-icon">
         </a>

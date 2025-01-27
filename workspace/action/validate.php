@@ -161,14 +161,17 @@ if (isset($argv) && count($argv) > 1) {
 
 if (isset($_GET['login'])) {
     $input = ["password"];
+    # $input = ["password", "username"];
 
     if (count(validate($input)) == 0) {
+        # $username = $_POST["username"];
         $hash = pass_hash($_POST["password"]);
         $_SESSION["hash"] = $hash;
 
         if (!exists("users", "hash")) {
             $_SESSION["hash"] = "";
             $_SESSION["user"] = true;
+            # $_SESSION["user"] = $username;
 
             $_SESSION["error"] = "";
             header("location: ../");

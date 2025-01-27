@@ -5,6 +5,8 @@ include "snmp.php";
 
 if (!isset($_SESSION['user'])) {
     header("location: login/login.php");
+} else {
+    $USER = $_SESSION['user'];
 }
 
 function findValueByConditions($array, $conditions, $returnKey) {
