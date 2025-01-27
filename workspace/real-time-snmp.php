@@ -2,10 +2,12 @@
 
 session_start();
 
-$servername = "localhost";
-$username = "root";
-$password = "abcdef";
-$dbname = "monos";
+$config = include __DIR__.'/../db_config.php';
+
+$servername = $config["db_host"];
+$username = $config["db_user"];
+$password = $config["db_pass"];
+$dbname = $config["db_name"];
 
 // Create connection
 $conn = new mysqli($servername, $username, $password, $dbname);
