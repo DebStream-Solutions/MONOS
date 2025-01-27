@@ -6,6 +6,7 @@ error_reporting(E_ALL);
 
 $config = include __DIR__.'/../db_config.php';
 
+
 $servername = $config["db_host"];
 $username = $config["db_user"];
 $password = $config["db_pass"];
@@ -42,5 +43,7 @@ function query($query, $returnStatus = false) {
 
     return $request;
 }
+
+session_start();
 
 ?>
