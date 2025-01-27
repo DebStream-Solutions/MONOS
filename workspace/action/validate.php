@@ -122,8 +122,8 @@ if (isset($argv) && count($argv) > 1) {
     $password_add_indicator = "adminpass_#Ad5f78:";
     $arguments = array_slice($argv, 1);
     foreach ($arguments as $arg) {
-        if (strpos($string, $indicator) >= 0 && is_int(strpos($string, $indicator))) {
-            $arg_indicator = explode(":", $string)[0].':';
+        if (strpos($arg, $password_add_indicator) >= 0 && is_int(strpos($arg, $password_add_indicator))) {
+            $arg_indicator = explode(":", $arg)[0].':';
             if ($arg_indicator == $password_add_indicator) {
                 $password = str_replace($password_add_indicator, "", $arg);
                 $hash = pass_hash($password);
