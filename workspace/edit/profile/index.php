@@ -201,13 +201,17 @@
         <div class="footer">
             <div class="small add">
                 <img src="../../icons/plus.png" alt="">
-                <div class="roll">
-                    <a href="">
-                        <div class="add-img">Add profile</div>
-                    </a>
-                    <a href="">
-                        <div class="add-img">Add device</div>
-                    </a>
+                <div class="roll pop-add">
+                    <div>
+                        <a href="../../edit/profile/">
+                            <img src="../../icons/plus.png" alt="">
+                            <div class="add-img">Add profile</div>
+                        </a>
+                        <a href="../../edit/device/">
+                            <img src="../../icons/plus.png" alt="">
+                            <div class="add-img">Add device</div>
+                        </a>
+                    </div>
                 </div>
             </div>
             <a href="/">

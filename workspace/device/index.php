@@ -174,9 +174,21 @@
             </div>
         </div>
         <div class="footer">
-            <a href="/add-device" class="small">
+            <div class="small add">
                 <img src="../icons/plus.png" alt="">
-            </a>
+                <div class="roll pop-add">
+                    <div>
+                        <a href="../edit/profile/">
+                            <img src="../icons/plus.png" alt="">
+                            <div class="add-img">Add profile</div>
+                        </a>
+                        <a href="../edit/device/">
+                            <img src="../icons/plus.png" alt="">
+                            <div class="add-img">Add device</div>
+                        </a>
+                    </div>
+                </div>
+            </div>
             <a href="/">
                 <img src="../icons/home.png" alt="">
             </a>
