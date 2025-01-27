@@ -178,7 +178,7 @@ function router($hostIp, $community) {
                 $sys_up_raw = snmpFormat($sys_up_raw, ") ")[0];
 
                 $sys_up = preg_replace_callback(
-                    '/(\d+) days?, (\d+):(\d+):(\d+)/',
+                    '/(\d+) days?, (\d+):(\d+):(\d+).00/',
                     function ($matches) {
                         $days = $matches[1];
                         $hours = $matches[2];
