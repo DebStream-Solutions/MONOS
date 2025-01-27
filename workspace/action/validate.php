@@ -170,6 +170,7 @@ if (isset($_GET['login'])) {
             $_SESSION["hash"] = "";
             $_SESSION["user"] = true;
 
+            $_SESSION["error"] = "";
             header("location: ../");
             
         } else {

@@ -41,7 +41,11 @@
                         </div>
                     </form>
                     <div class="errors">
-                        <?php echo isset($_SESSION["error"]) ? $_SESSION["error"] : "" ?>
+                        <?php
+                            if (isset($_SESSION["error"])) {
+                                echo $_SESSION["error"];
+                            }
+                        ?>
                     </div>
                 </div>
                 <div class="monos-log">
