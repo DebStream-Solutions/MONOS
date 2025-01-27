@@ -128,8 +128,45 @@ body {
     margin-top: auto;
 }
 
+.footer .small.add {
+    position: relative;
+}
+
 .footer .small img {
     width: 1.75rem;
+}
+
+.roll.pop-add {
+    border-radius: 5px;
+    position: absolute;
+    bottom: 100%;
+    padding: 0;
+    width: 100vw;
+    left: 0;
+    border-top: 1px solid #a04ae5;
+}
+
+.roll.pop-add > div {
+    display: flex;
+    justify-content: space-around;
+}
+
+.roll.pop-add a {
+    color: white;
+    text-decoration: none;
+    text-align: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    border-radius: 10px;
+    padding: 0.5rem;
+    gap: 0.25rem;
+    font-size: 0.85rem;
+    width: fit-content;
+}
+
+.pop-add a img {
+    width: 1rem !important;
 }
 
 .sidebar-wrap {
