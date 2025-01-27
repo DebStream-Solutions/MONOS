@@ -569,6 +569,7 @@ div:has(.title.up) > .roll {
     color: var(--primary);
     border-radius: 5px;
     padding: 0.5rem 1rem 0.5rem;
+    margin-bottom: 0.5rem;
     text-decoration: none;
     display: flex;
     align-items: center;
@@ -579,6 +580,24 @@ div:has(.title.up) > .roll {
 
 .interface-chart-btn > img {
     height: 1rem;
+}
+
+.table-2, .mon-list .roll > .table-2 {
+    display: flex;
+    flex-direction: column;
+    gap: 0;
+}
+
+.table-2 > div.hl {
+    background-color: #4100bbe8;
+}
+.table-2 > div:nth-child(2n) {
+    background-color: #292929e8;
+}
+.table-2 > div {
+    display: flex;
+    background-color: #1c1c1c;
+    padding: 0.25rem;
 }
 
 
