@@ -57,10 +57,12 @@ function router($hostIp, $community) {
             "mask" => "1.3.6.1.2.1.4.20.1.3",
             "mac" => "IF-MIB::ifPhysAddress"
         ],
-        "cpu" => [
-            "name" => "1.3.6.1.2.1.25.3.2.1.3",
-            "load" => "1.3.6.1.2.1.25.3.3.1.2",
-            "temp" => "1.3.6.1.4.1.2021.11"
+        "system" => [
+            "up" => "HOST-RESOURCES-MIB::hrSystemUptime.0",
+            "name" => "SNMPv2-MIB::sysName.0",
+            "os" => "SNMPv2-MIB::sysDescr.0",
+            "memory-size" => "HOST-RESOURCES-MIB::hrMemorySize.0"
+
         ]
 
         /*
@@ -134,13 +136,36 @@ function router($hostIp, $community) {
                                     <span>See traffic</span>
                                     <img src='../icons/graph.png' alt=''>
                                 </a>
-                                <div id='adminStatus{$interfaceId}'>Admin Status: {$if_admin_status_arr[$key]}</div>
-                                <div id='operStatus{$interfaceId}'>Operational Status: {$if_oper_status_arr[$key]}</div>
-                                <div id='ipAddress{$interfaceId}'>IP Address: {$ip_arr[$key]}</div>
-                                <div id='mask{$interfaceId}'>Mask: {$mask_arr[$key]}</div>
-                                <div id='macAddress{$interfaceId}'>MAC: {$mac_arr[$key]}</div>
-                                <div id='inBytes{$interfaceId}'>Inbound Bytes: {$in_bytes_arr[$key]} bytes</div>
-                                <div id='outBytes{$interfaceId}'>Outbound Bytes: {$out_bytes_arr[$key]} bytes</div>
+                                <div class='table-2'>
+                                    <div>
+                                        <div>Admin Status</div>
+                                        <div id='adminStatus{$interfaceId}'>{$if_admin_status_arr[$key]}</div>
+                                    </div>
+                                    <div>
+                                        <div>Operational Status</div>
+                                        <div id='operStatus{$interfaceId}'>{$if_oper_status_arr[$key]}</div>
+                                    </div>
+                                    <div>
+                                        <div>IP Address</div>
+                                        <div id='ipAddress{$interfaceId}'>{$ip_arr[$key]}</div>
+                                    </div>
+                                    <div>
+                                        <div>Mask</div>
+                                        <div id='mask{$interfaceId}'>{$mask_arr[$key]}</div>
+                                    </div>
+                                    <div>
+                                        <div>MAC</div>
+                                        <div id='macAddress{$interfaceId}'>{$mac_arr[$key]}</div>
+                                    </div>
+                                    <div>
+                                        <div>Inbound Bytes</div>
+                                        <div id='inBytes{$interfaceId}'>{$in_bytes_arr[$key]} bytes</div>
+                                    </div>
+                                    <div>
+                                        <div>Outbound Bytes</div>
+                                        <div id='outBytes{$interfaceId}'>{$out_bytes_arr[$key]} bytes</div>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -148,55 +173,44 @@ function router($hostIp, $community) {
                 }
             
             
-            } elseif ($key == "cpus") {
-                $cpu_name = @snmpwalk($hostIp, $community, $value["name"]);
-                $cpu_load = @snmpwalk($hostIp, $community, $value["load"]);
-                $cpu_temp = @snmpwalk($hostIp, $community, $value["temp"]);
+            } elseif ($key == "system") {
+                $sys_up_raw = @snmpwalk($hostIp, $community, $value["up"]);
+                $sys_up_raw = snmpFormat($sys_up_raw, ") ");
 
-                $cpu_load_parse = [];
-                $cpu_freq_parse = [];
-                $cpu_arr_load = "";
+                $sys_up = preg_replace_callback(
+                    '/(\d+) days?, (\d+):(\d+):(\d+)/',
+                    function ($matches) {
+                        $days = $matches[1];
+                        $hours = $matches[2];
+                        $minutes = $matches[3];
+                        return "$days days $hours h $minutes min";
+                    },
+                    $sys_up_raw
+                );
+
+                $sys_name = @snmpwalk($hostIp, $community, $value["name"]);
+                $sys_name = snmpFormat($sys_name, "STRING: ");
+
+                $os = @snmpwalk($hostIp, $community, $value["os"]);
+                $os = snmpFormat($os, ") ");
 
 
-                if ($cpu_name !== false) {
-                    $cpu_name = $cpu_name[0];
-                    $cpu_name = preg_replace('/^.*: :/', '', $cpu_name);
-                    $cpu_name_arr = explode(":", $cpu_name);
-                    $cpu_name = $cpu_name_arr[count($cpu_name_arr) - 1];
-                }
-                if ($cpu_load !== false) {
-                    foreach ($cpu_load as $key => $value) {
-                        $value = preg_replace('/^.*: :/', '', $value);
-                        $value = explode("INTEGER: ", $value)[1];
-                        $cpu_load_parse[] = $value;
-                    }
-                }
-
-                foreach ($cpu_load_parse as $cpu_int => $load) {
-                    $cpu_int = intval($cpu_int) + 1;
-                    $cpu_arr_load .= "
-                    <div class='core-load'>
-                        <div>Core {$cpu_int}</div>
-                        <div class='percent-wrap'>
-                            <div class='percent'>{$load}% </div>
-                            <div class='percent-line-wrap'>
-                                <div class='percent-line' style='width: calc({$load}%)'></div>
-                            </div>
+                $systemHTML = "
+                    <div class='table-2'>
+                        <div>
+                            <div>Name</div>
+                            <div>{$sys_name}</div>
                         </div>
-                    </div>";
-                }
-
-                $cpu_sum = 0;
-                $freq_sum = 0;
-                $cpu_count = count($cpu_load);
-                foreach ($cpu_load_parse as $cpu) {
-                    $cpu_sum += (int) $cpu;
-                }
-                foreach ($cpu_freq_parse as $cpu) {
-                    $freq_sum += (int) $cpu;
-                }
-                $cpu_load = $cpu_sum / $cpu_count;
-                $cpu_freq = $freq_sum / $cpu_count;
+                        <div>
+                            <div>OS</div>
+                            <div>{$os}</div>
+                        </div>
+                        <div>
+                            <div>System Up</div>
+                            <div>{$sys_up}</div>
+                        </div>
+                    </div>
+                ";
             }
         }
 
@@ -309,9 +323,7 @@ function router($hostIp, $community) {
                             SYSTEM
                         </div>
                         <div class='roll'>
-                            <div>
-                                <div id='sysUp'>System Up: 1d</div>
-                            </div>
+                            ".$systemHTML."
                         </div>
                     </div>
                     ".$intefraceHTML."
