@@ -198,16 +198,7 @@ if (isset($_GET['login'])) {
 
             header("location: ../edit/profile/?profile=".$profile_id);
         } else {
-            $query = "DELETE FROM profileReleations WHERE profile_id = '$profile_id'";
-            $deleteStatus = $conn->query($query);
-
-            if ($deleteStatus === false) {
-                $_SESSION['error'] = $deleteStatus;
-
-                header("location: ../edit/profile/?profile=".$profile_id);
-            } else {
-                header("location: ../");
-            }
+            header("location: ../");
         }
 
     } elseif (count(validate($input, true)) == 0) {
@@ -264,19 +255,7 @@ if (isset($_GET['login'])) {
         if ($deleteStatus === false) {
             $_SESSION['error'] = $deleteStatus;
         } else {
-            $query = "DELETE FROM profileReleations WHERE device_id = '$device_id'";
-            $deleteStatus = $conn->query($query);
-
-            if ($deleteStatus === false) {
-                $_SESSION['error'] = $deleteStatus;
-                header("location: ../edit/device/".$device_id);
-            } else {
-                if ($_SESSION["profile"]) {
-                    header("location: ../?profile=".$_SESSION["profile"]);
-                } else {
-                    header("location: ../");
-                }
-            }
+            header("location: ../");
         }
         
 
