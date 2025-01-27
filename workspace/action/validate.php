@@ -122,19 +122,37 @@ if (isset($argv) && count($argv) > 1) {
     $password_add_indicator = "adminpass_#Ad5f78:";
     $arguments = array_slice($argv, 1);
     foreach ($arguments as $arg) {
-        if (strpos($arg, $password_add_indicator)) {
-            $password = str_replace($pass_needle, "", $argument);
-            $hash = pass_hash($password);
+        if (strpos($string, $indicator) >= 0 && is_int(strpos($string, $indicator))) {
+            $arg_indicator = explode(":", $string)[0].':';
+            if ($arg_indicator == $password_add_indicator) {
+                $password = str_replace($password_add_indicator, "", $arg);
+                $hash = pass_hash($password);
 
-            $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
-            $insertStatus = $conn->query($insert);
-            
-            if (!$insertStatus) {
-                echo "ERROR: Password could not be set!";
-            } else {
-                exit;
+                $insert = "INSERT INTO users (hash) VALUES ('{$hash}')";
+                $insertStatus = $conn->query($insert);
+                
+                if (!$insertStatus) {
+                    echo "ERROR: Password could not be set!";
+                } else {
+                    exit;
+                }
             }
+        } else {
+            echo "ERROR: Password could not be set!";
         }
+    }
+
+
+    $indicator = "admin:";
+    $string = "admin:heslo";
+    $string_indicator = explode(":", $string)[0].':';
+    if ($string_indicator == $indicator) {
+    if (strpos($string, $indicator) >= 0 && is_int(strpos($string, $indicator))) {
+        $pass = str_replace($indicator, "", $string);
+        echo $pass;
+    } else {
+        echo strpos($string, $indicator);
+    }
     }
 } else {
     echo "No arguments provided.\n";
