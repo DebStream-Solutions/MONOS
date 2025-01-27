@@ -5,8 +5,7 @@
     # MONOS --- Mobile Optimal Network Open-source System
     # There is more than you could imagine ... MONOS
 
-    //include "snmp.php";
-    include "main.php";
+    session_start();
 
 ?>
 <!DOCTYPE html>
