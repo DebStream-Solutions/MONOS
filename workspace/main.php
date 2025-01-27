@@ -91,17 +91,9 @@ $profileReleations = "SELECT * FROM profileReleations";
 $profileReleations = $conn->query($profileReleations);
 $profileReleations = $profileReleations->fetch_all(MYSQLI_ASSOC);
 
-$templates = "SELECT * FROM templates";
-$templates = $conn->query($templates);
-$templates = $templates->fetch_all(MYSQLI_ASSOC);
-
 $types = "SELECT * FROM types";
 $types = $conn->query($types);
 $types = $types->fetch_all(MYSQLI_ASSOC);
-
-$oids = "SELECT * FROM oids";
-$oids = $conn->query($oids);
-$oids = $oids->fetch_all(MYSQLI_ASSOC);
 
 $GLOBALS["devices"] = $devices;
 $GLOBALS["profiles"] = $profiles;
