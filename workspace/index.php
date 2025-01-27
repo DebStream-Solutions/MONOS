@@ -12,6 +12,9 @@
         $profile = $_GET['profile'];
         $_SESSION['profile'] = $profile;
         $_SESSION['device-ip'] = "";
+
+        $conditions = ["id" => $profile];
+        $profileName = findValueByConditions($profiles, $conditions, "name");
     }
 
 ?>
