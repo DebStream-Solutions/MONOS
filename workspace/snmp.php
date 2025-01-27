@@ -192,7 +192,7 @@ function router($hostIp, $community) {
                 $sys_name = snmpFormat($sys_name, "STRING: ")[0];
 
                 $os = @snmpwalk($hostIp, $community, $value["os"]);
-                $os = snmpFormat($os, ") ")[0];
+                $os = snmpFormat($os, "STRING: ")[0];
 
 
                 $systemHTML = "
