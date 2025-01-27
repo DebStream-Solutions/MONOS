@@ -38,6 +38,7 @@ $(document).ready(function () {
 
                 } else {
                     $('.generated').html('<div style="margin: auto; text-align: center;">Error: ' + response.message + '</div>');
+                    console.log(response.message);
                 }
             },
             error: function () {
@@ -67,8 +68,6 @@ $(document).ready(function () {
             } else {
                 url = 'ajax-'+time+'.php?func='+func;
             }
-
-            console.log(url, time);
             
             ajax(url, time);
         });
