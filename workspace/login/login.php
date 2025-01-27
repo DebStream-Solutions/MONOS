@@ -39,7 +39,7 @@
                             </div>
                         </div>
                     </form>
-                    <div class="errors">
+                    <div class="error">
                         <?php
                             if (isset($_SESSION["error"])) {
                                 echo $_SESSION["error"];
