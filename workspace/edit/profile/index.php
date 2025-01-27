@@ -11,10 +11,9 @@
     if (isset($_GET['profile'])) {
         $profile = $_GET['profile'];
         $_SESSION["profile"] = $profile;
+        $conditions = ["id" => $profile];
+        $profileName = findValueByConditions($profiles, $conditions, "name");
     }
-
-    $conditions = ["id" => $profile];
-    $profileName = findValueByConditions($profiles, $conditions, "name");
 
 ?>
 <!DOCTYPE html>
@@ -138,7 +137,13 @@
         </a>
         <div class="path">
             <a href="../../"><svg xmlns="http://www.w3.org/2000/svg" height="24px" viewBox="0 -960 960 960" width="20px" fill="currentColor"><path d="M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z"/></svg></a>
-            <a href="../../?profile=<?php echo $profile ?>"><?php echo $profileName ?></a>
+            <?php
+                if (isset($profileName)) {
+                    echo "
+                        <a href='../../?profile={$profile}'>{$profileName}</a>
+                    ";
+                }
+            ?>
         </div>
         <?php
             if ($USER == "admin") {
