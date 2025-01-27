@@ -1,26 +1,5 @@
 <?php
 
-function ping($host, $timeout = 1) {
-    $output = [];
-    $status = null;
-
-    // Adjust the command based on the operating system
-    if (stristr(PHP_OS, 'WIN')) { 
-        // Windows
-        $cmd = "ping -n 1 -w " . ($timeout * 1000) . " $host";
-    } else {
-        // Linux / macOS
-        $cmd = "ping -c 1 -W $timeout $host";
-    }
-
-    // Execute the command
-    exec($cmd, $output, $status);
-
-    // Return true if the ping was successful
-    return $status === 0 ? true : false;
-}
-
-
 function getSNMPData($hostIp, $deviceType, $community) {
     // Create SNMP session
     $session = new SNMP(SNMP::VERSION_2c, $hostIp, $community);
