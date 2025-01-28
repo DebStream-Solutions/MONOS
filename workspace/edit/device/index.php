@@ -196,7 +196,7 @@
         });
 
         $(".remove-item").click(function(event) {
-            const selectedItem = event.target.parentElement('.selected-item');
+            const selectedItem = $(event.target).parentElement('.selected-item');
             removeItem(selectedItem);
         });
 
