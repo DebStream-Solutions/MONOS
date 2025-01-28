@@ -96,6 +96,8 @@
 
             $(".open-menu").click(toggleSidebar);
             $(".close-menu").click(toggleSidebar);
+
+            $("body:has(div.generated #offline) #deviceState > div").removeClass("unknown").addClass("offline");
         }
 
         $(document).ready(onLoad);
