@@ -195,6 +195,11 @@
             event.stopPropagation(); // Prevent the dropdown from closing when clicking inside input
         });
 
+        $(".remove-item").click(function(event) {
+            const selectedItem = event.target.parentElement('.selected-item');
+            removeItem(selectedItem);
+        });
+
 
         hideLoad();
     });
