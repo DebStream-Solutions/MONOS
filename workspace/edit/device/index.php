@@ -198,6 +198,8 @@
         $(".remove-item").click(function(event) {
             const selectedItem = $(event.target).parents('.selected-item');
             selectedItem.remove();
+            let selectedItemName = selectedItem.text().replace(/x(?!.*x)/, '');
+            uncheckItem(selectedItemName);
         });
 
 
