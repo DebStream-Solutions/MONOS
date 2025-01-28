@@ -197,7 +197,9 @@
 
         $(".remove-item").click(function(event) {
             const selectedItem = $(event.target).parents('.selected-item');
-            removeItem(selectedItem);
+            console.log(selectedItem);
+            removeItem(selectedItem.val());
+            uncheckItem(selectedItem.val());
         });
 
 
