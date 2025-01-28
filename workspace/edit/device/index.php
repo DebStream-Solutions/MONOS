@@ -110,7 +110,7 @@
         dropdownInput.keydown(function(e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                const firstVisibleCheckbox = dropdownContent.find('input[type="checkbox"]:visible').first();
+                const firstVisibleCheckbox = dropdownContent.find('input[type="checkbox"]:visible:not(:checked)').first();
                 if (firstVisibleCheckbox.length && !isItemSelected(firstVisibleCheckbox.val())) {
                     firstVisibleCheckbox.prop('checked', true).trigger('change');
                     dropdownInput.val('');
