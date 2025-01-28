@@ -577,6 +577,7 @@ h1.device {
 
 .main-banner {
     margin: 0 0 2rem 0;
+    overflow: hidden;
 }
 
 .mon-list {

@@ -166,7 +166,7 @@
                     </div>
                 </div>
             </div>
-            <a href="/">
+            <a href="../workspace">
                 <img src="icons/home.png" alt="">
             </a>
             <div class="small open-menu">

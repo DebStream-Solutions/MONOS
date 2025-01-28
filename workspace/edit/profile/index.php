@@ -214,7 +214,7 @@
                     </div>
                 </div>
             </div>
-            <a href="/">
+            <a href="../../">
                 <img src="../../icons/home.png" alt="">
             </a>
             <div class="small open-menu">
