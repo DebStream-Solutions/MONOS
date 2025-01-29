@@ -391,7 +391,7 @@ function editDevice($edit) {
             foreach ($profileNameArr as $key => $value) {
                 $i += 1;
                 $checked = "";
-                if (in_array($value["name"], $profilesReleated)) {
+                if (in_array($value, $profilesReleated)) {
                     $checked = "checked";
                 }
                 #$profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" value="'.$value["name"].'">'.$value["name"].'</label>';
