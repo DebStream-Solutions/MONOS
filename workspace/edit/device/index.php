@@ -203,7 +203,10 @@
             //selectedItem.remove();
             let selectedItemName = selectedItem.text().replace(/x(?!.*x)/, '');
             console.log(selectedItemName);
-            selectedItem.removeProp("checked");
+            if (selectedItem.hasAttribute("checked")) {
+                selectedItem.removeAttr("checked");
+                selectedItem.prop("checked", false);
+            }
             selectedItem.remove();
             uncheckItem(selectedItemName);
         });
