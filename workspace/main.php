@@ -392,7 +392,7 @@ function editDevice($edit) {
                 $i += 1;
                 $checked = "";
                 foreach ($profilesReleated as $key_p => $value_p) {
-                    if ($value["profileId"] === $value_p["id"]) {
+                    if ($value_p["profileId"] === $value["id"]) {
                         $checked = "checked";
                     }
                 }
