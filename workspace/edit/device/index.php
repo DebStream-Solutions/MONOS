@@ -149,6 +149,7 @@
         }
 
         function removeItem(value) {
+            console.log("removeItem("+value+")")
             selectedItemsContainer.find('.selected-item').each(function() {
                 const item = $(this);
                 if (item.text().trim() === value + 'x') {
@@ -195,11 +196,13 @@
             event.stopPropagation(); // Prevent the dropdown from closing when clicking inside input
         });
 
+
         $(".remove-item").click(function(event) {
             const selectedItem = $(event.target).parents('.selected-item');
-            selectedItem.remove();
+            //selectedItem.remove();
             let selectedItemName = selectedItem.text().replace(/x(?!.*x)/, '');
             console.log(selectedItemName);
+            removeItem(selectedItemName);
             uncheckItem(selectedItemName);
         });
 
