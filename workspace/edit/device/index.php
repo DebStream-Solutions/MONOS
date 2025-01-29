@@ -100,6 +100,7 @@
 
         dropdownContent.find('input[type="checkbox"]').change(function() {
             const checkbox = $(this);
+            console.log("Change of checkbox");
             if (checkbox.is(':checked')) {
                 addItem(checkbox.closest('label').data("item"), checkbox.closest('label').data('id'));
             } else {
@@ -202,7 +203,6 @@
             //selectedItem.remove();
             let selectedItemName = selectedItem.text().replace(/x(?!.*x)/, '');
             console.log(selectedItemName);
-            removeItem(selectedItemName);
             uncheckItem(selectedItemName);
         });
 
