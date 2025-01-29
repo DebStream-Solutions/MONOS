@@ -356,15 +356,6 @@ function editDevice($edit) {
             $profileNameArr = "SELECT * FROM profiles";
             $profileNameArr = $conn->query($profileNameArr);
             $profileNameArr = $profileNameArr->fetch_all(MYSQLI_ASSOC);
-            
-            $profileList = "";
-            $i = 0;
-
-            foreach ($profileNameArr as $key => $value) {
-                $i += 1;
-                #$profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" value="'.$value["name"].'">'.$value["name"].'</label>';
-                $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="profile'.$i.'" value="'.$value["id"].'">'.$value["name"].'</label>';
-            }
 
             $typeArr = "SELECT * FROM types";
             $typeArr = $conn->query($typeArr);
@@ -392,6 +383,19 @@ function editDevice($edit) {
                 $releatedProfile = $releatedProfile->fetch_all(MYSQLI_ASSOC)[0];
 
                 $selectedProfiles .= '<div class="selected-item">'.$releatedProfile["name"].'<span class="remove-item">x</span></div>';
+            }
+
+            $profileList = "";
+            $i = 0;
+
+            foreach ($profileNameArr as $key => $value) {
+                $i += 1;
+                $checked = "";
+                if (in_array($value["name"], $profilesReleated)) {
+                    $checked = "checked";
+                }
+                #$profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" value="'.$value["name"].'">'.$value["name"].'</label>';
+                $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="profile'.$i.'" value="'.$value["id"].'" '.$checked.'>'.$value["name"].'</label>';
             }
 
             if (isset($_SESSION["error"])) {
