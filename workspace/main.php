@@ -395,7 +395,7 @@ function editDevice($edit) {
                     $checked = "checked";
                 }
                 #$profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" value="'.$value["name"].'">'.$value["name"].'</label>';
-                $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="profile'.$i.'" value="'.$value["id"].'" '.$checked.'>'.$value["name"].'</label>';
+                $profileList .= var_dump($profilesReleated, $value).'<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="profile'.$i.'" value="'.$value["id"].'" '.$checked.'>'.$value["name"].'</label>';
             }
 
             if (isset($_SESSION["error"])) {
