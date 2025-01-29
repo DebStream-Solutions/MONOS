@@ -167,6 +167,7 @@
         function uncheckItem(value) {
             dropdownContent.find('input[type="checkbox"]').each(function() {
                 const checkbox = $(this);
+                console.log(checkbox.val(), value);
                 if (checkbox.val() === value) {
                     checkbox.prop('checked', false);
                 }
@@ -202,12 +203,6 @@
             const selectedItem = $(event.target).parents('.selected-item');
             //selectedItem.remove();
             let selectedItemName = selectedItem.text().replace(/x(?!.*x)/, '');
-            console.log(selectedItemName);
-            if (selectedItem.attr("checked")) {
-                selectedItem.removeAttr("checked");
-                selectedItem.prop("checked", false);
-            }
-            selectedItem.remove();
             uncheckItem(selectedItemName);
         });
 
