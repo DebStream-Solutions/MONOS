@@ -203,7 +203,7 @@
             //selectedItem.remove();
             let selectedItemName = selectedItem.text().replace(/x(?!.*x)/, '');
             console.log(selectedItemName);
-            if (selectedItem.hasAttr("checked")) {
+            if (selectedItem.attr("checked")) {
                 selectedItem.removeAttr("checked");
                 selectedItem.prop("checked", false);
             }
