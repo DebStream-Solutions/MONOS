@@ -274,11 +274,27 @@ if (isset($_GET['login'])) {
                 $_SESSION['error'] = $updateStatus;
                 header("location: ../edit/device/?device=".$deviceId);
             } else {
+
+                var_dump($_POST["profile"]);
+
+                for ($i=0; 0 < 10; $i++) { 
+                    $profileCheck = "profile".$i;
+                    if (isset($_POST[$profileCheck]) && !empty($_POST[$profileCheck])) {
+                        $profileId = $i;
+                        $profileIds[] = $profileId;
+                        var_dump($profileId);
+                    } else {
+
+                    }
+                }
+
+                /*
                 if (isset($_SESSION["profile"])) {
                     header("location: ../device/?profile=".$_SESSION["profile"]."&device=".$deviceId);
                 } else {
                     header("location: ../");
                 }
+                */
             }
         } else {
 
