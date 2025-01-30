@@ -293,16 +293,14 @@ if (isset($_GET['login'])) {
 
                 $to_delete = array_diff($currentProfiles, $profileIds); // IDs to remove
                 $to_insert = array_diff($profileIds, $currentProfiles); // IDs to insert
-                
+
                 if (!empty($to_delete)) {
-                    $placeholders = implode(',', array_fill(0, count($to_delete), '?'));
-                    $stmt = $conn->prepare("DELETE FROM profileReleation WHERE id IN ($placeholders)");
-                    $stmt->execute(array_values($to_delete));
+                    $ids_to_delete = implode(',', array_map('intval', $to_delete)); // Ensure values are integers
+                    $conn->query("DELETE FROM profileReleations WHERE id IN ($ids_to_delete)");
                 }
                 if (!empty($to_insert)) {
-                    $stmt = $conn->prepare("INSERT INTO profileReleation (id) VALUES (?)");
                     foreach ($to_insert as $id) {
-                        $stmt->execute([$id]);
+                        $conn->query("INSERT INTO profileReleations (id) VALUES ('" . $id . "')");
                     }
                 }
 
