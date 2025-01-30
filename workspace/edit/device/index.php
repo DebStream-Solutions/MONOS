@@ -85,7 +85,7 @@
 
         // Show input field and filter items
         addButton.click(function () {
-            inputContainer.show();
+            inputContainer.css("display", "flex");
             addButton.hide();
             dropdownInput.focus();
             filterItems();
