@@ -431,7 +431,7 @@ function editDevice($edit) {
                                         <h3 for="profile">Select profiles</h3>
                                         <div class="dropdown">
                                             <div class="selected-items-container">
-                                                '.$selectedProfiles.'
+                                                
                                                 <button type="button" class="add-button">+</button>
                                             </div>
                                             <div class="input-container">
