@@ -264,7 +264,6 @@ if (isset($_GET['login'])) {
         
 
     } elseif (count(validate($input, true)) == 0) {
-        var_dump($_POST["name"], $_POST["ip"], $_POST["type"]);
         if (!empty($deviceId)) {
 
             $update = "UPDATE devices SET name='{$_SESSION['name']}' WHERE id={$deviceId}";
@@ -277,7 +276,7 @@ if (isset($_GET['login'])) {
                 $profiles = "SELECT MAX(id) AS id FROM profiles";
                 $profiles = $conn->query($profiles);
                 $profilesMax = $profiles->fetch_all(MYSQLI_ASSOC);
-                var_dump($profilesMax);
+                var_dump($profilesMax["id"]);
                 foreach ($profilesMax as $key => $value) {
                     $profilesMax = (int)$value;
                 }
