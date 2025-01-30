@@ -275,7 +275,7 @@ if (isset($_GET['login'])) {
 
                 $profiles = "SELECT profileId FROM profileReleations WHERE deviceId = ".$deviceId;
                 $profiles = $conn->query($profiles);
-                $currentProfiles = $profiles->fetch_all(MYSQLI_ASSOC)[0];
+                $currentProfiles = $profiles->fetch_all(MYSQLI_ASSOC);
                 $currentProfiles = array_column($currentProfiles, 'profileId');
 
                 var_dump($profileIds, $currentProfiles);
