@@ -138,7 +138,7 @@
             item.find('.remove-item').click(function() {
                 item.remove();
                 hiddenInput.remove();
-                uncheckItem(value);
+                uncheckItem(id);
                 filterItems();
             });
 
