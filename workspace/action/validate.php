@@ -276,7 +276,8 @@ if (isset($_GET['login'])) {
             } else {
                 $profiles = "SELECT MAX(id) AS max_id FROM profiles";
                 $profiles = $conn->query($profiles);
-                $profilesMax = $profiles->fetch_all(MYSQLI_ASSOC)["max_id"];
+                $profilesMax = $profiles->fetch_all(MYSQLI_ASSOC);
+                var_dump($profilesMax);
                 
                 for ($i=0; $i < $profilesMax; $i++) { 
                     $profileCheck = "profile".$i;
@@ -286,7 +287,7 @@ if (isset($_GET['login'])) {
                     }
                 }
 
-                $profiles = "SELECT profile_id FROM profileReleations WHERE device_id = ".$deviceId;
+                $profiles = "SELECT profileId FROM profileReleations WHERE deviceId = ".$deviceId;
                 $profiles = $conn->query($profiles);
                 $currentProfiles = $profiles->fetch_all(MYSQLI_ASSOC);
 
