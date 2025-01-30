@@ -203,7 +203,9 @@
             const selectedItem = $(event.target).parents('.selected-item');
             //selectedItem.remove();
             let selectedItemName = selectedItem.text().replace(/x(?!.*x)/, '');
-            uncheckItem(selectedItemName);
+            let selectedItemId = selectedItem.data("id");
+            console.log(selectedItemId);
+            uncheckItem(selectedItemId);
         });
 
 
