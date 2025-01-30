@@ -291,8 +291,8 @@ if (isset($_GET['login'])) {
                 $profiles = $conn->query($profiles);
                 $currentProfiles = $profiles->fetch_all(MYSQLI_ASSOC);
 
-                $to_delete = array_diff($old_ids, $new_ids); // IDs to remove
-                $to_insert = array_diff($new_ids, $old_ids); // IDs to insert
+                $to_delete = array_diff($currentProfiles, $profileIds); // IDs to remove
+                $to_insert = array_diff($profileIds, $currentProfiles); // IDs to insert
                 
                 if (!empty($to_delete)) {
                     $placeholders = implode(',', array_fill(0, count($to_delete), '?'));
