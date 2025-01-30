@@ -287,7 +287,7 @@ if (isset($_GET['login'])) {
 
                 $profiles = "SELECT profileId FROM profileReleations WHERE deviceId = ".$deviceId;
                 $profiles = $conn->query($profiles);
-                $currentProfiles = $profiles->fetch_all(MYSQLI_ASSOC);
+                $currentProfiles = $profiles->fetch_all(MYSQLI_ASSOC)[0];
 
                 $to_delete = array_diff($currentProfiles, $profileIds); // IDs to remove
                 $to_insert = array_diff($profileIds, $currentProfiles); // IDs to insert
