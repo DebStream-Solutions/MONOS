@@ -277,15 +277,31 @@ if (isset($_GET['login'])) {
                 $profiles = "SELECT MAX(id) AS max_id FROM profiles";
                 $profiles = $conn->query($profiles);
                 $profilesMax = $profiles->fetch_all(MYSQLI_ASSOC)["max_id"];
-
+                
                 for ($i=0; $i < $profilesMax; $i++) { 
                     $profileCheck = "profile".$i;
                     if (isset($_POST[$profileCheck]) && !empty($_POST[$profileCheck])) {
                         $profileId = $i;
                         $profileIds[] = $profileId;
-                        var_dump($profileId);
-                    } else {
+                    }
+                }
 
+                $profiles = "SELECT profile_id FROM profileReleations WHERE device_id = ".$deviceId;
+                $profiles = $conn->query($profiles);
+                $currentProfiles = $profiles->fetch_all(MYSQLI_ASSOC);
+
+                $to_delete = array_diff($old_ids, $new_ids); // IDs to remove
+                $to_insert = array_diff($new_ids, $old_ids); // IDs to insert
+                
+                if (!empty($to_delete)) {
+                    $placeholders = implode(',', array_fill(0, count($to_delete), '?'));
+                    $stmt = $conn->prepare("DELETE FROM profileReleation WHERE id IN ($placeholders)");
+                    $stmt->execute(array_values($to_delete));
+                }
+                if (!empty($to_insert)) {
+                    $stmt = $conn->prepare("INSERT INTO profileReleation (id) VALUES (?)");
+                    foreach ($to_insert as $id) {
+                        $stmt->execute([$id]);
                     }
                 }
 
