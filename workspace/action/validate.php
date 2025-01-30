@@ -246,7 +246,7 @@ if (isset($_GET['login'])) {
 
 } elseif (isset($_GET["device"])) {
     $deviceId = $_GET["device"];
-    $input = ["name", "ip", "type"];
+    $input = ["name", "ip", "type", "profiles"];
 
     if (count(validate(["delete_id"], true)) == 0) {
 
@@ -276,18 +276,9 @@ if (isset($_GET['login'])) {
                 $profiles = $profiles->fetch_all(MYSQLI_ASSOC)[0];
                 
                 var_dump($profiles);
-
                 var_dump($_POST["profiles"]);
-
-                $profileIds = [];
-                foreach ($profiles as $key => $value) {
-                    $profileCheck = "profile".$value;
-                    if (isset($_POST[$profileCheck]) && !empty($_POST[$profileCheck])) {
-                        $profileIds[] = (int)$value;
-                    }
-                }
-
-                var_dump($profileIds);
+                $profileIds = $_POST["profiles"];
+                
 
                 $profiles = "SELECT profileId FROM profileReleations WHERE deviceId = ".$deviceId;
                 $profiles = $conn->query($profiles);
