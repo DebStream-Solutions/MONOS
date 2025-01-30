@@ -154,8 +154,6 @@ if (isset($argv) && count($argv) > 1) {
         echo strpos($string, $indicator);
     }
     }
-} else {
-    echo "No arguments provided.\n";
 }
 
 
@@ -277,11 +275,13 @@ if (isset($_GET['login'])) {
                 $profiles = $conn->query($profiles);
                 $profiles = $profiles->fetch_all(MYSQLI_ASSOC);
                 
+                var_dump($profiles);
+
                 $profileIds = [];
                 foreach ($profiles as $key => $value) {
                     $profileCheck = "profile".$value;
                     if (isset($_POST[$profileCheck]) && !empty($_POST[$profileCheck])) {
-                        $profileIds[] = $value;
+                        $profileIds[] = (int)$value;
                     }
                 }
 
