@@ -277,6 +277,8 @@ if (isset($_GET['login'])) {
                 
                 var_dump($profiles);
 
+                var_dump($_POST["profiles[]"]);
+
                 $profileIds = [];
                 foreach ($profiles as $key => $value) {
                     $profileCheck = "profile".$value;
