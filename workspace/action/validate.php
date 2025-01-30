@@ -271,18 +271,14 @@ if (isset($_GET['login'])) {
                 $_SESSION['error'] = $updateStatus;
                 header("location: ../edit/device/?device=".$deviceId);
             } else {
-                $profiles = "SELECT id FROM profiles";
-                $profiles = $conn->query($profiles);
-                $profiles = $profiles->fetch_all(MYSQLI_ASSOC)[0];
-                
-                var_dump($profiles);
-                var_dump($_POST["profiles"]);
                 $profileIds = $_POST["profiles"];
-                
 
                 $profiles = "SELECT profileId FROM profileReleations WHERE deviceId = ".$deviceId;
                 $profiles = $conn->query($profiles);
                 $currentProfiles = $profiles->fetch_all(MYSQLI_ASSOC)[0];
+                $currentProfiles = array_column($currentProfiles, 'profileId');
+
+                var_dump($profileIds, $currentProfiles);
 
                 $to_delete = array_diff($currentProfiles, $profileIds); // IDs to remove
                 $to_insert = array_diff($profileIds, $currentProfiles); // IDs to insert
