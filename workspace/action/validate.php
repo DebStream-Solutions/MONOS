@@ -273,7 +273,7 @@ if (isset($_GET['login'])) {
             } else {
                 $profiles = "SELECT id FROM profiles";
                 $profiles = $conn->query($profiles);
-                $profiles = $profiles->fetch_all(MYSQLI_ASSOC);
+                $profiles = $profiles->fetch_all(MYSQLI_ASSOC)[0];
                 
                 var_dump($profiles);
 
