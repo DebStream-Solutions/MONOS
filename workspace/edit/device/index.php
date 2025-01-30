@@ -68,7 +68,7 @@
 
     // PASTE
     
-    $(document).ready(function() {
+    $(document).ready(function () {
         const dropdownContent = $('.dropdown-content');
         const selectedItemsContainer = $('.selected-items-container');
         const dropdownInput = $('.dropdown-input');
@@ -77,116 +77,99 @@
         const dropdownArrow = $('.dropdown-arrow');
         const hiddenInputsContainer = $('.hidden-inputs');
 
-        addButton.click(function() {
-            inputContainer.css("display", "flex");
+        // Handle PHP-added items (if they exist)
+        dropdownContent.find('input[type="checkbox"]:checked').each(function () {
+            const checkbox = $(this);
+            addItem(checkbox.closest('label').data("item"), checkbox.closest('label').data("id"), false);
+        });
+
+        // Show input field and filter items
+        addButton.click(function () {
+            inputContainer.show();
             addButton.hide();
             dropdownInput.focus();
             filterItems();
         });
 
-        dropdownInput.focus(function() {
-            filterItems();
-        });
+        dropdownInput.on('input focus', filterItems);
 
-        dropdownInput.on('input', function() {
-            filterItems();
-        });
-
-        dropdownArrow.click(function(event) {
+        dropdownArrow.click(function (event) {
             event.stopPropagation();
             dropdownContent.toggleClass('show');
             $(this).find("img").toggleClass('rotated-180');
         });
 
-        dropdownContent.find('input[type="checkbox"]').change(function() {
+        // Dynamic event binding for checkboxes (handles PHP-injected items)
+        dropdownContent.on('change', 'input[type="checkbox"]', function () {
             const checkbox = $(this);
-            console.log("Change of checkbox");
+            const label = checkbox.closest('label');
+            const value = label.data("item");
+            const id = label.data("id");
+
             if (checkbox.is(':checked')) {
-                addItem(checkbox.closest('label').data("item"), checkbox.closest('label').data('id'));
+                addItem(value, id, true);
             } else {
-                removeItem(checkbox.val());
+                removeItem(id);
             }
         });
 
-        dropdownInput.keydown(function(e) {
+        // Handle Enter key selection
+        dropdownInput.keydown(function (e) {
             if (e.key === 'Enter') {
                 e.preventDefault();
-                const firstVisibleCheckbox = dropdownContent.find('input[type="checkbox"]:visible:not(:checked)').first();
-                if (firstVisibleCheckbox.length && !isItemSelected(firstVisibleCheckbox.val())) {
-                    firstVisibleCheckbox.prop('checked', true).trigger('change');
+                const firstUnchecked = dropdownContent.find('input[type="checkbox"]:visible:not(:checked)').first();
+                if (firstUnchecked.length) {
+                    firstUnchecked.prop('checked', true).trigger('change');
                     dropdownInput.val('');
-                    dropdownContent.find('label').show(); // Reset the search filter
+                    dropdownContent.find('label').show();
                 }
             }
         });
 
+        // Function to filter dropdown items
         function filterItems() {
             const searchTerm = dropdownInput.val().toLowerCase();
-            const selectedItems = getSelectedItems();
-            dropdownContent.find('label').each(function() {
+            dropdownContent.find('label').each(function () {
                 const item = $(this).data('item').toLowerCase();
-                const isSelected = selectedItems.includes($(this).data('item'));
-                $(this).toggle(item.startsWith(searchTerm) && !isSelected || (!item.startsWith(searchTerm) && item.includes(searchTerm) && !isSelected));
+                const isSelected = isItemSelected($(this).data('id'));
+                $(this).toggle(item.includes(searchTerm) && !isSelected);
             });
             dropdownContent.addClass('show');
         }
 
-        function addItem(value, id) {
-            const item = $('<div class="selected-item">' + value + '<span class="remove-item">x</span></div>');
-            const hiddenInput = $('<input type="hidden" name="profiles[]" value="' + id + '">');
+        // Add selected item
+        function addItem(value, id, focusInput) {
+            if (isItemSelected(id)) return; // Prevent duplicates
 
-            item.find('.remove-item').click(function() {
-                item.remove();
-                hiddenInput.remove();
-                uncheckItem(id);
-                filterItems();
-            });
+            const item = $(`
+                <div class="selected-item" data-id="${id}">
+                    ${value} <span class="remove-item">x</span>
+                </div>
+            `);
+            const hiddenInput = $(`<input type="hidden" name="profiles[]" value="${id}">`);
 
-            selectedItemsContainer.append(item);
+            item.find('.remove-item').click(() => removeItem(id));
+
             selectedItemsContainer.append(item);
             hiddenInputsContainer.append(hiddenInput);
-            item.insertBefore($(".add-button"));
-            dropdownInput.focus(); // Keep input focused after adding item
+
+            if (focusInput) dropdownInput.focus();
         }
 
-        function removeItem(value) {
-            console.log("removeItem("+value+")")
-            selectedItemsContainer.find('.selected-item').each(function() {
-                const item = $(this);
-                if (item.text().trim() === value + 'x') {
-                    item.remove();
-                }
-            });
-            hiddenInputsContainer.find('input').each(function() {
-                if ($(this).val() === value) {
-                    $(this).remove();
-                }
-            });
+        // Remove selected item
+        function removeItem(id) {
+            selectedItemsContainer.find(`.selected-item[data-id="${id}"]`).remove();
+            hiddenInputsContainer.find(`input[value="${id}"]`).remove();
+            dropdownContent.find(`input[type="checkbox"][value="${id}"]`).prop('checked', false);
         }
 
-        function uncheckItem(value) {
-            dropdownContent.find('input[type="checkbox"]').each(function() {
-                const checkbox = $(this);
-                console.log(checkbox.val(), value);
-                if (checkbox.val() === value) {
-                    checkbox.prop('checked', false);
-                }
-            });
+        // Helper to check if an item is selected
+        function isItemSelected(id) {
+            return hiddenInputsContainer.find(`input[value="${id}"]`).length > 0;
         }
 
-        function isItemSelected(value) {
-            return getSelectedItems().includes(value);
-        }
-
-        function getSelectedItems() {
-            const selectedItems = [];
-            selectedItemsContainer.find('.selected-item').each(function() {
-                selectedItems.push($(this).text().replace('x', '').trim());
-            });
-            return selectedItems;
-        }
-
-        $(document).click(function(event) {
+        // Close dropdown when clicking outside
+        $(document).click(function (event) {
             if (!$(event.target).closest('.dropdown').length) {
                 dropdownContent.removeClass('show');
                 inputContainer.hide();
@@ -194,27 +177,7 @@
             }
         });
 
-        dropdownInput.click(function(event) {
-            event.stopPropagation(); // Prevent the dropdown from closing when clicking inside input
-        });
-
-
-        $(".remove-item").click(function(event) {
-            const selectedItem = $(event.target).parents('.selected-item');
-            //selectedItem.remove();
-            let selectedItemName = selectedItem.text().replace(/x(?!.*x)/, '');
-            dropdownContent.find('input[type="checkbox"]').each(function() {
-                var checkbox = $(this);
-                var label = checkbox.closest('label');
-                if (label.text().trim() === selectedItemName) {
-                    var selectedItemId = label.data('id').toString();
-
-                    uncheckItem(selectedItemId);
-                    selectedItem.remove();
-                }
-            });
-            
-        });
+        dropdownInput.click(event => event.stopPropagation());
 
 
         hideLoad();
