@@ -287,8 +287,11 @@ if (isset($_GET['login'])) {
                 
                 if (!empty($to_delete)) {
                     $ids_to_delete = implode(',', array_map('intval', $to_delete)); // Ensure values are integers
-                    var_dump($ids_to_delete);
-                    $deleteRel = $conn->query("DELETE FROM profileReleations WHERE id IN ($ids_to_delete)");
+                    foreach ($to_delete as $id) {
+                        $deleteRel = $conn->query("DELETE FROM profileReleations WHERE id = $id");
+                        var_dump($deleteRel);
+                    }
+                    
                     var_dump($deleteRel);
                 }
                 if (!empty($to_insert)) {
