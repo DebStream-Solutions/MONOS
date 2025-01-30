@@ -203,9 +203,16 @@
             const selectedItem = $(event.target).parents('.selected-item');
             //selectedItem.remove();
             let selectedItemName = selectedItem.text().replace(/x(?!.*x)/, '');
-            let selectedItemId = selectedItem.data("id");
-            console.log(selectedItemId);
-            uncheckItem(selectedItemId);
+            dropdownContent.find('input[type="checkbox"]').each(function() {
+                var checkbox = $(this);
+                var label = checkbox.closest('label');
+                if (label.text().trim() === selectedItemName) {
+                    var selectedItemId = label.data('id');
+
+                    uncheckItem(selectedItemId);
+                }
+            });
+            
         });
 
 
