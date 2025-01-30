@@ -277,10 +277,15 @@ if (isset($_GET['login'])) {
                 $profiles = "SELECT MAX(id) AS id FROM profiles";
                 $profiles = $conn->query($profiles);
                 $profilesMax = $profiles->fetch_all(MYSQLI_ASSOC);
-                var_dump($profilesMax["id"]);
+                var_dump($profilesMax);
+                foreach ($profilesMax as $key => $value) {
+                    $profilesMax = (int)$value;
+                }
+
+                var_dump($profilesMax);
                 
                 $profileIds = [];
-                for ($i=0; $i < (int)$profilesMax; $i++) { 
+                for ($i=0; $i < $profilesMax; $i++) { 
                     $profileCheck = "profile".$i;
                     if (isset($_POST[$profileCheck]) && !empty($_POST[$profileCheck])) {
                         $profileId = $i;
