@@ -283,13 +283,18 @@ if (isset($_GET['login'])) {
                 $to_delete = array_diff($currentProfiles, $profileIds); // IDs to remove
                 $to_insert = array_diff($profileIds, $currentProfiles); // IDs to insert
 
+                var_dump("DELETE: ", $to_delete, "INSERT: ", $to_insert);
+                
                 if (!empty($to_delete)) {
                     $ids_to_delete = implode(',', array_map('intval', $to_delete)); // Ensure values are integers
-                    $conn->query("DELETE FROM profileReleations WHERE id IN ($ids_to_delete)");
+                    var_dump($ids_to_delete);
+                    $deleteRel = $conn->query("DELETE FROM profileReleations WHERE id IN ($ids_to_delete)");
+                    var_dump($deleteRel);
                 }
                 if (!empty($to_insert)) {
                     foreach ($to_insert as $id) {
-                        $conn->query("INSERT INTO profileReleations (id) VALUES ('" . $id . "')");
+                        $insertRel = $conn->query("INSERT INTO profileReleations (profileId, deviceId) VALUES ('" . $id . "', '".$deviceId."')");
+                        var_dump($insertRel);
                     }
                 }
 
