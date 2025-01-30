@@ -207,7 +207,7 @@
                 var checkbox = $(this);
                 var label = checkbox.closest('label');
                 if (label.text().trim() === selectedItemName) {
-                    var selectedItemId = label.data('id').text();
+                    var selectedItemId = label.data('id').toString();
 
                     uncheckItem(selectedItemId);
                 }
