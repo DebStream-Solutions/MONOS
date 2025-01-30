@@ -274,10 +274,10 @@ if (isset($_GET['login'])) {
                 $_SESSION['error'] = $updateStatus;
                 header("location: ../edit/device/?device=".$deviceId);
             } else {
-                $profiles = "SELECT MAX(id) FROM profiles";
+                $profiles = "SELECT MAX(id) AS id FROM profiles";
                 $profiles = $conn->query($profiles);
                 $profilesMax = $profiles->fetch_all(MYSQLI_ASSOC);
-                var_dump($profilesMax);
+                var_dump($profilesMax["id"]);
                 
                 $profileIds = [];
                 for ($i=0; $i < (int)$profilesMax; $i++) { 
