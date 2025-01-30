@@ -150,7 +150,7 @@
 
             item.find('.remove-item').click(() => removeItem(id));
 
-            selectedItemsContainer.append(item);
+            selectedItemsContainer.find(".add-button").before(item);
             hiddenInputsContainer.append(hiddenInput);
 
             if (focusInput) dropdownInput.focus();
