@@ -210,6 +210,7 @@
                     var selectedItemId = label.data('id').toString();
 
                     uncheckItem(selectedItemId);
+                    removeItem(selectedItemId);
                 }
             });
             
