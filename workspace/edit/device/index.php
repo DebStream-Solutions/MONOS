@@ -6,7 +6,7 @@
     # There is more than you could imagine ... MONOS
 
     //include "snmp.php";
-    include "../../main.php";
+    //include "../../main.php";
 
     if (isset($_GET['device'])) {
         $device = $_GET['device'];
