@@ -424,13 +424,13 @@ function workstation($hostIp, $community) {
                 foreach ($size_arr as $key => $value) {
                     # needle > 25.2.1.4
                     # needle > hrStorageFixedDisk
-                    if (strpos($type_arr[$key], "hrStorageFixedDisk") !== false) {
+                    if (strpos($type_arr[$key], "hrStorageFixedDisk") !== false || strpos($type_arr[$key], "25.2.1.4") !== false) {
                         $total_size += (int)$value;
                     }
                 }
 
                 foreach ($used_arr as $key => $value) {
-                    if (strpos($type_arr[$key], "hrStorageFixedDisk") !== false) {
+                    if (strpos($type_arr[$key], "hrStorageFixedDisk") !== false || strpos($type_arr[$key], "25.2.1.4") !== false) {
                         $total_used += (int)$value;
                     }
                 }
