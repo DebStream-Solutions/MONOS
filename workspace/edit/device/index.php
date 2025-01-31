@@ -205,7 +205,7 @@
 
                 if (isset($deviceName)) {
                     echo "
-                        <a href='../../?profile={$profile}&device={$device}'>{$deviceName}</a>
+                        <a href='../../device/?profile={$profile}&device={$device}'>{$deviceName}</a>
                     ";
                 }
             ?>
