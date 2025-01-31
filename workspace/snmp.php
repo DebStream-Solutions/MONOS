@@ -1,8 +1,6 @@
 <?php
 
 function getSNMPData($hostIp, $deviceType, $community) {
-    // Create SNMP session
-    $session = new SNMP(SNMP::VERSION_2c, $hostIp, $community);
 
     // Check for type and redirect to return value
 
