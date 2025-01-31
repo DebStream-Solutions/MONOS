@@ -78,16 +78,7 @@ function router($hostIp, $community) {
 
     $generative_content = '';
 
-    $session = new SNMP(SNMP::VERSION_2c, $hostIp, $community);
-
-    $session->oid_output_format = SNMP_OID_OUTPUT_SUFFIX;
-    $session->valueretrieval = SNMP_VALUE_LIBRARY;
-    $session->quick_print = 1;
-    $session->enum_print = 0;
-
-    if ($session->getError()) {
-        $generative_content = "Error: " . $session->getError();
-    } elseif (ping($hostIp) != true) {
+    if (ping($hostIp) != true) {
         $generative_content = "<div id='offline' style='margin: auto; text-align: center; max-width: 80vw;'>Host is offline (No route to host)</div>";
     } else {
         foreach ($oid_list as $key => $value) {
@@ -335,8 +326,6 @@ function router($hostIp, $community) {
 
     }
 
-    $session->close();
-
     return $generative_content;
 }
 
@@ -419,16 +408,7 @@ function workstation($hostIp, $community) {
 
     $generative_content = '';
 
-    $session = new SNMP(SNMP::VERSION_2c, $hostIp, $community);
-
-    $session->oid_output_format = SNMP_OID_OUTPUT_SUFFIX;
-    $session->valueretrieval = SNMP_VALUE_LIBRARY;
-    $session->quick_print = 1;
-    $session->enum_print = 0;
-
-    if ($session->getError()) {
-        $generative_content = "Error: " . $session->getError();
-    } elseif (ping($hostIp) != true) {
+    if (ping($hostIp) != true) {
         $generative_content = "<div id='offline' style='margin: auto; text-align: center; max-width: 80vw;'>Host is offline (No route to host)</div>";
     } else {
         foreach ($oid_list as $key => $value) {
@@ -643,8 +623,6 @@ function workstation($hostIp, $community) {
 
     }
 
-
-    $session->close();
 
     return $generative_content;
 }
