@@ -147,12 +147,12 @@ if (isset($argv) && count($argv) > 1) {
     $string = "admin:heslo";
     $string_indicator = explode(":", $string)[0].':';
     if ($string_indicator == $indicator) {
-    if (strpos($string, $indicator) >= 0 && is_int(strpos($string, $indicator))) {
-        $pass = str_replace($indicator, "", $string);
-        echo $pass;
-    } else {
-        echo strpos($string, $indicator);
-    }
+        if (strpos($string, $indicator) >= 0 && is_int(strpos($string, $indicator))) {
+            $pass = str_replace($indicator, "", $string);
+            echo $pass;
+        } else {
+            echo strpos($string, $indicator);
+        }
     }
 }
 
@@ -264,7 +264,7 @@ if (isset($_GET['login'])) {
     } elseif (count(validate($input, true)) == 0) {
         if (!empty($deviceId)) {
 
-            $update = "UPDATE devices SET name='{$_SESSION['name']}' WHERE id={$deviceId}";
+            $update = "UPDATE devices SET name='{$_SESSION['name']}', ip = '{$_SESSION['ip']}', type = '{$_SESSION['type']}' WHERE id={$deviceId}";
             $updateStatus = $conn->query($update);
 
             if ($updateStatus === false) {
@@ -278,26 +278,19 @@ if (isset($_GET['login'])) {
                 $currentProfiles = $profiles->fetch_all(MYSQLI_ASSOC);
                 $currentProfiles = array_column($currentProfiles, 'profileId');
 
-                var_dump($profileIds, $currentProfiles);
-
                 $to_delete = array_diff($currentProfiles, $profileIds); // IDs to remove
                 $to_insert = array_diff($profileIds, $currentProfiles); // IDs to insert
 
-                var_dump("DELETE: ", $to_delete, "INSERT: ", $to_insert);
                 
                 if (!empty($to_delete)) {
                     $ids_to_delete = implode(',', array_map('intval', $to_delete)); // Ensure values are integers
                     foreach ($to_delete as $id) {
                         $deleteRel = $conn->query("DELETE FROM profileReleations WHERE deviceId = $deviceId AND profileId = $id");
-                        var_dump($deleteRel);
                     }
-                    
-                    var_dump($deleteRel);
                 }
                 if (!empty($to_insert)) {
                     foreach ($to_insert as $id) {
                         $insertRel = $conn->query("INSERT INTO profileReleations (profileId, deviceId) VALUES ('" . $id . "', '".$deviceId."')");
-                        var_dump($insertRel);
                     }
                 }
 
@@ -317,26 +310,10 @@ if (isset($_GET['login'])) {
             if ($insertStatus === false) {
                 $_SESSION['error'] = $insertStatus;
             } else {
-                $deviceId = $conn->insert_id;
-
-                $profiles = "SELECT COUNT(*) AS profile_count FROM profiles";
-                $profiles = $conn->query($profiles);
-                $profiles = $profiles->fetch_all(MYSQLI_ASSOC);
+                $profileIds = $_POST["profiles"];
                 
-                $max = $profiles[0]["profile_count"];
-                $tryProfiles = true;
-                $profileIds = [];
-
-                for ($i=1; $i <= $max; $i++) {
-                    $profileCheck = "profile".$i;
-                    if (isset($_POST[$profileCheck]) && !empty($_POST[$profileCheck])) {
-                        $profileId = $i;
-                        $profileIds[] = $profileId;
-                    }
-                }
-                
-                foreach ($profileIds as $key => $value) {
-                    $insert = "INSERT INTO profileReleations (profileId, deviceId) VALUES ('{$value}', '{$deviceId}')";
+                foreach ($profileIds as $id) {
+                    $insert = "INSERT INTO profileReleations (profileId, deviceId) VALUES ('{$id}', '{$deviceId}')";
                     $insertStatus = $conn->query($insert);
                 }
             }
