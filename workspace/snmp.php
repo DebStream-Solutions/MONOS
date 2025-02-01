@@ -422,7 +422,7 @@ function workstation($hostIp, $community) {
                 $sys_contact = snmpFormat($sys_contact, "STRING: ")[0];
                 
                 $device_name = str_replace('"', '', $device_name);
-                $device_name = str_replace('"', '', $device_name);
+                $sys_contact = str_replace('"', '', $sys_contact);
             } elseif ($key == "disk") {
                 $disk_size = @snmpwalk($hostIp, $community, $value["size"]);
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
