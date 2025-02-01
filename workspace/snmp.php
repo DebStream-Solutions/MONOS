@@ -561,8 +561,11 @@ function workstation($hostIp, $community) {
                             SYSTEM
                         </div>
                         <div class='roll'>
-                            <div>
-                                <div id='sysUp'>System Up: 1d</div>
+                            <div class='table-2'>
+                                <div>
+                                    <div>System Up</div>
+                                    <div id='sysUp'></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -571,6 +574,16 @@ function workstation($hostIp, $community) {
                             CPU
                         </div>
                         <div class='roll'>
+                            <div class='table-2'>
+                                <div>
+                                    <div>Name</div>
+                                    <div id='cpuName'>{$cpu_name}</div>
+                                </div>
+                                <div class='drop-roll'>
+                                    <div id='cpuLoad' class='title'>CPU Usage: {$cpu_load}%</div>
+                                    <div id='coreLoads' class='group roll'>{$cpu_arr_load}</div>
+                                </div>
+                            </div>
                             <div>
                                 <div id='cpuName'>{$cpu_name}</div>
                                 <div class='drop-roll'>
@@ -585,9 +598,15 @@ function workstation($hostIp, $community) {
                             RAM
                         </div>
                         <div class='roll'>
-                            <div>
-                                <div id='freeRam'></div>
-                                <div id='totalRam'></div>
+                            <div class='table-2'>
+                                <div>
+                                    <div>Free</div>
+                                    <div id='freeRam'></div>
+                                </div>
+                                <div>
+                                    <div>Total</div>
+                                    <div id='totalRam'></div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -596,10 +615,19 @@ function workstation($hostIp, $community) {
                             DISK
                         </div>
                         <div class='roll'>
-                            <div>
-                                <div>Size: {$disk_size} GB</div>
-                                <div>Free Space: {$disk_free} GB</div>
-                                <div>Used Space: {$disk_used} GB</div>
+                            <div class='table-2'>
+                                <div>
+                                    <div>Size</div>
+                                    <div>{$disk_size}</div>
+                                </div>
+                                <div>
+                                    <div>Free Space</div>
+                                    <div>{$disk_free}</div>
+                                </div>
+                                <div>
+                                    <div>Used Space</div>
+                                    <div>{$disk_used}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
