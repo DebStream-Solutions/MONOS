@@ -3,6 +3,12 @@
 include "db.php";
 include "snmp.php";
 
+if (!isset($_SESSION['user'])) {
+    header("location: login/login.php");
+} else {
+    $USER = $_SESSION['user'];
+}
+
 function findValueByConditions($array, $conditions, $returnKey) {
     foreach ($array as $subArray) {
         $match = true;
@@ -27,6 +33,52 @@ function issetReturn($variable) {
 }
 
 
+# -- Network ----
+
+function ping($host, $timeout = 1) {
+    $output = [];
+    $status = null;
+
+    // Adjust the command based on the operating system
+    if (stristr(PHP_OS, 'WIN')) { 
+        // Windows
+        $cmd = "ping -n 1 -w " . ($timeout * 1000) . " $host";
+    } else {
+        // Linux / macOS
+        $cmd = "ping -c 1 -W $timeout $host";
+    }
+
+    // Execute the command
+    exec($cmd, $output, $status);
+
+    // Return true if the ping was successful
+    return $status === 0 ? true : false;
+}
+
+
+function telnet($host, $ports = [80, 443, 22], $timeout = 1) {
+    // Attempt to open a socket connection
+    foreach ($ports as $port) {
+        $connection = @fsockopen($host, $port, $errno, $errstr, $timeout);
+        if ($connection) {
+            fclose($connection); // Close the connection
+            return true; // Device is reachable on this port
+        }
+    }
+    return false; // Device is not reachable on any of the specified port
+}
+
+function isDeviceAlive($host, $ports = [80, 443, 22], $timeout = 1) {
+    if (ping($host)) {
+        return true;
+    } elseif (telnet($host)) {
+        return true;
+    } else {
+        return false;
+    }
+}
+
+
 # == DATABASE ==================
 
 $devices = "SELECT * FROM devices";
@@ -37,20 +89,17 @@ $profiles = "SELECT * FROM profiles";
 $profiles = $conn->query($profiles);
 $profiles = $profiles->fetch_all(MYSQLI_ASSOC);
 
-$templates = "SELECT * FROM templates";
-$templates = $conn->query($templates);
-$templates = $templates->fetch_all(MYSQLI_ASSOC);
+$profileReleations = "SELECT * FROM profileReleations";
+$profileReleations = $conn->query($profileReleations);
+$profileReleations = $profileReleations->fetch_all(MYSQLI_ASSOC);
 
 $types = "SELECT * FROM types";
 $types = $conn->query($types);
 $types = $types->fetch_all(MYSQLI_ASSOC);
 
-$oids = "SELECT * FROM oids";
-$oids = $conn->query($oids);
-$oids = $oids->fetch_all(MYSQLI_ASSOC);
-
 $GLOBALS["devices"] = $devices;
 $GLOBALS["profiles"] = $profiles;
+$GLOBALS["profileReleations"] = $profileReleations;
 $GLOBALS["templates"] = $templates;
 $GLOBALS["types"] = $types;
 $GLOBALS["oids"] = $oids;
@@ -74,12 +123,18 @@ function listProfiles() {
             $devices = $devices->fetch_all(MYSQLI_ASSOC);
 
             $profileList .= '
-                <a href="'.$newUrl.'">
-                    <div>
-                        <h3>'.$value['name'].'</h3>
-                        <span>'.$devices[0]['device_count'].' monitored devices</span>
-                    </div>
-                </a>
+                <div class="profile">
+                    <a href="'.$newUrl.'">
+                        <div>
+                            <h3>'.$value['name'].'</h3>
+                            <span>'.$devices[0]['device_count'].' monitored devices</span>
+                        </div>
+                    </a>
+                    <a href="edit/profile/'.$newUrl.'" class="edit-btn">
+                        <img src="icons/edit.png" alt="edit-icon">
+                    </a>
+                </div>
+                
             ';
         }
     } else {
@@ -112,6 +167,7 @@ function listDevices($profile) {
     $devices = $GLOBALS["devices"];
     $types = $GLOBALS["types"];
     $deviceList = "";
+    $deviceFound = False;
 
     foreach ($devices as $key => $value) {
         $profileId = "SELECT profileId FROM profileReleations WHERE deviceId = ".$value["id"]." AND profileId = ".$profile;
@@ -120,28 +176,36 @@ function listDevices($profile) {
 
         if (!empty($profileId)) {
             $profileId = $profileId[0]["profileId"];
-        } else {
-            $deviceList .= "There are no devices in this profile. Go and add some!";
-        }
 
-        $newUrl = "device/?profile=".$profile."&device=".$value['id'];
-        $conditions = ["id" => $value['type']];
-        $type_str = findValueByConditions($types, $conditions, "name");
-        
-        if ($profile === strval($profileId)) {
-            $deviceList .= '
-            <a href="'.$newUrl.'">
-                <div class="device">
-                    <img src="icons/'.$type_str.'.png" alt="">
-                    <div>
-                        <h3>'.$value['name'].'</h3>
-                        <span>'.$value['ip'].'</span>
+            $newUrl = "device/?profile=".$profile."&device=".$value['id'];
+            $conditions = ["id" => $value['type']];
+            $type_str = findValueByConditions($types, $conditions, "name");
+            
+            if ($profile === strval($profileId)) {
+                $deviceFound = True;
+
+                $deviceList .= '
+                <a href="'.$newUrl.'">
+                    <div class="device">
+                        <img src="icons/'.$type_str.'.png" alt="">
+                        <div>
+                            <h3>'.$value['name'].'</h3>
+                            <span>'.$value['ip'].'</span>
+                        </div>
+                        <div class="deviceState" id="deviceState-'.$value['id'].'">
+                            <div class="unknown"></div>
+                        </div>
                     </div>
-                </div>
-            </a>
-        ';
+                </a>
+            ';
+            
+
+            }
         }
-        
+    }
+
+    if ($deviceFound != True) {
+        $deviceList .= "<div style='margin: auto; font-wrap-style: pretty;'>There are no devices in this profile. Go and add some!</div>";
     }
 
     return $deviceList;
@@ -153,7 +217,6 @@ function monitorContent($profile) {
     $monitorContent = '
 
     <div class="monitor">
-        <div id="net_chart"></div>
         <div class="devices">
             '.listDevices($profile).'
         </div>
@@ -178,7 +241,7 @@ function editProfile($edit) {
 
             $_SESSION["profile"] = $profile;
         } else {
-            $content = "There is a mistake! No profile to edit..";
+            $content = "There was a mistake! No profile to edit..";
         }
 
         # ERROR checking
@@ -187,7 +250,7 @@ function editProfile($edit) {
             $error_msg = "";
             if (is_array($error)) {
                 foreach ($error as $key => $value) {
-                    $error_msg .= $value;
+                    $error_msg .= $value."<br>";
                 }
             } else {
                 $error_msg = $error;
@@ -199,19 +262,31 @@ function editProfile($edit) {
         if (isset($profile)) {
             $content = '
             <div class="form-wrap">
-                <h2>Edit profile</h2>
-                <div>
-                    <form method=POST action="../../action/validate.php?profile='.$profile["id"].'">
+                <div class="log">
+                    <div class="login-wrap">
+                        <h2>Edit profile</h2>
                         <div>
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" placeholder="MyNetwork" value="'.$profile["name"].'">
+                            <form method=POST action="../../action/validate.php?profile='.$profile["id"].'">
+                                <div class="input-fly">
+                                    <div>
+                                        <input type="text" id="name" name="name" value="'.$profile["name"].'">
+                                        <label for="name">Name</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="submit" name="submit" value="Edit">
+                                </div>
+                            </form>
+                            <form method=POST action="../../action/validate.php?profile='.$profile["id"].'">
+                                <div class="delete-wrap">
+                                    <input type="hidden" name="delete_id" value="'.$profile["id"].'">
+                                    <button type="submit" onclick="return confirm(\'Are you sure you want to delete this profile? It will remove every device within it.\')">Delete profile</button>
+                                </div>
+                            </form>
                         </div>
-                        <div>
-                            <input type="submit" name="submit" value="Edit">
+                        <div class="error">
+                            '.$error_msg.'
                         </div>
-                    </form>
-                    <div class="error-msg">
-                        '.$error_msg.'
                     </div>
                 </div>
             </div>
@@ -219,12 +294,6 @@ function editProfile($edit) {
         }
 
     } else {
-        if (isset($_SESSION['profile'])) {
-            $profile = $_SESSION['profile'];
-        } else {
-            $profile = "";
-        }
-
         if (isset($_SESSION["error"])) {
             $error = $_SESSION["error"];
             $error_msg = "";
@@ -241,19 +310,25 @@ function editProfile($edit) {
 
         $content = '
             <div class="form-wrap">
-                <h2>Add profile</h2>
-                <div>
-                    <form method=POST action="../../action/validate.php?profile">
+                <div class="log">
+                    <div class="login-wrap">
+                        <h2>Add profile</h2>
                         <div>
-                            <label for="name">Name</label>
-                            <input type="text" id="name" name="name" placeholder="MyNetwork" value="'.$profile.'">
+                            <form method=POST action="../../action/validate.php?profile">
+                                <div class="input-fly">
+                                    <div>
+                                        <input type="text" id="name" name="name">
+                                        <label for="name">Name</label>
+                                    </div>
+                                </div>
+                                <div>
+                                    <input type="submit" name="submit" value="Add">
+                                </div>
+                            </form>
+                            <div class="error-msg">
+                                '.$error_msg.'
+                            </div>
                         </div>
-                        <div>
-                            <input type="submit" name="submit" value="Add">
-                        </div>
-                    </form>
-                    <div class="error-msg">
-                        '.$error_msg.'
                     </div>
                 </div>
             </div>
@@ -268,71 +343,136 @@ function editDevice($edit) {
     global $conn;
 
     if ($edit) {
-        if (isset($_SESSION["device"])) {
-            $device = $_SESSION['device'];
-        } elseif (isset($_GET['device'])) {
+        if (isset($_GET['device'])) {
             $device = "SELECT * FROM devices WHERE id = {$_GET['device']}";
             $device = $conn->query($device);
-            $device = $device->fetch_all(MYSQLI_ASSOC);
-
+            $device = $device->fetch_all(MYSQLI_ASSOC)[0];
             $_SESSION["device"] = $device;
         } else {
-            $content = "There is a mistake! No device to edit..";
+            $content = "There was a mistake! No device to edit..";
         }
 
         if (isset($device)) {
             $profileNameArr = "SELECT * FROM profiles";
             $profileNameArr = $conn->query($profileNameArr);
             $profileNameArr = $profileNameArr->fetch_all(MYSQLI_ASSOC);
+
+            $typeArr = "SELECT * FROM types";
+            $typeArr = $conn->query($typeArr);
+            $typeArr = $typeArr->fetch_all(MYSQLI_ASSOC);
+
+            $typeList = "";
+            $i = 1;
+            foreach ($typeArr as $key => $value) {
+                $selected = "";
+                if ($device["type"] == $i) {
+                    $selected = "selected";
+                }
+                $typeList .= '<option value="'.$i.'" '.$selected.'>'.$value["name"].'</option>';
+                $i += 1;
+            }
+
+            $profilesReleated = "SELECT * FROM profileReleations WHERE deviceId = {$device["id"]}";
+            $profilesReleated = $conn->query($profilesReleated);
+            $profilesReleated = $profilesReleated->fetch_all(MYSQLI_ASSOC);
             
+            $selectedProfiles = "";
+            foreach ($profilesReleated as $key => $value) {
+                $releatedProfile = "SELECT * FROM profiles WHERE id = {$value["profileId"]}";
+                $releatedProfile = $conn->query($releatedProfile);
+                $releatedProfile = $releatedProfile->fetch_all(MYSQLI_ASSOC)[0];
+
+                $selectedProfiles .= '<div class="selected-item">'.$releatedProfile["name"].'<span class="remove-item">x</span></div>';
+            }
+
             $profileList = "";
             $i = 0;
 
             foreach ($profileNameArr as $key => $value) {
                 $i += 1;
+                $checked = "";
+                foreach ($profilesReleated as $key_p => $value_p) {
+                    if ($value_p["profileId"] === $value["id"]) {
+                        $checked = "checked";
+                    }
+                }
                 #$profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" value="'.$value["name"].'">'.$value["name"].'</label>';
-                $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="'.$device.$i.'" value="'.$value["id"].'">'.$value["name"].'</label>';
+                $profileList .= '<label data-item="'.$value["name"].'" data-id="'.$value["id"].'"><input type="checkbox" name="profile'.$i.'" value="'.$value["id"].'" '.$checked.'>'.$value["name"].'</label>';
+            }
+
+            if (isset($_SESSION["error"])) {
+                $error = $_SESSION["error"];
+                $error_msg = "";
+                if (is_array($error)) {
+                    foreach ($error as $key => $value) {
+                        $error_msg .= $value."<br>";
+                    }
+                } else {
+                    $error_msg = $error;
+                }
+            } else {
+                $error_msg = "";
             }
 
             $content = '
                 <div class="form-wrap">
-                    <h2>Add device</h2>
-                    <div>
-                        <form method=POST action="../../action/validate.php?device">
-                            <div>
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Home Server" value="'.$device["name"].'">
-                            </div>
-                            <div>
-                                <h3 for="profile">Select profiles</h3>
-                                <div class="dropdown">
-                                    <div class="selected-items-container">
-                                        <button type="button" class="add-button">+</button>
+                    <div class="log">
+                        <div class="login-wrap">
+                            <h2>Edit device</h2>
+                            <div id="device-form">
+                                <form method=POST action="../../action/validate.php?device='.$device["id"].'">
+                                    <div class="input-fly">
+                                        <div>
+                                            <input type="text" id="name" name="name" value="'.$device["name"].'">
+                                            <label for="name">Name</label>
+                                        </div>
                                     </div>
-                                    <div class="input-container">
-                                        <input type="text" class="dropdown-input" placeholder="Select items">
-                                        <span class="dropdown-arrow"><img src="../../icons/dropdown.png" alt="arrow"></span>
+                                    <div>
+                                        <h3 for="profile">Select profiles</h3>
+                                        <div class="dropdown">
+                                            <div class="selected-items-container">
+                                                
+                                                <button type="button" class="add-button">+</button>
+                                            </div>
+                                            <div class="input-container">
+                                                <input type="text" class="dropdown-input" placeholder="Select items">
+                                                <span class="dropdown-arrow"><img src="../../icons/dropdown.png" alt="arrow"></span>
+                                            </div>
+                                            <div class="dropdown-content">
+                                                '.$profileList.'
+                                            </div>
+                                            <div class="hidden-inputs">
+                                                
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="dropdown-content">
-                                        '.$profileList.'
+                                    <div class="input-fly">
+                                        <div>
+                                            <input type="text" id="ip" name="ip" value="'.$device["ip"].'">
+                                            <label for="ip">IP Address</label>
+                                        </div>
                                     </div>
-                                    <div class="hidden-inputs">
-                                        
+                                    <div>
+                                        <label for="types">Type</label>
+                                        <select id="types" name="type">
+                                            '.$typeList.'
+                                        </select>
                                     </div>
-                                </div>
+                                    <div>
+                                        <input type="submit" name="submit" value="Edit">
+                                    </div>
+                                </form>
+                                <form method=POST action="../../action/validate.php?device='.$device["id"].'">
+                                    <div class="delete-wrap">
+                                        <input type="hidden" name="delete_id" value="'.$device["id"].'">
+                                        <button type="submit" onclick="return confirm(\'Are you sure you want to remove this device?\')">Remove device</button>
+                                    </div>
+                                </form>
                             </div>
-                            <div>
-                                <label for="ip">IP Address</label>
-                                <input type="text" id="ip" name="ip" placeholder="192.168.1.1.." value="'.$device["ip"].'">
+                            <div class="error">
+                                '.$error_msg.'
                             </div>
-                            <div>
-                                <label for="type">Type</label>
-                                
-                            </div>
-                            <div>
-                                <input type="submit" name="submit" value="Add">
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             ';
@@ -375,47 +515,74 @@ function editDevice($edit) {
                 $i += 1;
             }
 
+            if (isset($_SESSION["error"])) {
+                $error = $_SESSION["error"];
+                $error_msg = "";
+                if (is_array($error)) {
+                    foreach ($error as $key => $value) {
+                        $error_msg .= $value."<br>";
+                    }
+                } else {
+                    $error_msg = $error;
+                }
+            } else {
+                $error_msg = "";
+            }
+
+            
+
             $content = '
                 <div class="form-wrap">
-                    <h2>Add device</h2>
-                    <div>
-                        <form method=POST action="../../action/validate.php?device">
-                            <div>
-                                <label for="name">Name</label>
-                                <input type="text" id="name" name="name" placeholder="Home Server" value="'.$device["name"].'">
-                            </div>
-                            <div>
-                                <h3 for="profile">Select profiles</h3>
-                                <div class="dropdown">
-                                    <div class="selected-items-container">
-                                        <button type="button" class="add-button">+</button>
+                    <div class="log">
+                        <div class="login-wrap">
+                            <h2>Add device</h2>
+                            <div id="device-form">
+                                <form method=POST action="../../action/validate.php?device">
+                                    <div class="input-fly">
+                                        <div>
+                                            <input type="text" id="name" name="name" value="'.$device["name"].'">
+                                            <label for="name">Name</label>
+                                        </div>
                                     </div>
-                                    <div class="input-container">
-                                        <input type="text" class="dropdown-input" placeholder="Select items">
-                                        <span class="dropdown-arrow"><img src="../../icons/dropdown.png" alt="arrow"></span>
+                                    <div>
+                                        <h3 for="profile">Select profiles</h3>
+                                        <div class="dropdown">
+                                            <div class="selected-items-container">
+                                                <button type="button" class="add-button">+</button>
+                                            </div>
+                                            <div class="input-container">
+                                                <input type="text" class="dropdown-input" placeholder="Select items">
+                                                <span class="dropdown-arrow"><img src="../../icons/dropdown.png" alt="arrow"></span>
+                                            </div>
+                                            <div class="dropdown-content">
+                                                '.$profileList.'
+                                            </div>
+                                            <div class="hidden-inputs">
+                                                
+                                            </div>
+                                        </div>
                                     </div>
-                                    <div class="dropdown-content">
-                                        '.$profileList.'
+                                    <div class="input-fly">
+                                        <div>
+                                            <input type="text" id="ip" name="ip" value="'.$device["ip"].'">
+                                            <label for="ip">IP Address</label>
+                                        </div>
                                     </div>
-                                    <div class="hidden-inputs">
-                                        
+                                    <div>
+                                        <label for="types">Type</label>
+                                        <select id="types" name="type">
+                                            '.$typeList.'
+                                        </select>
                                     </div>
-                                </div>
+                                    <div>
+                                        <input type="submit" name="submit" value="Add">
+                                    </div>
+                                </form>
                             </div>
-                            <div>
-                                <label for="ip">IP Address</label>
-                                <input type="text" id="ip" name="ip" placeholder="192.168.1.1.." value="'.$device["ip"].'">
+                            <div class="error">
+                                '.$error_msg.'
                             </div>
-                            <div>
-                                <label for="types">Type</label>
-                                <select id="types" name="type">
-                                    '.$typeList.'
-                                </select>
-                            </div>
-                            <div>
-                                <input type="submit" name="submit" value="Add">
-                            </div>
-                        </form>
+                        </div>
                     </div>
                 </div>
             ';

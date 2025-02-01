@@ -10,6 +10,11 @@
 
     if (isset($_GET['profile'])) {
         $profile = $_GET['profile'];
+        $_SESSION['profile'] = $profile;
+        $_SESSION['device-ip'] = "";
+
+        $conditions = ["id" => $profile];
+        $profileName = findValueByConditions($profiles, $conditions, "name");
     }
 
 ?>
@@ -22,6 +27,7 @@
 <title>MONOS</title>
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
 <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+<script src="ajax.js"></script>
 <script type="text/javascript">
 
     function hideLoad() {
@@ -49,10 +55,6 @@
 
 
     function onLoad() {
-        $("#net_chart").ready(() => {
-            setTimeout(hideLoad, 1000);
-        });
-
         $(".sidebar-content > div").click(function() {
             if ($(this).children(".title.up").length > 0) {
                 $(this).children(".roll").slideToggle(200, () => {
@@ -71,212 +73,10 @@
 
         $(".open-menu").click(toggleSidebar);
         $(".close-menu").click(toggleSidebar);
+
+        hideLoad();
     }
 
-
-
-    
-    let multiply = 4;
-    const d = new Date();
-    let time = d.getHours() + (d.getMinutes() / 60);
-
-    let index = time / multiply;
-    /*
-    function timeTable(start, multiply, end) {
-        /*
-        arr = [];
-        x = start;
-        while (x <= 24 - multiply) {
-            x += multiply;
-            arr.push(x);
-        }
-        //
-
-        arr = [];
-        let x = start;
-
-        while (x <= end - multiply) {
-            x += multiply;
-            arr.push(toString(x).":".);
-        }
-
-
-
-        return arr;
-    }
-
-    function chartData(param) {
-        const d = new Date();
-        let time = d.getHours() + (d.getMinutes() / 60);
-        
-        
-
-        timeArray = timeTable(0, 4, time);
-        dataArray = [
-            "down" => [1.2, ],
-            "up" => [
-
-            ]
-        ];
-        
-
-
-        for (timeCol in timeArray) {
-
-        }
-
-        ['Time', 'Download ', 'Upload ', {type: 'string', role: 'style'}],
-        ['00:00',  1.2,      0.1],
-        ['04:00',  0.7,      0.2],
-        ['08:00',  4.8,      3.2],
-        ['12:00',  7.1,      5.0],
-        ['16:00',  7.3,      7.2],
-        ['20:00',  3.6,      2.7]
-    }*/
-
-
-    google.charts.load('current', {'packages':['corechart']});
-    google.charts.setOnLoadCallback(drawChart);
-
-    function getThemeMode() {
-        return window.matchMedia && window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
-    }
-
-    function arrayDataFunc() {
-        const startDate = new Date();
-        startDate.setHours(0, 0, 0, 0); // Set to midnight of the current day
-        const endDate = new Date(); // Current date and time
-        const interval = 5 * 60 * 1000; // 5 minutes in milliseconds
-        const arrayData = [];
-        let x = 0;
-
-        while (startDate < endDate) {
-            if (x === 0) {
-                const titleRow = ['Time', 'Download', 'Upload', {type: 'string', role: 'style'}, {type: 'string', role: 'annotation'}];
-                arrayData.push(titleRow);
-            } else {
-                const download = Math.random() * 40; // Random float between 0 and 4
-                const upload = Math.random() * 30; // Random float between 0 and 3
-                arrayData.push([new Date(startDate), download, upload, null, null]);
-                startDate.setMinutes(startDate.getMinutes() + 5);
-            }
-            x += 1;
-        }
-
-        return arrayData;
-
-        /*
-        while (x <= 24) {
-            if (x == 0) {
-                let titleRow = ['Time', 'Download ', 'Upload ', {type: 'string', role: 'style'}, {type: 'string', role: 'annotation'}];
-                arrayDataFunc.push(titleRow);
-            } else {
-
-            }
-        }*/
-    }
-
-    function timeTicks(gap) {
-        const hourlyStartDate = new Date();
-        hourlyStartDate.setHours(0, 0, 0, 0); // Set to midnight of the current day
-        const endDate = new Date();
-        
-        const hourlyArrayData = [];
-
-        while (hourlyStartDate < endDate) {
-            hourlyStartDate.setHours(hourlyStartDate.getHours() + gap);
-        }
-
-        //console.log(hourlyArrayData);
-
-        return hourlyArrayData;
-    }
-
-    function drawChart() {
-        var data = new google.visualization.arrayToDataTable(arrayDataFunc());
-
-        /*
-        var data = google.visualization.arrayToDataTable([
-            ['Time', 'Download ', 'Upload '],
-            ['00:00',  1.2,      0.1],
-            ['04:00',  0.7,      0.2],
-            ['08:00',  4.8,      3.2],
-            ['12:00',  7.1,      5.0],
-            ['16:00',  7.3,      7.2],
-            ['20:00',  3.6,      2.7]
-        ]);*/
-
-        var theme = getThemeMode();
-        var options = {
-            title: 'Network traffic',
-            titleTextStyle: {color: theme === 'dark' ? '#ffffff' : '#000000'},
-            legend: {position: "bottom", textStyle: {color: theme === 'dark' ? '#ffffff' : '#000000'}},
-            vAxis: {title: 'Speed (Mbps)', textStyle: {color: theme === 'dark' ? '#ffffff' : '#000000'}, titleTextStyle: {color: theme === 'dark' ? '#ffffff' : '#000000'}},
-            hAxis: {textStyle: {color: theme === 'dark' ? '#ffffff' : '#000000'}},
-            backgroundColor: theme === 'dark' ? '#121212' : '#ffffff',
-            colors: ['#9b21ff', '#5900ff']
-        };
-
-        var chart = new google.visualization.LineChart(document.getElementById('net_chart'));
-        chart.draw(data, options);
-
-        // Add a vertical line for the current time
-        var currentTime = new Date();
-        var currentTimeString = currentTime.getHours() + ':' + (currentTime.getMinutes() < 10 ? '0' : '') + currentTime.getMinutes();
-        
-        var annotationData = google.visualization.arrayToDataTable(arrayDataFunc());
-
-        var annotationOptions = {
-            title: "Network traffic",
-            titleTextStyle: {color: theme === 'dark' ? '#ffffff' : '#000000'},
-            legend: {position: "bottom", textStyle: {color: theme === 'dark' ? '#ffffff' : '#000000'}},
-            vAxis: {title: 'Speed (Mbps)', textStyle: {color: theme === 'dark' ? '#ffffff' : '#000000'}, titleTextStyle: {color: theme === 'dark' ? '#ffffff' : '#000000'}},
-            hAxis: {
-                textStyle: {color: theme === 'dark' ? '#ffffff' : '#000000'},
-                format: 'HH:mm',
-                gridlines: { count: -1 }
-            },
-            backgroundColor: theme === 'dark' ? '#121212' : '#ffffff',
-            colors: ['#9b21ff', '#5900ff'],
-            annotations: {
-                style: 'line'
-            },
-            series: {
-                0: {
-                    annotations: {
-                        textStyle: {
-                            fontSize: 0
-                        }
-                    }
-                }
-            }
-        };
-
-        chart.draw(annotationData, annotationOptions);
-
-        // Draw the vertical line
-        /*
-        var cli = chart.getChartLayoutInterface();
-        var chartArea = cli.getChartAreaBoundingBox();
-
-        var svg = document.querySelector('svg');
-        var line = document.createElementNS('http://www.w3.org/2000/svg', 'line');
-        line.setAttribute('x1', cli.getXLocation(index)); // Adjust the index to match the current time
-        line.setAttribute('y1', chartArea.top);
-        line.setAttribute('x2', cli.getXLocation(index)); // Adjust the index to match the current time
-        line.setAttribute('y2', chartArea.top + chartArea.height);
-        line.setAttribute('stroke', '#8391ff');
-        line.setAttribute('stroke-width', 2);
-        svg.appendChild(line);*/
-    }
-
-    // Update chart colors on theme change
-    window.matchMedia('(prefers-color-scheme: dark)').addEventListener('change', event => {
-        drawChart();
-    });
-
-    
-    window.addEventListener('resize', drawChart);
     $(document).ready(onLoad);
 </script>
 </head>
@@ -284,6 +84,28 @@
 <div id="loading">
     <div class="logo-img"></div>
 </div>
+    <?php
+        if (isset($profile)) {
+            if ($USER == "admin") {
+                $adminTools = "
+                <div class=\"admin-tools\">
+                    ADMIN
+                </div>";
+            }
+            echo "
+            <div class=\"navbar\">
+                <a href=\"../workspace\">
+                    <svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\" width=\"24px\" fill=\"currentColor\"><path d=\"M400-80 0-480l400-400 71 71-329 329 329 329-71 71Z\"/></svg>
+                </a>
+                <div class=\"path\">
+                    <a href=\"../workspace\"><svg xmlns=\"http://www.w3.org/2000/svg\" height=\"24px\" viewBox=\"0 -960 960 960\" width=\"20px\" fill=\"currentColor\"><path d=\"M240-200h120v-240h240v240h120v-360L480-740 240-560v360Zm-80 80v-480l320-240 320 240v480H520v-240h-80v240H160Zm320-350Z\"/></svg></a>
+                    <a href='?profile={$profile}'>{$profileName}</a>
+                </div>
+                    ".$adminTools."
+            </div>";
+        }
+        
+    ?>
     <div class="all">
         <div class="header">
             <h1>MONOS</h1>
@@ -294,20 +116,6 @@
         <div class="sidebar-wrap">
             <div class="sidebar">
                 <div class="sidebar-content">
-                    <div>
-                        <div class="title">Manage</div>
-                        <div class="roll">
-                            <a href="">
-                                <div class="add-img">Manage templates</div>
-                            </a>
-                            <a href="">
-                                <div class="add-img">Manage profiles</div>
-                            </a>
-                            <a href="">
-                                <div class="add-img">Manage devices</div>
-                            </a>
-                        </div>
-                    </div>
                     <div>
                         <div class="title up">Add</div>
                         <div class="roll">
@@ -320,9 +128,22 @@
                         </div>
                     </div>
                     <div>
-                        <a href="">
-                            <div class="title">Manage</div>
-                        </a>
+                        <div class="title up">Manage</div>
+                        <div class="roll">
+                            <?php
+                                if ($USER == "admin") {
+                                    $adminTools = "
+                                    <a href=\"edit/profile\">
+                                        <div class=\"users\">Users</div>
+                                    </a>";
+
+                                    echo $adminTools;
+                                }
+                            ?>
+                            <a href="account/">
+                                <div class="person">Profile</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <img src="icons/close-menu.png" class="close-menu" alt="close-menu">
@@ -331,16 +152,20 @@
         <div class="footer">
             <div class="small add">
                 <img src="icons/plus.png" alt="">
-                <div class="roll">
-                    <a href="">
-                        <div class="add-img">Add profile</div>
-                    </a>
-                    <a href="">
-                        <div class="add-img">Add device</div>
-                    </a>
+                <div class="roll pop-add">
+                    <div>
+                        <a href="edit/profile/">
+                            <img src="icons/plus.png" alt="">
+                            <div class="add-img">Add profile</div>
+                        </a>
+                        <a href="edit/device/">
+                            <img src="icons/plus.png" alt="">
+                            <div class="add-img">Add device</div>
+                        </a>
+                    </div>
                 </div>
             </div>
-            <a href="/">
+            <a href="../workspace">
                 <img src="icons/home.png" alt="">
             </a>
             <div class="small open-menu">

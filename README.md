@@ -228,9 +228,9 @@ sudo systemctl restart httpd
 ```
 
 
-How to CURL tar.gz?
+Download MONOS application using curl or wget:
 ```sh
-curl http://mat.whistlers.site/versions/monos.tar.gz -o - | tar -xz -C /var/www/html/monos
+curl https://github.com/MatejPiskac/MONOS/versions/monos.tar.gz -o - | tar -xz -C /var/www/html/monos
 ```
 
 
@@ -269,6 +269,9 @@ sudo systemctl start mariadb
 
 ### <a name="db-setup"> Download DB setup script </a>
 Visit [debstream.org](www.debstream.org/monos/db-setup.sh) and download _db-setup.sh_
+```sh
+curl https://www.debstream.org/monos/db-setup.sh /your/path/
+```
 
 Run _db-setup.sh_ on your server:
 ```sh
@@ -297,3 +300,107 @@ Restart Apache and MariaDB:
 sudo systemctl restart httpd
 sudo systemctl restart mariadb
 ```
+
+
+## Setup Debian Server for MONOS
+
+### Install required dependencies
+```sh
+sudo apt install -y snmp snmpd libsnmp-dev snmp-mibs-downloader php-snmp php php-mysqli apache2 libapache2-mod-php mariadb-server 
+```
+
+### Install MIBs for SNMP
+```sh
+sudo download-mibs
+```
+
+### Edit configuration of SNMP (snmpd.conf)
+```sh
+nano /etc/snmp/snmpd.conf
+```
+Content:
+```sh
+rwcommunity [COMMUNITY] default
+
+# Disk monitoring
+disk  / 100
+
+# Agent user
+agentuser  [USER]
+
+# Agent address
+agentAddress udp:161
+
+# System location and contact
+syslocation Unknown
+syscontact Root <root@localhost>
+
+# Access control
+access [COMMUNITY] "" any noauth exact systemview none none
+
+# Logging
+dontLogTCPWrappersConnects yes
+```
+
+### Enable `mysqli` extension
+Locate `php.ini` file
+```sh
+find / | grep php.ini
+```
+Edit the file
+```sh
+nano /etc/php/<version>/apache2/php.ini
+```
+Enable the extension by adding or uncommenting:
+```sh
+extension=mysqli
+```
+
+### Install MONOS Aplication
+Navigate to `/var/www/html/` directory:
+```sh
+cd /var/www/html/
+```
+Download the Monos App using `wget` or `git`
+```sh
+wget https://monos.debstream.org/app/download
+```
+```sh
+git clone https://github.com/DebStream-Solutions/monos.git
+# git clone https://username:<pat>@github.com/<your account or organization>/<repo>.git
+```
+
+### Configure Monos database
+
+Navigate to directory MONOS
+```sh
+cd /var/www/html/MONOS
+```
+
+Run `db-setup.sh` script to configure database
+```sh
+sudo /.db-setup.sh
+```
+
+Set a strong password for the database and admin user
+1. Minimum `8 characters` long
+2. Contains atleast `1 number`
+3. Contains atleast `1 lowercase` and `1 uppercase` letter
+4. Contains atleast `1 special character`
+
+| Login to Monos with username `admin` and the admin password <br>
+| Login to database with username `mroot` and the admin password
+
+
+Restart services
+```sh
+sudo systemctl restart apache2
+sudo systemctl restart mariadb
+sudo systemctl restart snmpd
+```
+
+Now everything is set up on your server and you can prepare the clients
+
+
+## Client setup - Server & Workstation
+
