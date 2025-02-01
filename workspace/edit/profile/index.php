@@ -165,34 +165,33 @@
             <div class="sidebar">
                 <div class="sidebar-content">
                     <div>
-                        <div class="title">Manage</div>
-                        <div class="roll">
-                            <a href="">
-                                <div class="add-img">Manage templates</div>
-                            </a>
-                            <a href="">
-                                <div class="add-img">Manage profiles</div>
-                            </a>
-                            <a href="">
-                                <div class="add-img">Manage devices</div>
-                            </a>
-                        </div>
-                    </div>
-                    <div>
                         <div class="title up">Add</div>
                         <div class="roll">
-                            <a href="">
+                            <a href="../../edit/profile">
                                 <div class="add-img">Add profile</div>
                             </a>
-                            <a href="">
+                            <a href="../../edit/device">
                                 <div class="add-img">Add device</div>
                             </a>
                         </div>
                     </div>
                     <div>
-                        <a href="">
-                            <div class="title">Manage</div>
-                        </a>
+                        <div class="title up">Manage</div>
+                        <div class="roll">
+                            <?php
+                                if ($USER == "admin") {
+                                    $adminTools = "
+                                    <a href=\"../../edit/profile\">
+                                        <div class=\"\">Users</div>
+                                    </a>";
+
+                                    echo $adminTools;
+                                }
+                            ?>
+                            <a href="../../account/">
+                                <div class="">Profile</div>
+                            </a>
+                        </div>
                     </div>
                 </div>
                 <img src="../../icons/close-menu.png" class="close-menu" alt="close-menu">
