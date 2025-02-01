@@ -28,8 +28,8 @@ return [
 EOF
 )
 
-echo "$content" > "$config_file"
-chmod 777 "$config_file"
+echo "$content" > "MONOS/$config_file"
+chmod 777 "MONOS/$config_file"
 
 
 # Creates database "monos" and primary user
@@ -79,7 +79,6 @@ CREATE TABLE IF NOT EXISTS profileReleations (
 CREATE USER IF NOT EXISTS '$config_user'@'%' IDENTIFIED BY '$config_pass';
 GRANT ALL PRIVILEGES ON $config_name.* TO '$config_user'@'%';
 FLUSH PRIVILEGES;
-
 
 -- Insert data into types table
 INSERT INTO types (id, name) VALUES
