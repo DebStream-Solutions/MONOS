@@ -389,8 +389,8 @@ Enter root password: <your-root-password>
 
 Config file `db_config.php` was generated containing neccessary variables
 
-| Login to Monos with username `admin` and the `generated password` <br>
-| Change the password after logging in. <br>
+|  Login to Monos with username `admin` and the `generated password` <br>
+|  Change the password after logging in. <br>
 *TIP! - Open sidebar -> click "Profile" -> click "Change password"*
 
 Restart services
