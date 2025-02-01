@@ -310,10 +310,12 @@ if (isset($_GET['login'])) {
             if ($insertStatus === false) {
                 $_SESSION['error'] = $insertStatus;
             } else {
+                $deviceID = $conn->insert_id;
                 $profileIds = $_POST["profiles"];
                 
                 foreach ($profileIds as $id) {
-                    $insert = "INSERT INTO profileReleations (profileId, deviceId) VALUES ('{$id}', '{$deviceId}')";
+                    $id = (int)$id;
+                    $insert = "INSERT INTO profileReleations (profileId, deviceId) VALUES ('{$id}', '{$deviceID}')";
                     $insertStatus = $conn->query($insert);
                 }
             }
