@@ -418,8 +418,8 @@ function workstation($hostIp, $community) {
                 $device_name = @snmpwalk($hostIp, $community, $value["deviceName"]);
                 $sys_contact = @snmpwalk($hostIp, $community, $value["contact"]);
 
-                $device_name = snmpFormat($device_name, "STRING: ");
-                $sys_contact = snmpFormat($sys_contact, "STRING: ");
+                $device_name = snmpFormat($device_name, "STRING: ")[0];
+                $sys_contact = snmpFormat($sys_contact, "STRING: ")[0];
             } elseif ($key == "disk") {
                 $disk_size = @snmpwalk($hostIp, $community, $value["size"]);
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
