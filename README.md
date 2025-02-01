@@ -303,6 +303,7 @@ sudo systemctl restart mariadb
 
 
 ## Setup Debian Server for MONOS
+*Tested on: `Ubuntu 20.04.5 LTS`*
 
 ### Install required dependencies
 ```sh
