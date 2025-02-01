@@ -382,15 +382,19 @@ Run `db-setup.sh` script to configure database
 sudo /.db-setup.sh
 ```
 
-Set a strong password for the database and admin user
-1. Minimum `8 characters` long
-2. Contains atleast `1 number`
-3. Contains atleast `1 lowercase` and `1 uppercase` letter
-4. Contains atleast `1 special character`
+Enter your root password
+```sh
+Enter root password: <your-root-password>
+```
 
-| Login to Monos with username `admin` and the admin password <br>
-| Login to database with username `mroot` and the admin password
+You were given generated password, this is used for the first admin login. <br>
+Change the password after logging in.
+*| TIP!* - Open sidebar -> click "Profile" -> click "Change password"
 
+
+Config file `db_config.php` was generated containing neccessary variables
+
+| Login to Monos with username `admin` and the generated password
 
 Restart services
 ```sh
