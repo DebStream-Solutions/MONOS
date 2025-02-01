@@ -294,13 +294,13 @@ if (isset($_GET['login'])) {
                     }
                 }
 
-                /*
+                
                 if (isset($_SESSION["profile"])) {
                     header("location: ../device/?profile=".$_SESSION["profile"]."&device=".$deviceId);
                 } else {
                     header("location: ../");
                 }
-                */
+                
             }
         } else {
 
@@ -320,7 +320,7 @@ if (isset($_GET['login'])) {
                 }
             }
 
-            //header("location: ../edit/device/?device=".$deviceId);
+            header("location: ../edit/device/?device=".$deviceId);
         }
         
             
