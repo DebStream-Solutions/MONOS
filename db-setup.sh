@@ -7,7 +7,6 @@ DB_USER="root"
 DB_PASS=""
 DB_NAME="monos"
 
-
 GENERATED_PASS=$(head /dev/urandom | tr -dc 'A-Za-z0-9@#$&' | head -c 12)
 
 # Generate or edit config_file
@@ -24,7 +23,7 @@ return [
     'db_host' => '$config_host',
     'db_user' => '$config_user',
     'db_pass' => '$config_pass',
-    'db_name' => '$config_name',
+    'db_name' => '$config_name'
 ];
 EOF
 )
@@ -35,7 +34,7 @@ chmod 777 "$config_file"
 
 # Creates database "monos" and primary user
 
-mysql -u $DB_USER -p$DB_PASS <<EOF
+mysql -u $DB_USER <<EOF
 CREATE DATABASE IF NOT EXISTS $DB_NAME;
 USE $DB_NAME;
 
