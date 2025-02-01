@@ -207,27 +207,41 @@ body {
 
 .sidebar .roll {
     font-size: 1.2rem;
+    color: white;
 }
 
 .sidebar a {
     text-decoration: none;
+    color: inherit;
 }
 
-.sidebar .add-img {
+.sidebar .roll > a > div {
     gap: 1rem;
     display: flex;
     align-items: center;
 }
 
-.sidebar .roll .add-img::before {
+.sidebar .roll > a > div::before {
     content: "";
     width: 1rem;
     height: 1rem;
     background-repeat: no-repeat;
     background-size: contain;
     display: inline-block;
+}
+
+.sidebar .roll .add-img::before {
     background-image: url(icons/add-white.png);
 }
+
+.sidebar .roll .person::before {
+    background-image: url(icons/person.svg);
+}
+
+.sidebar .roll .group::before {
+    background-image: url(icons/group.svg);
+}
+
 
 .sidebar .close-menu {
     position: absolute;
