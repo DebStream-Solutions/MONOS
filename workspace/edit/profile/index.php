@@ -182,7 +182,7 @@
                                 if ($USER == "admin") {
                                     $adminTools = "
                                     <a href=\"../../edit/profile\">
-                                        <div class=\"group\">Users</div>
+                                        <div class=\"users\">Users</div>
                                     </a>";
 
                                     echo $adminTools;
