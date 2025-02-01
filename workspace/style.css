@@ -235,10 +235,12 @@ body {
 }
 
 .sidebar .roll .person::before {
+    color: white;
     background-image: url(icons/person.svg);
 }
 
-.sidebar .roll .group::before {
+.sidebar .roll .users::before {
+    color: white;
     background-image: url(icons/group.svg);
 }
 
