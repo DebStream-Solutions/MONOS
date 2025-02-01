@@ -387,8 +387,8 @@ Enter your root password
 Enter root password: <your-root-password>
 ```
 
-¨You were given generated password, this is used for the first admin login. <br>
-¨Change the password after logging in. <br>
+You were given generated password, this is used for the first admin login. <br>
+Change the password after logging in. <br>
 - *TIP!* - Open sidebar -> click "Profile" -> click "Change password"
 
 
