@@ -391,6 +391,10 @@ function workstation($hostIp, $community) {
     */
 
     $oid_list = [
+        "system" => [
+            "deviceName" => "1.3.6.1.2.1.1.5.0",
+            "contact" => "1.3.6.1.2.1.1.4.0"
+        ],
         "disk" => [
             "size" => "1.3.6.1.2.1.25.2.3.1.5",
             "used" => "1.3.6.1.2.1.25.2.3.1.6",
@@ -410,7 +414,13 @@ function workstation($hostIp, $community) {
         $generative_content = "<div id='offline' style='margin: auto; text-align: center; max-width: 80vw;'>Host is offline (No route to host)</div>";
     } else {
         foreach ($oid_list as $key => $value) {
-            if ($key == "disk") {
+            if ($key == "system") {
+                $device_name = @snmpwalk($hostIp, $community, $value["deviceName"]);
+                $sys_contact = @snmpwalk($hostIp, $community, $value["contact"]);
+
+                $device_name = snmpFormat($device_name, "STRING: ");
+                $sys_contact = snmpFormat($sys_contact, "STRING: ");
+            } elseif ($key == "disk") {
                 $disk_size = @snmpwalk($hostIp, $community, $value["size"]);
                 $used_size = @snmpwalk($hostIp, $community, $value["used"]);
                 $storage_type = @snmpwalk($hostIp, $community, $value["type"]);
@@ -566,6 +576,14 @@ function workstation($hostIp, $community) {
                                     <div>System Up</div>
                                     <div id='sysUp'></div>
                                 </div>
+                                <div>
+                                    <div>Device Name</div>
+                                    <div>{$device_name}</div>
+                                </div>
+                                <div>
+                                    <div>Contact</div>
+                                    <div>{$sys_contact}</div>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -574,16 +592,6 @@ function workstation($hostIp, $community) {
                             CPU
                         </div>
                         <div class='roll'>
-                            <div class='table-2'>
-                                <div>
-                                    <div>Name</div>
-                                    <div id='cpuName'>{$cpu_name}</div>
-                                </div>
-                                <div class='drop-roll'>
-                                    <div id='cpuLoad' class='title'>CPU Usage: {$cpu_load}%</div>
-                                    <div id='coreLoads' class='group roll'>{$cpu_arr_load}</div>
-                                </div>
-                            </div>
                             <div>
                                 <div id='cpuName'>{$cpu_name}</div>
                                 <div class='drop-roll'>
@@ -618,15 +626,15 @@ function workstation($hostIp, $community) {
                             <div class='table-2'>
                                 <div>
                                     <div>Size</div>
-                                    <div>{$disk_size}</div>
+                                    <div>{$disk_size} GB</div>
                                 </div>
                                 <div>
                                     <div>Free Space</div>
-                                    <div>{$disk_free}</div>
+                                    <div>{$disk_free} GB</div>
                                 </div>
                                 <div>
                                     <div>Used Space</div>
-                                    <div>{$disk_used}</div>
+                                    <div>{$disk_used} GB</div>
                                 </div>
                             </div>
                         </div>
