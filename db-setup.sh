@@ -98,7 +98,7 @@ EOF
 
 echo "Database and tables created successfully."
 
-php workspace/action/validate.php "adminpass_#Ad5f78:$config_pass"
+php /var/www/html/MONOS/workspace/action/validate.php "adminpass_#Ad5f78:$config_pass"
 
 echo ""
 echo "Your temporary admin password is: $config_pass"
