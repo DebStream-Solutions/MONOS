@@ -1,7 +1,5 @@
 #!/bin/bash
 
-#!/bin/bash
-
 # Database credentials
 DB_USER="root"
 DB_PASS=""
