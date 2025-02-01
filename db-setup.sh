@@ -2,74 +2,9 @@
 
 #!/bin/bash
 
-# Function to validate password security
-validate_password() {
-    local password=$1
-
-    # Check if the password length is at least 8 characters
-    if [[ ${#password} -lt 8 ]]; then
-        echo "Password must be at least 8 characters long."
-        return 1
-    fi
-
-    # Check for at least one uppercase letter
-    if ! [[ $password =~ [A-Z] ]]; then
-        echo "Password must contain at least one uppercase letter."
-        return 1
-    fi
-
-    # Check for at least one lowercase letter
-    if ! [[ $password =~ [a-z] ]]; then
-        echo "Password must contain at least one lowercase letter."
-        return 1
-    fi
-
-    # Check for at least one number
-    if ! [[ $password =~ [0-9] ]]; then
-        echo "Password must contain at least one number."
-        return 1
-    fi
-
-    # Check for at least one special character
-    if ! [[ $password =~ [[:punct:]] ]]; then
-        echo "Password must contain at least one special character (e.g., @, #, $, etc.)."
-        return 1
-    fi
-
-    # If all checks pass, return success
-    return 0
-}
-
-# Main script to prompt for a secure password
-while true; do
-    echo -n "Enter your root password: "
-    read -s password
-    echo
-
-    # Validate the password
-    #if validate_password "$password"; then
-    #    echo "Password is secure!"
-    #    echo "HASH-BASH: $password"
-    #    break
-    #else
-    #    echo "Please try again."
-    #fi
-
-    echo "$password" | sudo -S echo > /dev/null 2>&1
-
-    # Check if the password was correct
-    if [ $? -eq 0 ]; then
-        echo "Password is correct!"
-        break
-    else
-        echo "Incorrect password."
-    fi
-
-done
-
 # Database credentials
 DB_USER="root"
-DB_PASS=$password
+DB_PASS=""
 DB_NAME="monos"
 
 
@@ -80,7 +15,7 @@ config_file="db_config.php"
 
 config_host='localhost'
 config_user='mroot'
-config_pass='heslo'
+config_pass=$GENERATED_PASS
 config_name=$DB_NAME
 
 content=$(cat <<EOF
@@ -168,6 +103,3 @@ php workspace/action/validate.php "adminpass_#Ad5f78:$config_pass"
 
 echo ""
 echo "Your temporary admin password is: $config_pass"
-
-systemctl restart mariadb
-systemctl restart apache2
