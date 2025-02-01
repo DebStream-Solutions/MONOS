@@ -8,7 +8,7 @@ DB_PASS=""
 DB_NAME="monos"
 
 
-GENERATED_PASS=$(head /dev/urandom | tr -dc 'A-Za-z0-9!@#$&' | head -c 12)
+GENERATED_PASS=$(head /dev/urandom | tr -dc 'A-Za-z0-9@#$&' | head -c 12)
 
 # Generate or edit config_file
 config_file="db_config.php"
