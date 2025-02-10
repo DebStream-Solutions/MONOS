@@ -1,5 +1,7 @@
 <?php
 
+include_once "main.php";
+
 function getSNMPData($hostIp, $deviceType, $community) {
 
     // Check for type and redirect to return value
