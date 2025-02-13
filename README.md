@@ -40,7 +40,7 @@ docker ps
 ```
 Run the docker
 ```sh
-docker run <container-id>
+docker run -it -p 80:80 <container-id>
 ```
 
 
