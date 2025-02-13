@@ -1,7 +1,6 @@
 <?php
 
     //include "snmp.php";
-    include_once "../snmp.php";
     include "../main.php";
 
     if (isset($_GET['profile']) && isset($_GET['device'])) {
