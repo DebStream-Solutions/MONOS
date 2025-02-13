@@ -21,6 +21,41 @@
   <a href="#db">MariaDB</a>  |  <a href="#db-setup">Database Set Up</a>
 </details>
 
+## Install Monos on your server
+
+### Install dockerfile
+```sh
+TODO
+```
+
+### Build the docker container
+```sh
+docker build -t <project-name>
+```
+
+### Run the docker
+Find docker name:
+```sh
+docker ps
+```
+Run the docker
+```sh
+docker run <container-id>
+```
+
+
+### To run commands in container
+Find docker name:
+```sh
+docker ps
+```
+
+Enter the docker
+```sh
+docker exec -it <container-id> bash
+```
+
+
 
 ## Setup Debian Server for MONOS
 
